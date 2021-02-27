@@ -197,7 +197,7 @@ function LoadServicesData() {
                  return "<div style='display:inline-flex'><button onclick=OpenServicesEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
              }
          },
-         { "data": "Reference" },
+         //{ "data": "Reference" },
         { "data": "Libelle" },
         {
             "data": "Montant",

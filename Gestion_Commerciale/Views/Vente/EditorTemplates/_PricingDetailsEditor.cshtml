@@ -71,7 +71,7 @@
 
                         @Html.Label("Prix unitaire")
                         <div class="input-group date">
-                             @Html.TextBoxFor(model => model.MontantUnitaire, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                             @Html.TextBoxFor(model => model.MontantUnitaire, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')" })
                         </div>
                     </div>
                     @if (TypePricing == "Devis")
@@ -83,7 +83,7 @@
 
                         @Html.Label("Quantité")
                         <div class="input-group date">
-                            @Html.TextBoxFor(model => model.Quantite, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                            @Html.TextBoxFor(model => model.Quantite, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')" })
                         </div>
                     </div>
                     }

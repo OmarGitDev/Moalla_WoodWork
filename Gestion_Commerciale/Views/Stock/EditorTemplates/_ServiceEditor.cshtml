@@ -4,23 +4,14 @@
     @Html.HiddenFor(model => model.Qte)
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            @*<div class="col-md-6">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
                 @Html.Label("Référence")
                 <div class="input-group text">
                     @Html.TextBoxFor(model => model.Reference, new { @class = "form-control border-left-info" })
                 </div>
-            </div>
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                @Html.Label("Montant")
-                <div class="input-group text">
-                    @Html.TextBoxFor(model => model.Montant, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
-            </div>
-        <div class="row">
-            <div class="col-md-6">
+            </div>*@
+            <div class="col-md-12">
                 <span class="input-group-addon"><i class="fa fa-edit"></i></span>
                 @Html.Label("Libellé")
                 <div class="input-group text">
@@ -28,25 +19,33 @@
                     @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control border-left-info" })
                 </div>
             </div>
-            <div class="col-md-3">
-
-                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                @Html.Label("Vente")
-                <div class="input-group boolean">
-                    @Html.CheckBoxFor(model => model.Vente, new { style = "width:20px;height:20px;margin-top:40px", @class = "form-control border-left-info" })
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-dollar-sign"></i></span>
+                @Html.Label("Montant")
+                <div class="input-group text">
+                    @Html.TextBoxFor(model => model.Montant, new { @class = "form-control border-left-info" ,@onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')" ,@onkeyup = "this.value = this.value.replace('.',',')"})
                 </div>
             </div>
-            <div class="col-md-">
-
-                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                @Html.Label("Achat")
-                <div class="input-group boolean">
-                    @Html.CheckBoxFor(model => model.Achat, new { style = "width:20px;height:20px;margin-top:40px", @class = "form-control border-left-info" })
-                </div>
+            
+            <div class="col-md-3 custom-control custom-checkbox" style="margin-top:8%">
+                @Html.CheckBoxFor(model => model.Vente, new { @class = "custom-control-input" })
+                <label for="Vente" class="custom-control-label">Vente </label>
             </div>
+            <div class="col-md-3 custom-control custom-checkbox" style="margin-top:8%">
+                @Html.CheckBoxFor(model => model.Achat, new { @class = "custom-control-input" })
+                <label for="Achat" class="custom-control-label">Achat </label>
+            </div>
+            @*<div class="col-md-3">
+
+            @Html.CheckBoxFor(model => model.Achat, new { @class = "form-control border-left-info" })
+            <label for="Achat" class="custom-control-label">Achat</label>
+        </div>*@
 
 
         </div>
+
 
         </div>
 </form>

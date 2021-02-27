@@ -21,11 +21,11 @@
                     </div>
                     <div style="display:block;width:29%;margin-right:1%">
                         @Html.Label("Taxe")
-                        @Html.DropDownListFor(Model => Model[i].taxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control border-left-info dropDowList" })
+                        @Html.DropDownListFor(Model => Model[i].taxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info dropDowList" })
                     </div>
                     <div style="display:block;width:27%;margin-right:1%;">
                         @Html.LabelFor(Model => Model[i].Qte)
-                        @Html.TextBoxFor(Model => Model[i].Qte, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control border-left-info" })
+                        @Html.TextBoxFor(Model => Model[i].Qte, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info" })
                     </div>
                     <div style="display:block;width:27%;margin-right:1%">
                         @Html.Label("Montant")

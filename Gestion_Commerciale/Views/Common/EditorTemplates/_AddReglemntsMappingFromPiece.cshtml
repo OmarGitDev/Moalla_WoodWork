@@ -32,7 +32,7 @@
                     </div>
                     <div style="display:block;width:24%;">
                         @Html.Label("A régler")
-                        @Html.TextBoxFor(Model => Model[i].MontantARegler,  new { @onkeypress= "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control border-left-info dropDowList MontantARegler_" + i, @onchange= "CheckMontantAregler("+i+")"})
+                        @Html.TextBoxFor(Model => Model[i].MontantARegler,  new { @onkeypress= "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info dropDowList MontantARegler_" + i, @onchange= "CheckMontantAregler("+i+")"})
                     </div>
                 </div>
                

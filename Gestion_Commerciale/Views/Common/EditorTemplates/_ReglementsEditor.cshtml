@@ -28,7 +28,7 @@
                         @Html.LabelFor(model => model.Montant)
                         <div class="input-group date">
                             
-                            @Html.TextBoxFor(model => model.Montant, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control  border-left-info" })
+                            @Html.TextBoxFor(model => model.Montant, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control  border-left-info" })
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -108,7 +108,7 @@
                         @Html.Label("Montant")
                         <div class="input-group-addon">
 
-                            @Html.TextBoxFor(model => model.Montant, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control border-left-info" })
+                            @Html.TextBoxFor(model => model.Montant, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info" })
                         </div>
                     </div>
                 </div>

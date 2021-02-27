@@ -46,7 +46,7 @@
                         @Html.Label("Remise")
                         <div class="input-group date">
                            
-                            @Html.TextBoxFor(model => model.Remise, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                            @Html.TextBoxFor(model => model.Remise, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')" })
                         </div>
                     </div>
 
@@ -58,7 +58,7 @@
                     @Html.Label("Montant Unitaire")
                     <div class="input-group date">
                         
-                        @Html.TextBoxFor(model => model.MontantUnitaire, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                        @Html.TextBoxFor(model => model.MontantUnitaire, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')" })
                     </div>
                 </div>
                 <div class="col-md-6">
