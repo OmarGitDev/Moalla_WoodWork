@@ -1,0 +1,75 @@
+﻿@model TSD_DAL.Model.PricingModel
+
+
+<div class="modal-body">
+    <form id="ParamForm">
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.EditedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        @Html.HiddenFor(model => model.Statut)
+        @Html.HiddenFor(model => model.EditedOn)
+        @Html.HiddenFor(model => model.Type)
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+
+                    @Html.Label("Libellé")
+                    <div class="input-group date">
+                         @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                        @Html.Label("Client")
+                        <div class="input-group date">
+                            @Html.DropDownListFor(model => model.ClientID, Gestion_Commerciale.Controllers.VenteController.GetClientsList(), new { @class = "form-control border-left-info" })
+                        </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
+
+                    @Html.Label("Valide depuis")
+                    <div class="input-group date">
+                        @{
+                            string dateString = string.Empty;
+                            if (Model.ValidFrom != null)
+                            {
+                                dateString = Model.ValidFrom.Value.ToString("yyyy-MM-dd");
+                            }
+                        }
+                        @Html.TextBox("ValidFrom", dateString, new { @class = "form-control border-left-info", @type = "date" })
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
+
+                    @Html.Label("Valide jusqu'à")
+                    <div class="input-group date">
+                        @{
+                            string dateStringVU = string.Empty;
+                            if (Model.ValidFrom != null)
+                            {
+                                dateStringVU = Model.ValidUntil.Value.ToString("yyyy-MM-dd");
+                            }
+                        }
+                        @Html.TextBox("ValidUntil", dateStringVU, new { @class = "form-control border-left-info", @type = "date" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddNewPricing()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>

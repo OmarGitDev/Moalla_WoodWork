@@ -1,0 +1,21 @@
+﻿<div class="col-md-3 col-md-3 col-sm-3 col-xs-3">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+        </div>
+        @{ 
+            DateTime CurrentMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+        }
+        @Html.TextBox("dateLog", CurrentMonth.ToString("yyyy-MM"), new { @type = "month", @onchange = "GetPassagePerMonth();", @class = "form-control border-left-info" })
+    </div>
+
+</div>
+<div id="PassagePerMonth">
+
+</div>
+<script src="~/Scripts/Pieces-JS.js"></script>
+<script>
+    $(document).ready(function () {
+        GetPassagePerMonth();
+    })
+</script>

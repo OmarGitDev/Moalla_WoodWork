@@ -1,0 +1,51 @@
+﻿@model List<TSD_DAL.Model.ServicesModel>
+   @{
+       string numPiece= (string)ViewBag.numPiece;
+       Model.ForEach(e => e.numPiece = numPiece);
+       int Defaulttaxe = (int)ViewBag.Defaulttaxe;
+       string TypePiece = ViewBag.TypePiece;
+   }
+<form id="ParamForm">
+    
+    <div style="overflow-x:auto;max-height:600px">
+        
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div style="margin:1%; width:98%;height:100%" class="form-control border-left-primary">
+                <div style="display:inline-flex">
+                    @Html.HiddenFor(Model => Model[i].numPiece)
+                    @Html.HiddenFor(Model => Model[i].ID)
+                    @Html.HiddenFor(Model => Model[i].Reference)
+                    <div style="display:block;width:55%;margin-right:1%;">
+                        @Html.LabelFor(Model => Model[i].Libelle)
+                        @Html.TextBoxFor(Model => Model[i].Libelle, new { @class = "form-control border-left-info" })
+                    </div>
+                    <div style="display:block;width:29%;margin-right:1%">
+                        @Html.Label("Taxe")
+                        @Html.DropDownListFor(Model => Model[i].taxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @type = "number", @class = "form-control border-left-info dropDowList" })
+                    </div>
+
+                    <div style="display:block;width:27%;margin-right:1%;">
+                        @Html.LabelFor(Model => Model[i].Qte)
+                        @Html.TextBoxFor(Model => Model[i].Qte, new { @type = "number", @class = "form-control border-left-info" })
+                    </div>
+
+
+                    <div style="display:block;width:29%;margin-right:1%">
+                        @Html.Label("Montant")
+                        @Html.TextBoxFor(Model => Model[i].Montant, new { @type = "number", @format = "0.00", @class = "form-control border-left-info pVente_" + i })
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="LinkServicesToInvoice()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+<script>
+    var Defaulttaxe =@Defaulttaxe;
+    $(".dropDowList").val(Defaulttaxe);
+</script>

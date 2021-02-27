@@ -1,0 +1,136 @@
+﻿@model List<TSD_DAL.Model.PassagesClientsModel>
+
+@{
+    int monthDays = (int)ViewBag.monthDays;
+    List<TSD_DAL.Model.ClientModel> clients = ViewBag.clients;
+    DateTime Month = (DateTime)ViewBag.Month;
+}
+<style>
+    .dtVerticalScrollExample          { overflow-y: auto; height: 100px; }
+.TH1 th { position: sticky; top: 0;background-color:#F0F0F0;border-color:white;text-align:center;}
+.TH2 th { position: sticky; top: 35px; background-color:#F0F0F0	;border-color:white;text-align:center;}
+</style>
+<div class="dtVerticalScrollExample" style="height:700px;">
+    <table class="table table-striped table-bordered dt-responsive nowrap table-sm" style="overflow-y: auto; height: 100px;">
+        <thead style="position: sticky; top: 0;">
+            <tr class="TH1">
+                <th rowspan="2" style="vertical-align: middle;text-align:center">RTE</th>
+                <th style="text-align:center">Jours</th>
+                @for (int i = 1; i <= monthDays; i++)
+            {
+                DateTime Date = new DateTime(Month.Year, Month.Month, i);
+                if (Date == DateTime.Today)
+                {
+                        <th style="background-color:red;border-color:red;color:white;text-align:center"><b>@i</b></th>
+                    }
+                    else
+                    {
+                        <th>@i</th>
+                    }
+                }
+            </tr>
+            <tr class="TH2">
+
+                <th>CL \ DATE</th>
+                @for (int i = 1; i <= monthDays; i++)
+            {
+                DateTime Date = new DateTime(Month.Year, Month.Month, i);
+                string DayOfWeek = Date.ToString("dddd", new System.Globalization.CultureInfo("fr-FR")).Substring(0, 1);
+                if (Date == DateTime.Today)
+                {
+                        <th style="background-color:red;border-color:red;color:white;"><b>@DayOfWeek</b></th>
+                    }
+                    else
+                    {
+                        <th>@DayOfWeek</th>
+                    }
+
+                }
+            </tr>
+        </thead>
+        <tbody align="center">
+            @*@{
+                    List<string> Routes = clients.Select(e => e.Route).Distinct().ToList();
+                    foreach (var r in Routes)
+                    {
+                    <td>@Item.Route</td>
+                    }
+                }*@
+            @foreach (var Item in clients)
+            {
+                <tr>
+                    @if (Item.NewRoute == true)
+                {
+                    string rs = clients.Where(e => e.Route == Item.Route).Count().ToString();
+                        <td rowspan="@(rs)" style="vertical-align: middle;">@Item.Route</td>
+                    }
+
+                    <td>@Item.OwnerName</td>
+                    @for (int i = 1; i <= monthDays; i++)
+                {
+                    DateTime Date = new DateTime(Month.Year, Month.Month, i);
+                    TSD_DAL.Model.PassagesClientsModel currentPassage = Model.Where(e => e.DatePassage == Date && e.ClientID == Item.ID).FirstOrDefault();
+                    if (currentPassage == null)
+                    {
+                            <td onclick="ChangeTdContentToChoose('@Item.ID','@i')" style="@( Date == DateTime.Today || Date == DateTime.Today.AddDays(-1)? "border-right-color:red": "" )" id="PassageClient_@(Item.ID +"_"+@i)"></td>
+                        }
+                        else
+                        {
+                            switch (currentPassage.Status)
+                            {
+                                case "REA":
+                                    {
+                                        <td onclick="ChangeTdContentToChoose('@Item.ID','@i')" id="PassageClient_@(Item.ID +"_"+@i)" style="background-color:lime"></td>
+                                    }; break;
+                                case "PLA":
+                                    {
+                                        <td onclick="ChangeTdContentToChoose('@Item.ID','@i')" id="PassageClient_@(Item.ID +"_"+@i)" style="background-color:#9A9A9A"></td>
+                                    }; break;
+                                case "RAP":
+                                    {
+                                        <td onclick="ChangeTdContentToChoose('@Item.ID','@i')" id="PassageClient_@(Item.ID +"_"+@i)" style="background-color:#FFFF33"></td>
+                                    }; break;
+                                case "NRL":
+                                    {
+                                        <td onclick="ChangeTdContentToChoose('@Item.ID','@i')" id="PassageClient_@(Item.ID +"_"+@i)" style="background-color:red"></td>
+                                    }; break;
+                            }
+                        }
+                    }
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+</div>
+    @Html.Hidden("SelectedCase", "")
+    @Html.Hidden("SelectedClient", "")
+    @Html.Hidden("SelectedDay", "")
+    <div class="modal fade bd-example-modal-sm" id="SmallModel" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" id="MySmallModal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <center>
+                        <h1 class="modal-title text-center" id="SmallModalTitle"></h1>
+                    </center>
+
+                </div>
+                <div id="SmallModalBody">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+        $('#dtVerticalScrollExample').DataTable({
+            "scrollY": "200px",
+            "scrollCollapse": true,
+        });
+    });
+</script>

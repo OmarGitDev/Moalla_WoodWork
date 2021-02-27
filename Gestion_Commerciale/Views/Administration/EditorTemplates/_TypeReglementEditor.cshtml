@@ -1,0 +1,23 @@
+﻿@model TSD_DAL.Model.TypeReglementModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                @Html.LabelFor(model => model.Libelle)
+                <div class="input-group text">
+                    
+                    @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control" })
+                </div>
+            </div>
+            </div>
+     
+        
+ 
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateTypeReglement()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

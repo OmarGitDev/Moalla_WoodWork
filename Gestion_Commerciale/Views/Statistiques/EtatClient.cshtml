@@ -1,0 +1,77 @@
+﻿
+
+@{ 
+    DateTime DateDef = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+    string DateFromDefault = DateDef.ToString("yyyy-MM-dd");
+    string DateToDefault = DateDef.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd");
+
+}
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+<div class="row">
+    <div class="col-2">
+        @Html.Label("Date depuis")
+        @Html.TextBox("DateFromFilter", DateFromDefault, new { @onchange = "RefreshEtatClientsGrid();", @Type = "date", @class = "form-control border-left-info" })
+    </div>
+    <div class="col-2">
+        @Html.Label("Date jusqu'à")
+        @Html.TextBox("DateToFilter", DateToDefault, new { @onchange = "RefreshEtatClientsGrid();", @Type = "date", @class = "form-control border-left-info" })
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+
+        <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Etat Clients</h6>
+
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
+                   id="EtatClientsGrid">
+                <thead>
+                    <tr>
+
+                        <th style="text-align:center;">
+                            CodeClient
+                        </th>
+                        <th style="text-align:center;">
+                            NomClient
+                        </th>
+                        <th style="text-align:center;">
+                            C.A.H.T
+                        </th>
+                        <th style="text-align:center;">
+                            TTC
+                        </th>
+                        <th style="text-align:center;">
+                            Reglee
+                        </th>
+                        <th style="text-align:center;">
+                            Solde
+                        </th>
+                    </tr>
+                </thead>
+                <tbody align="center"></tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        LoadEtatClientsData();
+    });
+</script>
+<script src="~/Scripts/Statistiques-JS.js"></script>
+
+
+

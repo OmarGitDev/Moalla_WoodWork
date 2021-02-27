@@ -1,0 +1,63 @@
+﻿
+<div class="OurCard-body" style="margin-bottom:15px;">
+    <div class="row">
+
+        <div class="col-md-2">
+            @Html.Label("Année")
+            @Html.DropDownList("AnneeSelector", Gestion_Commerciale.Controllers.StatistiquesController.GetYearsList(), new { @class = "form-control border-left-info", onchange = "RefreshStocksStats()" })
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Mois")
+            @Html.DropDownList("MoisSelector", Gestion_Commerciale.Controllers.StatistiquesController.GetMonthsList(), new { @class = "form-control border-left-info", onchange = "RefreshStocksStats()" })
+        </div>
+    </div>
+    </div>
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        <!-- Bar Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Les produits les plus vendus</h6>
+            </div>.
+            <div class="card-body">
+                <div id="chart-barDiv" class="chart-bar">
+                    <canvas id="ChartMostSoldProducteMois"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Quantités disponibles</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="QteDisponiblesChart"></canvas>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/vendor/chart.js/Chart.min.js"></script>
+
+<script src="~/Scripts/Statistiques-JS.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#AnneeSelector").val('@DateTime.Now.Year');
+        RefreshStocksStats();
+
+    });
+</script>

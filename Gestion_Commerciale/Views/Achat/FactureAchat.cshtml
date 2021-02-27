@@ -1,0 +1,208 @@
+﻿
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+<div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+
+            <h6 class="m-0 font-weight-bold text-primary">Facture Achat</h6>
+
+            <button onclick="OpenEditorToAddFactureAchat()" style="float:right" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Ajouter</span>
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" id="FacturesAchatGrid" style="width:100%" cellspacing="0">
+                    <!--   <table class="table table-striped table-bordered table-hover dataTables-example"
+                              id="FacturesAchatGrid">-->
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">ID</th>
+
+                            <th></th>
+                            <th style="text-align:center;width:120px">
+                                Facture N°
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Type
+                            </th>
+                            <th style="text-align:center;width:250px">
+                                Libellé
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Statut
+                            </th>
+
+                            <th style="text-align:center;width:200px">
+                                Nom Fournisseur
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            debugger;
+            LoadFactureData();
+        });
+        function OpenEditorToAddFactureAchat() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Achat/OpenFactureEditor",
+                success: function (data) {
+                    debugger;
+
+                    $('#GenericModel').modal();
+                    $("#ModalTitle").text("Facture");
+                    $("#ModalBody").html(data);
+
+                },
+                failure: function (response) { }
+            });
+        }
+        function AddFactureAchat() {
+            debugger;
+            var formData = $("#ParamForm").serializeArray();
+            $.ajax({
+                type: 'POST',
+                url: "/Achat/AddFactureAchat",
+                data: formData,
+                //dataType: 'json',
+                //encode: true,
+                success: function (response) {
+                    debugger;
+                    $('#GenericModel').modal('hide');
+                    $('#FacturesAchatGrid').DataTable().ajax.reload();
+                    window.open("/Common/FactureDetails?NumPiece=" + response + "&Type=Achat","_self");
+                },
+            })
+        }
+        function LoadFactureData() {
+            debugger;
+            debugger;
+            var table = $('#FacturesAchatGrid').DataTable({
+                "order": [[2, "desc"]],
+                "autoWidth": true,
+                // "ScrollX":false,
+
+                ajax: {
+                    url: "/Achat/GetAllFacturesAchat",
+                    dataSrc: ''
+                },
+                columns: [
+
+
+                { "data": "ID" },
+                {
+                    "data": "",
+                    "render": function (data, type, row) {
+                        debugger
+                        var NumPiece = row.NumPiece;
+                        return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='btn btn-info btn-icon-split'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'  class='btn btn-danger btn-icon-split'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                    }
+                },
+                {
+                    "data": "NumPiece"
+                },
+                { "data": "TypePiece" },
+                { "data": "Libelle" },
+                { "data": "Statut" },
+                { "data": "NomFournisseur" }
+               
+                ],
+                "columnDefs": [
+                 {
+                     "targets": [0],
+                     "visible": false,
+                     "searchable": false
+                 }]
+            });
+            $('#FacturesAchatGrid tbody').on('click', 'tr', function () {
+                debugger;
+
+
+                var tr = $(this).closest('tr');
+                var row = $('#FacturesAchatGrid').DataTable().row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    //   $(this).closest("td").removeClass('fa fa-minus').addClass("fa fa-plus");
+                }
+                else {
+                    $(this).addClass('selected');
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    //  $(this).closest("td").removeClass('fa fa-plus').addClass("fa fa-minus")
+                }
+            });
+
+    }
+    window.open("/Common/FactureDetails?NumPiece=" + NumPiece + "&Type=" + TypePieces, "_self");
+        function OpenFactureDetail(NumPiece) {
+            window.open("/Common/FactureDetails?NumPiece=" + NumPiece + "&Type=Achat", "_self");
+        }
+        function Delete(ID) {
+            alert(ID);
+        }
+    </script>
+<script type="text/javascript">
+    function format(d) {
+        debugger;
+        // `d` is the original data object for the row
+        return '<table>' +
+             '<tr>' +
+                '<td>Code Fournisseur:</td>' +
+                '<td>' + d.CodeFournisseur + '</td>' +
+            '</tr>' +
+
+            '<tr>' +
+                '<td>Montant Total:</td>' +
+                '<td>' + d.MontantTotal + '</td>' +
+            '</tr>' +
+            '<tr>' +
+                '<td>Remise:</td>' +
+                '<td>' + d.Remise + '</td>' +
+            '</tr>' +
+            '<tr>' +
+                '<td>MontantFinal:</td>' +
+                '<td>' + d.MontantFinal + '</td>' +
+            '</tr>' +
+            '<tr>' +
+                '<td>Créer Par:</td>' +
+                '<td>' + d.CreatedBy + '</td>' +
+                '<td>Date Creation:</td>' +
+                '<td>' + d.DateCreation + '</td>' +
+            '</tr>' +
+             '<tr>' +
+                '<td>Editer Par:</td>' +
+                '<td>' + d.EditedBy + '</td>' +
+                '<td>Date Edition:</td>' +
+                '<td>' + d.LastEditTime + '</td>' +
+            '</tr>'
+        '</table>'
+        ;
+    }
+</script>
+
+

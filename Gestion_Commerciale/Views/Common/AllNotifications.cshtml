@@ -1,0 +1,62 @@
+﻿
+
+@{
+    string datefrom = new DateTime(DateTime.Now.Year,1,1).ToString("yyyy-MM-dd");
+}
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+<div>
+    <div class="card shadow mb-0">
+        <div class="card-header py-3">
+
+            <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Notifications</h6>
+
+            <div class ="row" style="float:right">
+                <div style="margin-top:5px;margin-right:5px;"> @Html.Label("Date depuis")</div> 
+                <div>
+                    @Html.TextBox("DateFromFilter", datefrom, new { @onchange = "RefreshNotificationsGrid();", @Type = "date", @class = "form-control border-left-info" })
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%" id="NotificationsListGrid" cellspacing="0">
+
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">ID</th>
+
+                           <th style="text-align:center;width:120px">
+                                Titre
+                            </th>
+                            <th style="text-align:center;width:250px">
+                                Description
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Date
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+        LoadNotificationsListData();
+    });
+</script>
+<script src="~/Scripts/Notifications-JS.js"></script>
+
+
+

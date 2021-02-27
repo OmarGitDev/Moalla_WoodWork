@@ -1,0 +1,84 @@
+﻿
+
+@{
+    DateTime DateDef = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+    string DateFromDefault = DateDef.ToString("yyyy-MM-dd");
+    string DateToDefault = DateDef.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd");
+
+}
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+<div class="row">
+    <div class="col-md-3">
+        @Html.Label("Date depuis")
+        @Html.TextBox("DateFromFilter", DateFromDefault, new { @onchange = "RefreshReleveDeCompteGrid();", @Type = "date", @class = "form-control border-left-info" })
+    </div>
+    <div class="col-md-3">
+        @Html.Label("Date jusqu'à")
+        @Html.TextBox("DateToFilter", DateToDefault, new { @onchange = "RefreshReleveDeCompteGrid();", @Type = "date", @class = "form-control border-left-info" })
+    </div>
+    <div class="col-md-4">
+        @Html.Label("Client")
+        @Html.DropDownList("ClientFilter", Gestion_Commerciale.Controllers.VenteController.GetClientsList(), new { @onchange = "RefreshReleveDeCompteGrid();", @class = "form-control border-left-info" ,@style="width:100%"})
+    </div>
+    <div class="col-md-1">
+        <button title="imprimer" onclick="PrintReleveCompte()" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" style="margin-right:5px;float:right"><i class="fas fa-print fa-sm text-white-30"></i></button>
+    </div>
+</div>
+<br />
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+
+        <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Relevé de compte</h6>
+
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
+                   id="ReleveDeCompteGrid">
+                <thead>
+                    <tr>
+
+                        <th style="text-align:center;">
+                            Date
+                        </th>
+                        <th style="text-align:center;">
+                            Référence
+                        </th>
+                        <th style="text-align:center;">
+                            Debit
+                        </th>
+                        <th style="text-align:center;">
+                            Crédit
+                        </th>
+                        <th style="text-align:center;">
+                            Solde
+                        </th>
+                    </tr>
+                </thead>
+                <tbody align="center"></tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+         LoadReleveDeCompteData();
+         $("#ClientFilter").select2();
+        
+     });
+</script>
+<script src="~/Scripts/Statistiques-JS.js"></script>
+
+
+

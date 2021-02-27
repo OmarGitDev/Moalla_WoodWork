@@ -1,0 +1,124 @@
+﻿@model TSD_DAL.Model.ReglementsModel
+<div class="modal-body">
+    <form id="ParamForm">
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.numPiece)
+        @Html.HiddenFor(model => model.OwnerId)
+        @Html.HiddenFor(model => model.OwnerType)
+        @Html.HiddenFor(model => model.RAS)
+        <div class="container-fluid">
+            @if(Model.ID == 0)
+            { 
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                    @Html.Label("Type règlement")
+                    <div class="input-group date">
+                        
+                        @Html.DropDownListFor(model => model.TypeReglement, Gestion_Commerciale.Controllers.AdministrationController.GetTypeReglementList(), new { @class = "form-control  border-left-info" })
+                    </div>
+                </div>
+               
+
+            </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                        @Html.LabelFor(model => model.Montant)
+                        <div class="input-group date">
+                            
+                            @Html.TextBoxFor(model => model.Montant, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control  border-left-info" })
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="input-group-addon"><i class="fa fa-calendar-day"></i></span>
+                        @Html.LabelFor(model => model.DateReglement)
+                        <div class="input-group date">
+
+                            @Html.TextBox("DateReglement", Model.DateReglement.ToString("yyyy-MM-ddTHH:mm"), new { @class = "form-control  border-left-info", @type = "datetime-local" })
+                        </div>
+                    </div>
+                    </div>
+            <div class="row" id="ChequeParamsDiv" style="display:none">
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                        @Html.Label("Banque")
+                        <div class="input-group date">
+
+                            @Html.DropDownListFor(model => model.Banque, Gestion_Commerciale.Controllers.AdministrationController.GetBanqueList(), new { @class = "form-control  border-left-info" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-exclamation-triangle"></i></span>
+
+                        @Html.Label("Date échéance")
+                        <div class="input-group date">
+                            @{
+                                string dateString = string.Empty;
+                                if (Model.DateEcheance != null)
+                                {
+                                    dateString = Model.DateEcheance.Value.ToString("yyyy-MM-dd");
+                                }
+                            }
+                            @Html.TextBox("DateEcheance", dateString, new { @class = "form-control  border-left-info", @type = "date" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                        @Html.Label("Remarques")
+                        <div class="input-group date">
+
+                            @Html.TextBoxFor(model => model.Remarques, new { @class = "form-control border-left-info" })
+                        </div>
+                    </div>
+
+                        <div class="col-md-6">
+                            <span class="input-group-addon"><i class="fa fa-arrow-alt-circle-left"></i></span>
+                            @Html.Label("Sens")
+                            <span class="input-group-addon"><i class="fa fa-arrows"></i></span>
+                            <div class="input-group date">
+                                <fieldset id="Sens">
+                                    <label>
+                                        (+)
+                                        <input name="Sens" type="radio" value="1" @(Model.Sens == "1" ? "checked" : "") />
+                                    </label>
+                                    <label>
+                                        (-)
+                                        <input name="Sens" type="radio" @(Model.Sens == "-1" ? "checked" : "") value="-1" />
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                </div>
+                                <div class="row" id="VirementParamsDiv" style="display:none">
+
+                                </div>
+                                }
+                                else
+                                {
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-dollar-sign"></i></span>
+                        @Html.Label("Montant")
+                        <div class="input-group-addon">
+
+                            @Html.TextBoxFor(model => model.Montant, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control border-left-info" })
+                        </div>
+                    </div>
+                </div>
+                @Html.HiddenFor(e=>e.Sens)
+            }
+                </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateReglements()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+<script src="~/Scripts/Pieces-JS.js"></script>

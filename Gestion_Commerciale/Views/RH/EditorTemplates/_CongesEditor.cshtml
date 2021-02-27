@@ -1,0 +1,66 @@
+﻿@model TSD_DAL.Model.CongesModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="container-fluid">
+        <div class="row">
+          
+            <div class="col-md-12">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                @Html.Label("Libellé")
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                @Html.Label("Personne")
+                <div class="input-group text">
+
+                    @Html.DropDownListFor(model => model.PersonID, Gestion_Commerciale.Controllers.RHController.GetPersonsList(), new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-question-circle"></i></span>
+                @Html.Label("Motif")
+                <div class="input-group text">
+
+                    @Html.DropDownListFor(model => model.MotifId, Gestion_Commerciale.Controllers.AdministrationController.GetMotifsCongesList(), new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
+                @Html.Label("Depuis")
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.DateFrom, new { type = "date",@class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
+                @Html.Label("Jusqu'à")
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.DateTo, new { type = "date", @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+       
+     
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateConges()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

@@ -1,0 +1,12 @@
+﻿
+@{ 
+    string OwnerType = (string)ViewBag.OwnerType ;
+    string Sens = (string)ViewBag.Sens ;
+    int OwnerID = (int)ViewBag.OwnerID;
+}
+<div class="col-md-6">
+    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+    @Html.Label("Compte")
+
+    @Html.DropDownList("compte", Gestion_Commerciale.Controllers.CommonController.GetComptesList(OwnerType, Sens, OwnerID), new { @class = "form-control border-left-info" })
+    </div>

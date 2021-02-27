@@ -1,0 +1,79 @@
+﻿@model List<TSD_DAL.Model.ReglementsModel>
+@{
+    
+}
+<form id="ParamForm">
+    @Html.Hidden("SelectedReglementDiv")
+    <div style="overflow-x:auto;max-height:400px">
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div class="form-control allDivs @(Model[i].ApplicatifSens == "1"?"border-left-success":"border-left-warning")  @(Model[i].ApplicatifSens == "1"?"successDivs":"warningDivs")" style="margin:1%; width:98%;height:100%" data-id="@Model[i].ID" >
+
+                <div style="display:inline-flex;width:100%">
+                    @Html.HiddenFor(Model => Model[i].numPiece)
+                    @Html.HiddenFor(Model => Model[i].ID)
+                    @Model[i].Reference ( @Model[i].Montant) Reste : @Model[i].MontantRestant
+                </div>
+              
+
+
+            </div>
+        }
+    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="ImportFromExisingReglement()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+<script>
+    $(".allDivs").click(function () {
+        debugger;
+        if ($(this).hasClass("SelectedReglement"))
+        {
+            $(this).removeClass("border-left-primary");
+            if ($(this).hasClass("successDivs")) {
+                $(this).addClass("border-left-success");
+            }
+            else {
+                $(this).addClass("border-left-warning");
+            }
+            $(this).css("color", "#6e707e");
+            $(this).css("background-color", "#fff");
+            $("#SelectedReglementDiv").val("");
+            $(this).removeClass("SelectedReglement");
+        }
+        else
+        {
+
+        
+        var previousSelectedDiv = $(".SelectedReglement");
+        if (previousSelectedDiv != undefined)
+        {
+            previousSelectedDiv.removeClass("border-left-primary");
+            if (previousSelectedDiv.hasClass("successDivs")) {
+                previousSelectedDiv.addClass("border-left-success");
+            }
+            else {
+                previousSelectedDiv.addClass("border-left-warning");
+            }
+            previousSelectedDiv.css("color", "#6e707e");
+            previousSelectedDiv.css("background-color", "#fff");
+            previousSelectedDiv.removeClass("SelectedReglement")
+        }
+        
+        if ($(this).hasClass("successDivs")) {
+            $(this).removeClass("border-left-success");
+        }
+        else {
+            $(this).removeClass("border-left-warning");
+        }
+        $(this).addClass("border-left-primary");
+        $(this).addClass("SelectedReglement");
+        $("#SelectedReglementDiv").val($(this).attr("data-ID"));
+        $(this).css("color", "blue");
+        $(this).css("background-color", "#d1d3e2");
+        }
+    });
+
+</script>

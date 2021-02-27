@@ -1,0 +1,104 @@
+﻿@model TSD_DAL.Model.PricingDetailsModel
+@{
+    string TypePricing = ViewBag.TypePricing;
+    var Defaulttaxe = (int)ViewBag.Defaulttaxe;
+}
+<div class="modal-body">
+    <form id="ParamForm">
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model =>model.PricingID)
+       @Html.HiddenFor(model => model.MontantTaxe)
+        @Html.HiddenFor(model => model.MontantHorsTaxe)
+        @Html.HiddenFor(model => model.MontantTotal)
+        @Html.HiddenFor(model => model.ProduitID)
+       
+        
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                    @Html.Label("Code")
+                    <div class="input-group date">
+                        @Html.TextBoxFor(model => model.CodeDetail, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+
+                    @Html.Label("Libellé")
+                    <div class="input-group date">
+                         @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+               
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+
+                    @Html.Label("Remise %")
+                    <div class="input-group date">
+                       @Html.TextBoxFor(model => model.Remise, new { @class = "form-control border-left-info", @type = "number" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-donate"></i></span>
+
+                    @Html.Label("Taxe")
+                    <div class="input-group date">
+                        @Html.DropDownListFor(model => model.CodeTaxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @class = "form-control  border-left-info dropDowList" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+
+                    @Html.Label("Description")
+                    <div class="input-group date">
+                         @Html.TextBoxFor(model => model.Description, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+                
+            </div>
+                <div class="row">
+                   
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-dollar-sign"></i></span>
+
+                        @Html.Label("Prix unitaire")
+                        <div class="input-group date">
+                             @Html.TextBoxFor(model => model.MontantUnitaire, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                        </div>
+                    </div>
+                    @if (TypePricing == "Devis")
+                    {
+
+
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-list"></i></span>
+
+                        @Html.Label("Quantité")
+                        <div class="input-group date">
+                            @Html.TextBoxFor(model => model.Quantite, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                        </div>
+                    </div>
+                    }
+                    else {@Html.HiddenFor(model => model.Quantite)}
+                </div>
+          
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateDetailsPricing()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+
+<script>
+    var Defaulttaxe =@Defaulttaxe;
+    $(".dropDowList").val(Defaulttaxe);
+</script>

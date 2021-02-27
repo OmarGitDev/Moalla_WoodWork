@@ -1,0 +1,1566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TSD_Gestion_CommercialeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banque">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomBanque" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="500" />
+          <Property Name="CodePostal" Type="nvarchar" MaxLength="250" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="250" />
+          <Property Name="Tel1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatriculeFiscal" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Route" Type="nvarchar" MaxLength="100" />
+          <Property Name="Exonere" Type="bit" Nullable="false" />
+          <Property Name="Interlocuteur" Type="nvarchar" MaxLength="250" />
+          <Property Name="TelephoneInterlocuteur" Type="nvarchar" MaxLength="50" />
+          <Property Name="DebutConvention" Type="datetime" />
+          <Property Name="FinConvention" Type="datetime" />
+          <Property Name="NombrePassages" Type="int" />
+          <Property Name="TFExo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompteBancaire">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Owner" Type="int" />
+          <Property Name="TypeOwner" Type="nvarchar" MaxLength="50" />
+          <Property Name="RIB" Type="nvarchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="BanqueId" Type="int" />
+        </EntityType>
+        <EntityType Name="Conges">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="100" />
+          <Property Name="MotifId" Type="int" />
+          <Property Name="DateFrom" Type="datetime" Nullable="false" />
+          <Property Name="DateTo" Type="datetime" Nullable="false" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="Statut" Type="nvarchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="Coordonnees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="250" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="500" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatriculeFiscale" Type="nvarchar" MaxLength="100" />
+          <Property Name="TelFixe" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1500" />
+          <Property Name="URLimg" Type="nvarchar" MaxLength="250" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="RC" Type="nvarchar" MaxLength="100" />
+          <Property Name="RIB" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DetailsPiece">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeDetailPiece" Type="nvarchar" MaxLength="50" />
+          <Property Name="Piece" Type="nvarchar" MaxLength="50" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="MontantUnitaire" Type="float" />
+          <Property Name="CodeTaxe" Type="int" />
+          <Property Name="MontantTaxe" Type="float" />
+          <Property Name="MontantHorsTaxe" Type="float" />
+          <Property Name="MontantTotal" Type="float" />
+          <Property Name="ProduitID" Type="int" />
+          <Property Name="Remise" Type="float" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="DetailsPiecePrint">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeDetailPiece" Type="nvarchar" MaxLength="50" />
+          <Property Name="Piece" Type="nvarchar" MaxLength="50" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="MontantUnitaire" Type="float" />
+          <Property Name="CodeTaxe" Type="int" />
+          <Property Name="MontantTaxe" Type="float" />
+          <Property Name="MontantHorsTaxe" Type="float" />
+          <Property Name="MontantTotal" Type="float" />
+          <Property Name="ProduitID" Type="int" />
+          <Property Name="Remise" Type="float" />
+        </EntityType>
+        <EntityType Name="Fonctions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FonctionName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="500" />
+          <Property Name="CodePostal" Type="nvarchar" MaxLength="250" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="250" />
+          <Property Name="Tel1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatriculeFiscal" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="FType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Interlocuteur" Type="nvarchar" MaxLength="100" />
+          <Property Name="NumeroInterlocuteur" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="JoursFeries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+          <Property Name="NbrJours" Type="int" />
+        </EntityType>
+        <EntityType Name="MappingReglementPieces">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReglementID" Type="int" Nullable="false" />
+          <Property Name="PieceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Montant" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MotifConge">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" />
+          <Property Name="SensComptable" Type="int" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Seen" Type="bit" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="NotificationsType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DefaultURL" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Parameters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Valeur" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TypeParam" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PassagesClients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatePassage" Type="datetime" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Personnes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fonction" Type="int" />
+          <Property Name="Tel1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel2" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoldeCongeAnnuel" Type="int" />
+          <Property Name="SoldeCongeRestant" Type="float" />
+          <Property Name="AdresseEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActif" Type="bit" />
+          <Property Name="DateDebutContrat" Type="datetime" />
+          <Property Name="DateFinContrat" Type="datetime" />
+          <Property Name="TypePaymentID" Type="int" />
+        </EntityType>
+        <EntityType Name="Piece">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumPiece" Type="nvarchar" MaxLength="50" />
+          <Property Name="TypePiece" Type="nvarchar" MaxLength="50" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="Statut" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="250" />
+          <Property Name="EditedBy" Type="nvarchar" MaxLength="250" />
+          <Property Name="LastEditTime" Type="datetime" />
+          <Property Name="MontantTotal" Type="float" Nullable="false" />
+          <Property Name="MontantFinal" Type="float" Nullable="false" />
+          <Property Name="Closed" Type="bit" Nullable="false" />
+          <Property Name="Comptabilise" Type="bit" Nullable="false" />
+          <Property Name="RAS" Type="float" Nullable="false" />
+          <Property Name="RASClosed" Type="bit" Nullable="false" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PieceAchat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumPieceAchat" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeFournisseur" Type="int" />
+        </EntityType>
+        <EntityType Name="PieceVente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumPieceVente" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeClient" Type="int" />
+        </EntityType>
+        <EntityType Name="Pricing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodePricing" Type="nvarchar" MaxLength="50" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="ValidFrom" Type="datetime" />
+          <Property Name="ValidUntil" Type="datetime" />
+          <Property Name="Statut" Type="nvarchar" MaxLength="4" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="10" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="EditedOn" Type="datetime" />
+          <Property Name="EditedBy" Type="nvarchar" MaxLength="10" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="MontantFinal" Type="float" Nullable="false" />
+          <Property Name="MontantTotal" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PricingDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeDetail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+          <Property Name="MontantUnitaire" Type="float" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="MontantTotal" Type="float" />
+          <Property Name="ProduitID" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="PricingID" Type="int" Nullable="false" />
+          <Property Name="Remise" Type="float" />
+          <Property Name="CodeTaxe" Type="int" />
+          <Property Name="MontantTaxe" Type="float" Nullable="false" />
+          <Property Name="MontantHorsTaxe" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Reclamation" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Reglements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeReglement" Type="int" />
+          <Property Name="Banque" Type="int" />
+          <Property Name="DateEcheance" Type="datetime" />
+          <Property Name="DateReglement" Type="datetime" Nullable="false" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarques" Type="nvarchar" MaxLength="500" />
+          <Property Name="Montant" Type="float" Nullable="false" />
+          <Property Name="OwnerType" Type="nvarchar" MaxLength="10" />
+          <Property Name="Sens" Type="nvarchar" MaxLength="10" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="compte" Type="int" />
+          <Property Name="closed" Type="bit" Nullable="false" />
+          <Property Name="RAS" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeriesTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FCCounter" Type="int" />
+          <Property Name="FFCounter" Type="int" />
+          <Property Name="BLCounter" Type="int" />
+          <Property Name="BCCounter" Type="int" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="50" />
+          <Property Name="Montant" Type="float" />
+          <Property Name="Achat" Type="bit" Nullable="false" />
+          <Property Name="Vente" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Taxes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomTaxe" Type="nvarchar" MaxLength="500" />
+          <Property Name="Pourcentage" Type="float" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypePayements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TypeReglement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="TypesPieces">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sens" Type="nvarchar" MaxLength="10" />
+          <Property Name="Categorie" Type="nvarchar" MaxLength="10" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserRolesMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UserRolesMapping_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRolesMapping" Type="Self.UserRolesMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRolesMapping">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRolesMapping_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRolesMapping" Type="Self.UserRolesMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRolesMapping">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GET_BeneficesPerMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GET_ENGAGEMENT_FOURNISSEURs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GET_ETAT_CLIENTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GET_FournituresPerMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GET_MarchandisesPerMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GET_RELEVE_COMPTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+          <Parameter Name="Client" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="TSD_Gestion_CommercialeModelStoreContainer">
+          <EntitySet Name="Banque" EntityType="Self.Banque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompteBancaire" EntityType="Self.CompteBancaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conges" EntityType="Self.Conges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coordonnees" EntityType="Self.Coordonnees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailsPiece" EntityType="Self.DetailsPiece" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fonctions" EntityType="Self.Fonctions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fournisseur" EntityType="Self.Fournisseur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JoursFeries" EntityType="Self.JoursFeries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MappingReglementPieces" EntityType="Self.MappingReglementPieces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MotifConge" EntityType="Self.MotifConge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationsType" EntityType="Self.NotificationsType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PassagesClients" EntityType="Self.PassagesClients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personnes" EntityType="Self.Personnes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Piece" EntityType="Self.Piece" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PieceAchat" EntityType="Self.PieceAchat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PieceVente" EntityType="Self.PieceVente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pricing" EntityType="Self.Pricing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PricingDetails" EntityType="Self.PricingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamations" EntityType="Self.Reclamations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reglements" EntityType="Self.Reglements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeriesTable" EntityType="Self.SeriesTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypePayements" EntityType="Self.TypePayements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeReglement" EntityType="Self.TypeReglement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesPieces" EntityType="Self.TypesPieces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRolesMapping" EntityType="Self.UserRolesMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailsPiecePrint" EntityType="Self.DetailsPiecePrint" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DetailsPiecePrint].[ID] AS [ID], 
+    [DetailsPiecePrint].[CodeDetailPiece] AS [CodeDetailPiece], 
+    [DetailsPiecePrint].[Piece] AS [Piece], 
+    [DetailsPiecePrint].[Libelle] AS [Libelle], 
+    [DetailsPiecePrint].[Quantite] AS [Quantite], 
+    [DetailsPiecePrint].[MontantUnitaire] AS [MontantUnitaire], 
+    [DetailsPiecePrint].[CodeTaxe] AS [CodeTaxe], 
+    [DetailsPiecePrint].[MontantTaxe] AS [MontantTaxe], 
+    [DetailsPiecePrint].[MontantHorsTaxe] AS [MontantHorsTaxe], 
+    [DetailsPiecePrint].[MontantTotal] AS [MontantTotal], 
+    [DetailsPiecePrint].[ProduitID] AS [ProduitID], 
+    [DetailsPiecePrint].[Remise] AS [Remise]
+    FROM [dbo].[DetailsPiecePrint] AS [DetailsPiecePrint]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_UserRolesMapping_Roles" Association="Self.FK_UserRolesMapping_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRolesMapping" EntitySet="UserRolesMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRolesMapping_Users" Association="Self.FK_UserRolesMapping_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRolesMapping" EntitySet="UserRolesMapping" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TSD_Gestion_CommercialeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TSD_Gestion_CommercialeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banque" EntityType="TSD_Gestion_CommercialeModel.Banque" />
+          <EntitySet Name="CompteBancaire" EntityType="TSD_Gestion_CommercialeModel.CompteBancaire" />
+          <EntitySet Name="Conges" EntityType="TSD_Gestion_CommercialeModel.Conges" />
+          <EntitySet Name="Coordonnees" EntityType="TSD_Gestion_CommercialeModel.Coordonnees" />
+          <EntitySet Name="DetailsPiece" EntityType="TSD_Gestion_CommercialeModel.DetailsPiece" />
+          <EntitySet Name="Fonctions" EntityType="TSD_Gestion_CommercialeModel.Fonctions" />
+          <EntitySet Name="Fournisseur" EntityType="TSD_Gestion_CommercialeModel.Fournisseur" />
+          <EntitySet Name="JoursFeries" EntityType="TSD_Gestion_CommercialeModel.JoursFeries" />
+          <EntitySet Name="MappingReglementPieces" EntityType="TSD_Gestion_CommercialeModel.MappingReglementPieces" />
+          <EntitySet Name="MotifConge" EntityType="TSD_Gestion_CommercialeModel.MotifConge" />
+          <EntitySet Name="Notifications" EntityType="TSD_Gestion_CommercialeModel.Notifications" />
+          <EntitySet Name="NotificationsType" EntityType="TSD_Gestion_CommercialeModel.NotificationsType" />
+          <EntitySet Name="Parameters" EntityType="TSD_Gestion_CommercialeModel.Parameters" />
+          <EntitySet Name="PassagesClients" EntityType="TSD_Gestion_CommercialeModel.PassagesClients" />
+          <EntitySet Name="Personnes" EntityType="TSD_Gestion_CommercialeModel.Personnes" />
+          <EntitySet Name="PieceAchat" EntityType="TSD_Gestion_CommercialeModel.PieceAchat" />
+          <EntitySet Name="PieceVente" EntityType="TSD_Gestion_CommercialeModel.PieceVente" />
+          <EntitySet Name="Pricing" EntityType="TSD_Gestion_CommercialeModel.Pricing" />
+          <EntitySet Name="PricingDetails" EntityType="TSD_Gestion_CommercialeModel.PricingDetails" />
+          <EntitySet Name="Reglements" EntityType="TSD_Gestion_CommercialeModel.Reglements" />
+          <EntitySet Name="Roles" EntityType="TSD_Gestion_CommercialeModel.Roles" />
+          <EntitySet Name="SeriesTable" EntityType="TSD_Gestion_CommercialeModel.SeriesTable" />
+          <EntitySet Name="Taxes" EntityType="TSD_Gestion_CommercialeModel.Taxes" />
+          <EntitySet Name="TypePayements" EntityType="TSD_Gestion_CommercialeModel.TypePayements" />
+          <EntitySet Name="TypeReglement" EntityType="TSD_Gestion_CommercialeModel.TypeReglement" />
+          <EntitySet Name="TypesPieces" EntityType="TSD_Gestion_CommercialeModel.TypesPieces" />
+          <EntitySet Name="UserRolesMapping" EntityType="TSD_Gestion_CommercialeModel.UserRolesMapping" />
+          <EntitySet Name="Users" EntityType="TSD_Gestion_CommercialeModel.Users" />
+          <EntitySet Name="DetailsPiecePrint" EntityType="TSD_Gestion_CommercialeModel.DetailsPiecePrint" />
+          <AssociationSet Name="FK_UserRolesMapping_Roles" Association="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRolesMapping" EntitySet="UserRolesMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRolesMapping_Users" Association="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRolesMapping" EntitySet="UserRolesMapping" />
+          </AssociationSet>
+          <EntitySet Name="Services" EntityType="TSD_Gestion_CommercialeModel.Services" />
+          <EntitySet Name="Reclamations" EntityType="TSD_Gestion_CommercialeModel.Reclamations" />
+          <FunctionImport Name="GET_BeneficesPerMonth" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_BeneficesPerMonth_Result)">
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GET_ENGAGEMENT_FOURNISSEURs" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_ENGAGEMENT_FOURNISSEURs_Result)">
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GET_ETAT_CLIENTS" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_ETAT_CLIENTS_Result)">
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GET_FournituresPerMonth" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_FournituresPerMonth_Result)">
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GET_MarchandisesPerMonth" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_MarchandisesPerMonth_Result)">
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="Piece" EntityType="TSD_Gestion_CommercialeModel.Piece" />
+          <EntitySet Name="Client" EntityType="TSD_Gestion_CommercialeModel.Client" />
+          <FunctionImport Name="GET_RELEVE_COMPTE" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_RELEVE_COMPTE_Result)">
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+            <Parameter Name="Client" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
+        <EntityType Name="Banque">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomBanque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompteBancaire">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Owner" Type="Int32" />
+          <Property Name="TypeOwner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RIB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="BanqueId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Conges">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MotifId" Type="Int32" />
+          <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="Statut" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Coordonnees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatriculeFiscale" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TelFixe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="URLimg" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RIB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DetailsPiece">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeDetailPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Piece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="MontantUnitaire" Type="Double" />
+          <Property Name="CodeTaxe" Type="Int32" />
+          <Property Name="MontantTaxe" Type="Double" />
+          <Property Name="MontantHorsTaxe" Type="Double" />
+          <Property Name="MontantTotal" Type="Double" />
+          <Property Name="ProduitID" Type="Int32" />
+          <Property Name="Remise" Type="Double" />
+        </EntityType>
+        <EntityType Name="Fonctions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FonctionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatriculeFiscal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="FType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Interlocuteur" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumeroInterlocuteur" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JoursFeries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NbrJours" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MappingReglementPieces">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReglementID" Type="Int32" Nullable="false" />
+          <Property Name="PieceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Montant" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MotifConge">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SensComptable" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Seen" Type="Boolean" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NotificationsType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Parameters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Valeur" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeParam" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PassagesClients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatePassage" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Personnes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fonction" Type="Int32" />
+          <Property Name="Tel1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoldeCongeAnnuel" Type="Int32" />
+          <Property Name="SoldeCongeRestant" Type="Double" />
+          <Property Name="AdresseEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActif" Type="Boolean" />
+          <Property Name="DateDebutContrat" Type="DateTime" Precision="3" />
+          <Property Name="DateFinContrat" Type="DateTime" Precision="3" />
+          <Property Name="TypePaymentID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PieceAchat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumPieceAchat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeFournisseur" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PieceVente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumPieceVente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeClient" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Pricing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodePricing" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="ValidFrom" Type="DateTime" Precision="3" />
+          <Property Name="ValidUntil" Type="DateTime" Precision="3" />
+          <Property Name="Statut" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="EditedOn" Type="DateTime" Precision="3" />
+          <Property Name="EditedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MontantFinal" Type="Double" Nullable="false" />
+          <Property Name="MontantTotal" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PricingDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MontantUnitaire" Type="Double" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="MontantTotal" Type="Double" />
+          <Property Name="ProduitID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PricingID" Type="Int32" Nullable="false" />
+          <Property Name="Remise" Type="Double" />
+          <Property Name="CodeTaxe" Type="Int32" />
+          <Property Name="MontantTaxe" Type="Double" Nullable="false" />
+          <Property Name="MontantHorsTaxe" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reglements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeReglement" Type="Int32" />
+          <Property Name="Banque" Type="Int32" />
+          <Property Name="DateEcheance" Type="DateTime" Precision="3" />
+          <Property Name="DateReglement" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarques" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Montant" Type="Double" Nullable="false" />
+          <Property Name="OwnerType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Sens" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="compte" Type="Int32" />
+          <Property Name="closed" Type="Boolean" Nullable="false" />
+          <Property Name="RAS" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRolesMapping" Relationship="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Roles" FromRole="Roles" ToRole="UserRolesMapping" />
+        </EntityType>
+        <EntityType Name="SeriesTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FCCounter" Type="Int32" />
+          <Property Name="FFCounter" Type="Int32" />
+          <Property Name="BLCounter" Type="Int32" />
+          <Property Name="BCCounter" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Taxes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomTaxe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Pourcentage" Type="Double" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypePayements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TypeReglement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TypesPieces">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sens" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Categorie" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRolesMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Roles" FromRole="UserRolesMapping" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Users" FromRole="UserRolesMapping" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserRolesMapping" Relationship="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Users" FromRole="Users" ToRole="UserRolesMapping" />
+        </EntityType>
+        <EntityType Name="DetailsPiecePrint">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeDetailPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Piece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="MontantUnitaire" Type="Double" />
+          <Property Name="CodeTaxe" Type="Int32" />
+          <Property Name="MontantTaxe" Type="Double" />
+          <Property Name="MontantHorsTaxe" Type="Double" />
+          <Property Name="MontantTotal" Type="Double" />
+          <Property Name="ProduitID" Type="Int32" />
+          <Property Name="Remise" Type="Double" />
+        </EntityType>
+        <Association Name="FK_UserRolesMapping_Roles">
+          <End Type="TSD_Gestion_CommercialeModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="TSD_Gestion_CommercialeModel.UserRolesMapping" Role="UserRolesMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRolesMapping">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRolesMapping_Users">
+          <End Type="TSD_Gestion_CommercialeModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TSD_Gestion_CommercialeModel.UserRolesMapping" Role="UserRolesMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRolesMapping">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Montant" Type="Double" />
+          <Property Name="Vente" Type="Boolean" Nullable="false" />
+          <Property Name="Achat" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Reclamation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="GET_BeneficesPerMonth_Result">
+          <Property Type="String" Name="OwnerName" Nullable="true" MaxLength="250" />
+          <Property Type="Double" Name="Montant" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GET_ENGAGEMENT_FOURNISSEURs_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="OwnerName" Nullable="true" MaxLength="250" />
+          <Property Type="Double" Name="H_T" Nullable="true" />
+          <Property Type="Double" Name="TTC" Nullable="true" />
+          <Property Type="Double" Name="Reglee" Nullable="true" />
+          <Property Type="Double" Name="Solde" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GET_ETAT_CLIENTS_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="OwnerName" Nullable="true" MaxLength="250" />
+          <Property Type="Double" Name="H_T" Nullable="true" />
+          <Property Type="Double" Name="TTC" Nullable="true" />
+          <Property Type="Double" Name="Reglee" Nullable="true" />
+          <Property Type="Double" Name="Solde" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GET_FournituresPerMonth_Result">
+          <Property Type="String" Name="OwnerName" Nullable="true" MaxLength="250" />
+          <Property Type="Double" Name="Montant" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GET_MarchandisesPerMonth_Result">
+          <Property Type="String" Name="OwnerName" Nullable="true" MaxLength="250" />
+          <Property Type="Double" Name="Montant" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Piece">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypePiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="Statut" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EditedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LastEditTime" Type="DateTime" Precision="3" />
+          <Property Name="MontantTotal" Type="Double" Nullable="false" />
+          <Property Name="MontantFinal" Type="Double" Nullable="false" />
+          <Property Name="Closed" Type="Boolean" Nullable="false" />
+          <Property Name="Comptabilise" Type="Boolean" Nullable="false" />
+          <Property Name="RAS" Type="Double" Nullable="false" />
+          <Property Name="RASClosed" Type="Boolean" Nullable="false" />
+          <Property Name="Reference" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatriculeFiscal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Route" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Exonere" Type="Boolean" Nullable="false" />
+          <Property Name="Interlocuteur" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TelephoneInterlocuteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DebutConvention" Type="DateTime" Precision="3" />
+          <Property Name="FinConvention" Type="DateTime" Precision="3" />
+          <Property Name="NombrePassages" Type="Int32" />
+          <Property Name="TFExo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="GET_RELEVE_COMPTE_Result">
+          <Property Type="String" Name="grouping" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="REFERENCE" Nullable="true" MaxLength="58" />
+          <Property Type="Double" Name="DEBIT" Nullable="false" />
+          <Property Type="Double" Name="CREDIT" Nullable="false" />
+          <Property Type="Double" Name="SOLDE" Nullable="true" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TSD_Gestion_CommercialeModelStoreContainer" CdmEntityContainer="TSD_Gestion_CommercialeEntities">
+          <EntitySetMapping Name="Banque">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Banque">
+              <MappingFragment StoreEntitySet="Banque">
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="NomBanque" ColumnName="NomBanque" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompteBancaire">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.CompteBancaire">
+              <MappingFragment StoreEntitySet="CompteBancaire">
+                <ScalarProperty Name="BanqueId" ColumnName="BanqueId" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="RIB" ColumnName="RIB" />
+                <ScalarProperty Name="TypeOwner" ColumnName="TypeOwner" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conges">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Conges">
+              <MappingFragment StoreEntitySet="Conges">
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+                <ScalarProperty Name="MotifId" ColumnName="MotifId" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coordonnees">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Coordonnees">
+              <MappingFragment StoreEntitySet="Coordonnees">
+                <ScalarProperty Name="RIB" ColumnName="RIB" />
+                <ScalarProperty Name="RC" ColumnName="RC" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="URLimg" ColumnName="URLimg" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TelFixe" ColumnName="TelFixe" />
+                <ScalarProperty Name="MatriculeFiscale" ColumnName="MatriculeFiscale" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailsPiece">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.DetailsPiece">
+              <MappingFragment StoreEntitySet="DetailsPiece">
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
+                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
+                <ScalarProperty Name="CodeTaxe" ColumnName="CodeTaxe" />
+                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Piece" ColumnName="Piece" />
+                <ScalarProperty Name="CodeDetailPiece" ColumnName="CodeDetailPiece" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fonctions">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Fonctions">
+              <MappingFragment StoreEntitySet="Fonctions">
+                <ScalarProperty Name="FonctionName" ColumnName="FonctionName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fournisseur">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Fournisseur">
+              <MappingFragment StoreEntitySet="Fournisseur">
+                <ScalarProperty Name="NumeroInterlocuteur" ColumnName="NumeroInterlocuteur" />
+                <ScalarProperty Name="Interlocuteur" ColumnName="Interlocuteur" />
+                <ScalarProperty Name="FType" ColumnName="FType" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MatriculeFiscal" ColumnName="MatriculeFiscal" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JoursFeries">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.JoursFeries">
+              <MappingFragment StoreEntitySet="JoursFeries">
+                <ScalarProperty Name="NbrJours" ColumnName="NbrJours" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MappingReglementPieces">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.MappingReglementPieces">
+              <MappingFragment StoreEntitySet="MappingReglementPieces">
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+                <ScalarProperty Name="PieceID" ColumnName="PieceID" />
+                <ScalarProperty Name="ReglementID" ColumnName="ReglementID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MotifConge">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.MotifConge">
+              <MappingFragment StoreEntitySet="MotifConge">
+                <ScalarProperty Name="SensComptable" ColumnName="SensComptable" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Notifications">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Seen" ColumnName="Seen" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationsType">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.NotificationsType">
+              <MappingFragment StoreEntitySet="NotificationsType">
+                <ScalarProperty Name="DefaultURL" ColumnName="DefaultURL" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parameters">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Parameters">
+              <MappingFragment StoreEntitySet="Parameters">
+                <ScalarProperty Name="TypeParam" ColumnName="TypeParam" />
+                <ScalarProperty Name="Valeur" ColumnName="Valeur" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PassagesClients">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.PassagesClients">
+              <MappingFragment StoreEntitySet="PassagesClients">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="DatePassage" ColumnName="DatePassage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personnes">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Personnes">
+              <MappingFragment StoreEntitySet="Personnes">
+                <ScalarProperty Name="TypePaymentID" ColumnName="TypePaymentID" />
+                <ScalarProperty Name="DateFinContrat" ColumnName="DateFinContrat" />
+                <ScalarProperty Name="DateDebutContrat" ColumnName="DateDebutContrat" />
+                <ScalarProperty Name="IsActif" ColumnName="IsActif" />
+                <ScalarProperty Name="AdresseEmail" ColumnName="AdresseEmail" />
+                <ScalarProperty Name="SoldeCongeRestant" ColumnName="SoldeCongeRestant" />
+                <ScalarProperty Name="SoldeCongeAnnuel" ColumnName="SoldeCongeAnnuel" />
+                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+                <ScalarProperty Name="Fonction" ColumnName="Fonction" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PieceAchat">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.PieceAchat">
+              <MappingFragment StoreEntitySet="PieceAchat">
+                <ScalarProperty Name="CodeFournisseur" ColumnName="CodeFournisseur" />
+                <ScalarProperty Name="NumPieceAchat" ColumnName="NumPieceAchat" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PieceVente">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.PieceVente">
+              <MappingFragment StoreEntitySet="PieceVente">
+                <ScalarProperty Name="CodeClient" ColumnName="CodeClient" />
+                <ScalarProperty Name="NumPieceVente" ColumnName="NumPieceVente" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pricing">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Pricing">
+              <MappingFragment StoreEntitySet="Pricing">
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="MontantFinal" ColumnName="MontantFinal" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+                <ScalarProperty Name="EditedOn" ColumnName="EditedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="CodePricing" ColumnName="CodePricing" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PricingDetails">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.PricingDetails">
+              <MappingFragment StoreEntitySet="PricingDetails">
+                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
+                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
+                <ScalarProperty Name="CodeTaxe" ColumnName="CodeTaxe" />
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="PricingID" ColumnName="PricingID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="CodeDetail" ColumnName="CodeDetail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reglements">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Reglements">
+              <MappingFragment StoreEntitySet="Reglements">
+                <ScalarProperty Name="RAS" ColumnName="RAS" />
+                <ScalarProperty Name="closed" ColumnName="closed" />
+                <ScalarProperty Name="compte" ColumnName="compte" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Sens" ColumnName="Sens" />
+                <ScalarProperty Name="OwnerType" ColumnName="OwnerType" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+                <ScalarProperty Name="Remarques" ColumnName="Remarques" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="DateReglement" ColumnName="DateReglement" />
+                <ScalarProperty Name="DateEcheance" ColumnName="DateEcheance" />
+                <ScalarProperty Name="Banque" ColumnName="Banque" />
+                <ScalarProperty Name="TypeReglement" ColumnName="TypeReglement" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeriesTable">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.SeriesTable">
+              <MappingFragment StoreEntitySet="SeriesTable">
+                <ScalarProperty Name="BCCounter" ColumnName="BCCounter" />
+                <ScalarProperty Name="BLCounter" ColumnName="BLCounter" />
+                <ScalarProperty Name="FFCounter" ColumnName="FFCounter" />
+                <ScalarProperty Name="FCCounter" ColumnName="FCCounter" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Taxes">
+              <MappingFragment StoreEntitySet="Taxes">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="Pourcentage" ColumnName="Pourcentage" />
+                <ScalarProperty Name="NomTaxe" ColumnName="NomTaxe" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypePayements">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.TypePayements">
+              <MappingFragment StoreEntitySet="TypePayements">
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeReglement">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.TypeReglement">
+              <MappingFragment StoreEntitySet="TypeReglement">
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesPieces">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.TypesPieces">
+              <MappingFragment StoreEntitySet="TypesPieces">
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+                <ScalarProperty Name="Sens" ColumnName="Sens" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRolesMapping">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.UserRolesMapping">
+              <MappingFragment StoreEntitySet="UserRolesMapping">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailsPiecePrint">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.DetailsPiecePrint">
+              <MappingFragment StoreEntitySet="DetailsPiecePrint">
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
+                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
+                <ScalarProperty Name="CodeTaxe" ColumnName="CodeTaxe" />
+                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Piece" ColumnName="Piece" />
+                <ScalarProperty Name="CodeDetailPiece" ColumnName="CodeDetailPiece" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="Achat" ColumnName="Achat" />
+                <ScalarProperty Name="Vente" ColumnName="Vente" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamations">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Reclamations">
+              <MappingFragment StoreEntitySet="Reclamations">
+                <ScalarProperty Name="Reclamation" ColumnName="Reclamation" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GET_BeneficesPerMonth" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_BeneficesPerMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_BeneficesPerMonth_Result">
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GET_ENGAGEMENT_FOURNISSEURs" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_ENGAGEMENT_FOURNISSEURs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_ENGAGEMENT_FOURNISSEURs_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="H_T" ColumnName="H.T" />
+                <ScalarProperty Name="TTC" ColumnName="TTC" />
+                <ScalarProperty Name="Reglee" ColumnName="Reglee" />
+                <ScalarProperty Name="Solde" ColumnName="Solde" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GET_ETAT_CLIENTS" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_ETAT_CLIENTS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_ETAT_CLIENTS_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="H_T" ColumnName="H.T" />
+                <ScalarProperty Name="TTC" ColumnName="TTC" />
+                <ScalarProperty Name="Reglee" ColumnName="Reglee" />
+                <ScalarProperty Name="Solde" ColumnName="Solde" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GET_FournituresPerMonth" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_FournituresPerMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_FournituresPerMonth_Result">
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GET_MarchandisesPerMonth" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_MarchandisesPerMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_MarchandisesPerMonth_Result">
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Piece">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Piece">
+              <MappingFragment StoreEntitySet="Piece">
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="RASClosed" ColumnName="RASClosed" />
+                <ScalarProperty Name="RAS" ColumnName="RAS" />
+                <ScalarProperty Name="Comptabilise" ColumnName="Comptabilise" />
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
+                <ScalarProperty Name="MontantFinal" ColumnName="MontantFinal" />
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="LastEditTime" ColumnName="LastEditTime" />
+                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="TypePiece" ColumnName="TypePiece" />
+                <ScalarProperty Name="NumPiece" ColumnName="NumPiece" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="TFExo" ColumnName="TFExo" />
+                <ScalarProperty Name="NombrePassages" ColumnName="NombrePassages" />
+                <ScalarProperty Name="FinConvention" ColumnName="FinConvention" />
+                <ScalarProperty Name="DebutConvention" ColumnName="DebutConvention" />
+                <ScalarProperty Name="TelephoneInterlocuteur" ColumnName="TelephoneInterlocuteur" />
+                <ScalarProperty Name="Interlocuteur" ColumnName="Interlocuteur" />
+                <ScalarProperty Name="Exonere" ColumnName="Exonere" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MatriculeFiscal" ColumnName="MatriculeFiscal" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GET_RELEVE_COMPTE" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_RELEVE_COMPTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_RELEVE_COMPTE_Result">
+                <ScalarProperty Name="grouping" ColumnName="grouping" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="REFERENCE" ColumnName="REFERENCE" />
+                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="SOLDE" ColumnName="SOLDE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

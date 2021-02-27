@@ -1,0 +1,121 @@
+﻿@model TSD_DAL.TSD_EDMX.Coordonnees
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="card mb-0 py-3 border-left-primary" style="margin-top:15px;">
+        <div class="OurCard-body">
+            <div class="row" style="padding:3px;">
+                <div class="col-md-3" >
+                    <div class="card mb-0 py-3" style="margin-top:15px;">
+                        <div class="OurCard-body" style="padding-left:20px">
+
+                            <center><img src="~/Images/PEST Icone.png" style="width:70px;height:70px;"></img></center>
+     
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+
+                    <div class="row" style="margin-bottom:5px;width:99%">
+                        @Html.TextBoxFor(model => model.Nom, new { @class = "form-control border-left-info" })
+                    </div>
+                    <div class="row" style="margin-bottom:5px;width:99%">
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control border-left-info" })
+                    </div>
+                    <div class="row" style="margin-bottom:5px;width:99%">
+                        @Html.TextBoxFor(model => model.Adresse, new { @class = "form-control border-left-info" })
+                    </div>
+                    
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="card mb-0 py-3" style="width:72%;padding:4px">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            @Html.Label("Tél:")
+                            @Html.TextBoxFor(model => model.Tel, new { @class = "form-control border-left-info" })
+
+                        </div>
+                        <div class="col-md-4">
+
+                            @Html.Label("Fixe:")
+                            @Html.TextBoxFor(model => model.TelFixe, new { @class = "form-control border-left-info" })
+
+                        </div>
+                        <div class="col-md-4">
+
+                            @Html.Label("Fax:")
+                            @Html.TextBoxFor(model => model.Fax, new { @class = "form-control border-left-info" })
+
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            @Html.Label("RC:")
+                            @Html.TextBoxFor(model => model.RC, new { @class = "form-control border-left-info" })
+
+                        </div>
+                        <div class="col-md-8">
+
+                            @Html.Label("RIB:")
+                            @Html.TextBoxFor(model => model.RIB, new { @class = "form-control border-left-info" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            @Html.Label("Matricule fiscale:")
+                            @Html.TextBoxFor(model => model.MatriculeFiscale, new { @class = "form-control border-left-info" })
+
+                        </div>
+                        <div class="col-md-8">
+
+                            @Html.Label("Adresse e-mail:")
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control border-left-info" })
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</form>
+
+    <button style="margin:3px;float:right" type="button" class="btn btn-sm btn-success" onclick="UpdateCoordonnees()"><i class="ace-icon fa fa-save"></i> </button>
+<script>function UpdateCoordonnees() {
+    if (confirm("Veuillez confirmer ces modifications !")) {
+
+
+        var formData = $("#ParamForm").serializeArray();
+        $.ajax({
+            type: 'POST',
+            url: "/Home/UpdateCoordonnees",
+            data: formData,
+            // dataType: 'json',
+            //encode: true,
+            success: function (data) {
+                debugger;
+                toastr.success('Opération réussite', 'Succès', { progressBar: true, showDuration: 100 });
+
+            },
+        });
+    }
+}</script>

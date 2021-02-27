@@ -1,0 +1,109 @@
+﻿@model string
+@{ 
+    string GridName = (string)ViewBag.GridName;
+    int CurrentDate = (int)ViewBag.CurrentDate;
+}
+@Html.Hidden("TypePieces",Model)
+
+
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+<div>
+    <div class="card shadow mb-0">
+        <div class="card-header py-3">
+
+            <h6 style="align-self:center" class="h3 mb-0 text-gray-800"><span id="GridName">@GridName</span></h6>
+            @Html.Partial("~/Views/Common/EditorTemplates/FacturesFilter.cshtml", new TSD_DAL.Model.TextValueModel(Model, "1", CurrentDate))<hr />
+
+            
+        </div>
+        <div class="row" style="margin-left:15px;">
+            @if (Model == "FFAC")
+            {
+                <button id="FFACBtn" onclick="ChangeListPiecesSourceType('FFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
+
+                    <span class="text"><b>Factures</b></span>
+                </button>
+                <button id="FNOCBtn" onclick="ChangeListPiecesSourceType('FNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
+                    <span class="text"><b>Notes crédit</b></span>
+                </button>
+            }
+            @if (Model == "CFAC")
+            {
+                <button id="CFACBtn" onclick="ChangeListPiecesSourceType('CFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
+
+                    <span class="text"><b>Factures</b></span>
+                </button>
+                <button id="CNOCBtn" onclick="ChangeListPiecesSourceType('CNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
+                    <span class="text"><b>Notes crédit</b></span>
+                </button>
+            }
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" id="PieceListGrid" style="width:100%" cellspacing="0">
+
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">ID</th>
+
+                            <th></th>
+                            <th style="text-align:center;width:120px">
+                                Facture N°
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Statut
+                            </th>
+
+                            @if (Model == "CFAC" || Model == "CNOC" )
+                            {
+                                <th style="text-align:center;width:200px">
+                                    Client
+                                </th>
+                            }
+                            else
+                            {
+                                <th style="text-align:center;width:200px">
+                                    Fournisseur
+                                </th>
+
+                            }
+                            <th style="text-align:center;width:200px">
+                                Montant final
+                            </th>
+                            <th style="text-align:center;width:200px">
+                                Solde
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" style="text-align:right; background-color:#36b9cc; color:white">Total:</th>
+                            <th colspan="3"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var etat = $("#Etat").val();
+        LoadPieceListData(etat);
+        $(".dataTables_length").hide();
+        $(".dataTables_filter").hide();
+
+    });
+</script>
+<script src="~/Scripts/Pieces-JS.js"></script>
+
+

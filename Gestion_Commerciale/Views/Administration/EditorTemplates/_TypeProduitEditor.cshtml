@@ -1,0 +1,30 @@
+﻿@model TSD_DAL.Model.TypeProduitsModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                @Html.Label("Libellé")
+                <div class="input-group text">
+                    
+                    @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                @Html.Label("Catégorie")
+                <div class="input-group text">
+                    @Html.DropDownListFor(model => model.CategorieID, Gestion_Commerciale.Controllers.AdministrationController.GetCategoriesProduitList(), new { @class = "form-control" })
+            </div>
+            </div>
+
+
+        </div>
+      
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateTypesProduit()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

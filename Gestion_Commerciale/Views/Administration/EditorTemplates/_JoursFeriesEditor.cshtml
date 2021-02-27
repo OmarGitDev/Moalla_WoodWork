@@ -1,0 +1,49 @@
+﻿@model TSD_DAL.Model.JoursFeriesModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                @Html.LabelFor(model => model.Libelle)
+                <div class="input-group text">
+                    
+                    @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control" })
+                </div>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.Date)
+                <div class="input-group date">
+                    @*@{
+                        string dateString = string.Empty;
+                        if (Model.Date != null)
+                        {
+                            dateString = string.Format("{0}-{1}-{2}", Model.Date.Year, Model.Date.Month, Model.Date.Day);
+                        }
+                    }*@
+                        @Html.TextBox("Date", Model.Date.ToString("yyyy-MM-dd"), new { @class = "form-control", @type = "date" })
+                    
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.NbrJours)
+                <div class="input-group text">
+                    @Html.TextBoxFor(model => model.NbrJours, new {@type="number", @class = "form-control" })
+                </div>
+            </div>
+            
+
+        </div>
+        
+ 
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateJoursFeries()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

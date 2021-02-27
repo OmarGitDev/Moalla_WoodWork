@@ -1,0 +1,70 @@
+﻿@{ 
+    string Type = ViewBag.Type;
+} 
+@Html.Hidden("TypePricing", Type)
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+<div>
+    <div class="card shadow mb-0">
+        <div class="card-header py-3">
+
+            <h6 style="align-self:center" class="h3 mb-0 text-gray-800">@Type</h6>
+
+            <button onclick="OpenEditorToAddPricing('@Type')" style="align-self:center;float:right" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+             
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%" id="PricingListGrid"  cellspacing="0">
+
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">ID</th>
+
+                            <th></th>
+                            <th style="text-align:center;width:120px">
+                                @Type N°
+                            </th>
+                            <th style="text-align:center;width:250px">
+                                Libellé
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Statut
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Client
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Valide depuis
+                            </th>
+                            <th style="text-align:center;width:80px">
+                                Valide jusqu'a
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+        LoadPricingListData('@Type');
+    });
+</script>
+<script src="~/Scripts/Pricing-JS.js"></script>
+
+
+

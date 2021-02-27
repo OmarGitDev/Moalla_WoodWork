@@ -1,0 +1,90 @@
+﻿@model TSD_DAL.Model.MVT_StockModel 
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fas fa-box-open"></i></span>
+                @Html.Label("Produit")
+                <div class="input-group text">
+                    
+                   @Html.DropDownList("ProduitID", Gestion_Commerciale.Controllers.StockController.GetProduitsList(), new { @class = "form-control border-left-info"})
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fas fa-arrow-alt-circle-left"></i></span>
+                @Html.Label("Sens")
+                @*<span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.Sens)
+                <div class="input-group text">
+                    @Html.TextBoxFor(model => model.Sens, new { @class = "form-control",@Type="number" })
+                </div>*@
+                <div class="input-group date">
+                    <fieldset id="Sens">
+                        <label>
+                            (+)
+                            <input name="Sens" type="radio" @(Model.Sens == 1 ? "checked" : "") value="1" />
+                        </label>
+                        <label>
+                            (-)
+                            <input name="Sens" type="radio" @(Model.Sens == -1 ? "checked" : "") value="-1" />
+                        </label>
+                    </fieldset>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            @if (!String.IsNullOrEmpty(Model.NumPiece))
+            {
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                    @Html.LabelFor(model => model.prixUnitaire)
+                    <div class="input-group text">
+                        @Html.TextBoxFor(model => model.prixUnitaire, new { type = "numbre", @class = "form-control border-left-info" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.prixUnitaire)
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fas fa-list-alt"></i></span>
+                    @Html.Label("Observations")
+                    <div class="input-group text">
+                        @Html.TextBoxFor(model => model.Observation, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+            }
+
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fas fa-clipboard-list"></i></span>
+                @Html.Label("Quantité")
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.Quantite, new { @class = "form-control border-left-info", @type="number",min="1"})
+                </div>
+            </div>
+            <div class="row">
+                @if (!String.IsNullOrEmpty(Model.NumPiece))
+                {
+
+                    <div class="col-md-12">
+                        <span class="input-group-addon"><i class="fas fa-list"></i></span>
+                        @Html.Label("Observations")
+                        <div class="input-group text">
+                            @Html.TextBoxFor(model => model.Observation, new { @class = "form-control border-left-info" })
+                        </div>
+                    </div>
+
+                }
+            </div>
+            </div>
+        
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateMVTStock()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

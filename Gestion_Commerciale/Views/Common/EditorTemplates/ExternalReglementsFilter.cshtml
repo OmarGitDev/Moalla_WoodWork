@@ -1,0 +1,56 @@
+﻿@model TSD_DAL.Model.TextValueModel
+@{
+    string DateFromByDefault = Model.Val1 != 0 ? DateTime.Now.ToString("yyyy-MM-dd") : "";
+    string DateToByDefault = Model.Val1 != 0 ? DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") : "";
+}
+    <div class="row" style="width:100%;margin-left:10px;">
+        @if (Model.Text == "F")
+        {
+            <div class="col-md-3">
+                @Html.Label("Fournisseur")
+                @Html.DropDownList("OwnerFilter", Gestion_Commerciale.Controllers.AchatController.GetFournisseursList(), new { @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info",@style="width:100%" })
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3">
+                @Html.Label("Client")
+                @Html.DropDownList("OwnerFilter", Gestion_Commerciale.Controllers.VenteController.GetClientsList(), new { @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" ,@style="width:100%"})
+            </div>
+        }
+        <div class="col-md-3">
+            @Html.Label("Remarques")
+            @Html.TextBox("LibelleFilter", "", new { @onkeyup = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Montant min")
+            @Html.TextBox("MontantMinFilter", "", new { @Type = "number", @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Montant max")
+            @Html.TextBox("MontantMaxFilter", "", new { @Type = "number", @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Date depuis")
+            @Html.TextBox("DateFromFilter", DateFromByDefault, new { @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @Type = "date", @class = "form-control border-left-info" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Date jusqu'à")
+            @Html.TextBox("DateToFilter", DateToByDefault, new { @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @Type = "date", @class = "form-control border-left-info" })
+        </div>
+        <div class="col-md-1" style="display:block;width:5%;margin-top:32px;">
+        <button onclick="OpenExternalReglementsEditor('@Model.Text')" style="align-self:center;float:right" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+         $("#OwnerFilter").select2(   
+         );
+        
+     });
+</script>

@@ -1,0 +1,108 @@
+﻿<div class="row">
+    <div class="col-3">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+            @{
+                DateTime CurrentMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            }
+            @Html.TextBox("DateFilter", CurrentMonth.ToString("yyyy-MM"), new { @type = "month", @onchange = "RefreshDashbordData();", @class = "form-control border-left-info" })
+        </div>
+    </div>
+</div>
+
+
+<div class="row">   
+<div class="col-6">
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Charges</h6>
+            
+
+
+        </div>
+        <div class="card-body">
+            <h6 style="align-self:center" class="h5 mb-0 ml-2 text-gray-800">Fourniture</h6>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
+                       id="DashbordFournitureGrid">
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">
+                                Fournisseur
+                            </th>
+                            <th style="text-align:center;">
+                                Montant
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+
+                </table>
+            </div>
+            <hr />
+            <h6 style="align-self:center" class="h5 mb-0 ml-2 text-gray-800">Marchandises</h6>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
+                       id="DashbordMarchandiseGrid">
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">
+                                Fournisseur
+                            </th>
+                            <th style="text-align:center;">
+                                Montant
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-6">
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 style="align-self:center" class="h3 mb-0 text-gray-800">Bénéfices</h6>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
+                       id="DashbordBeneficesGrid">
+                    <thead>
+                        <tr>
+
+                            <th style="text-align:center;">
+                                Client
+                            </th>
+                            <th style="text-align:center;">
+                                Montant
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        LoadFournitureData();
+        LoadMarchandisesData();
+        LoadBeneficesData();
+    });
+</script>
+<script src="~/Scripts/Statistiques-JS.js"></script>

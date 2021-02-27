@@ -1,0 +1,125 @@
+﻿@model TSD_DAL.Model.FournisseurModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                @Html.Label("Nom Fournisseur")
+                <div class="input-group text">
+                    
+                    @Html.TextBoxFor(model => model.OwnerName, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                @Html.LabelFor(model => model.Adresse)
+                <div class="input-group text">
+                    @Html.TextBoxFor(model => model.Adresse, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.MatriculeFiscal)
+                <div class="input-group text">
+                    @Html.TextBoxFor(model => model.MatriculeFiscal, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                @Html.LabelFor(model => model.IBAN)
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.IBAN, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                @Html.LabelFor(model => model.Tel1)
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.Tel1, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                @Html.LabelFor(model => model.Tel2)
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.Tel2, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                @Html.LabelFor(model => model.Fax)
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.Fax, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-mail-bulk"></i></span>
+                @Html.LabelFor(model => model.CodePostal)
+                <div class="input-group number">
+                    @Html.TextBoxFor(model => model.CodePostal, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @*<span class="input-group-addon"><i class="fa fa-arrow-alt-circle-left"></i></span>*@
+                @Html.Label("Type")
+                <div class="input-group date">
+                    <fieldset id="FType">
+                        <label>
+                            Marchandise
+                            <input name="FType" type="radio" @(Model.FType == "Marchandise" ? "checked" : "") value="Marchandise" />
+                        </label>
+                        <label>
+                            Fourniture
+                            <input name="FType" type="radio" @(Model.FType == "Fourniture" ? "checked" : "") value="Fourniture" />
+                        </label>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                    @Html.Label("Actif", new { style = "margin-top:37px;" })
+                </div>
+                <div class="col-md-1">
+                    <div class="input-group boolean">
+                        @Html.CheckBoxFor(model => model.IsActive, new { style = "width:20px;height:20px;margin-top:40px", @class = "form-control border-left-info" })
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                @Html.Label("Interlocuteur")
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.Interlocuteur, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                @Html.Label("Inter. tel")
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.NumeroInterlocuteur, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateFournisseur()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

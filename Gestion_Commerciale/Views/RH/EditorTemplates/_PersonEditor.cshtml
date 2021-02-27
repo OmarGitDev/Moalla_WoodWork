@@ -1,0 +1,97 @@
+﻿@model TSD_DAL.Model.PersonnesModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                @Html.LabelFor(model => model.Nom)
+                <div class="input-group text">
+                    
+                    @Html.TextBoxFor(model => model.Nom, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                @Html.LabelFor(model => model.Prenom)
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.Prenom, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                @Html.LabelFor(model => model.Fonction)
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.Fonction, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fas fa-mail-bulk"></i></span>
+                @Html.LabelFor(model => model.AdresseEmail)
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.AdresseEmail, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                @Html.Label("Téléphone 1")
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.Tel1, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                @Html.Label("Téléphone 2")
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.Tel2, new { @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
+                @Html.Label("Début contrat")
+                <div class="input-group date">
+@{
+    string dateString = string.Empty;
+    if (Model.DateDebutContrat != null)
+    {
+        dateString = Model.DateDebutContrat.Value.ToString("yyyy-MM-dd");
+    }
+}
+                    @Html.TextBox("DateDebutContrat", dateString, new { @class = "form-control border-left-info", @type = "date" })
+                   
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fas fa-clipboard-check"></i></span>
+                @Html.LabelFor(model => model.SoldeCongeAnnuel)
+                <div class="input-group text">
+
+                    @Html.TextBoxFor(model => model.SoldeCongeAnnuel, new { type = "number", @class = "form-control border-left-info" })
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdatePerson()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

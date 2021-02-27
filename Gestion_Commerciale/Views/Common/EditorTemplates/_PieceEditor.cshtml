@@ -1,0 +1,63 @@
+﻿@model TSD_DAL.Model.GenericPieceModel
+@{
+
+}
+<div class="modal-body">
+    <form id="ParamForm">
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.IDAchat)
+        @Html.HiddenFor(model => model.LastEditTime)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.EditedBy)
+        @Html.HiddenFor(model => model.DateCreation)
+        @Html.HiddenFor(model => model.Statut)
+        @Html.HiddenFor(model => model.NumPiece)
+        @Html.HiddenFor(model => model.TypePiece)
+
+        <div class="container-fluid">
+
+            <div class="row">
+            @if (Model.TypePiece == "FFAC" || Model.TypePiece == "FNOC"|| Model.TypePiece == "BLIV" || Model.TypePiece == "BCOM")
+            {
+                <div class="col-md-12">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                    @Html.Label("Fournisseur")
+                    <div class="input-group date">
+                        @Html.DropDownListFor(model => model.CodeFournisseur, Gestion_Commerciale.Controllers.AchatController.GetFournisseursList(), new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(model => model.CodeFournisseur)
+            }
+            @if (Model.TypePiece == "CFAC" || Model.TypePiece == "CNOC")
+            {
+                <div class="col-md-12">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                    @Html.Label("Client")
+                    <div class="input-group date">
+                       @Html.DropDownListFor(model => model.CodeClient, Gestion_Commerciale.Controllers.VenteController.GetClientsList(), new { @class = "form-control border-left-info",@style="width:100%"})
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                @Html.HiddenFor(model => model.CodeClient)
+            }
+        </div>
+</div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddNewPiece('@Model.TypePiece')"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CodeClient").select2();
+    });
+</script>

@@ -1,0 +1,47 @@
+﻿@model List<TSD_DAL.Model.PieceModel>
+   @{
+
+   }
+<form id="ParamForm">
+ @{double montantReglement = ViewBag.MontantTotal;
+     double SumPieces = ViewBag.SumPieces;
+  }    
+    @Html.Hidden("montantReglement",montantReglement)
+    @Html.Hidden("SumPieces", SumPieces)
+    @Html.Hidden("PiecesCount", Model.Count())
+    <div style="overflow-x:auto;max-height:500px">
+        
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div  style="margin:1%; width:98%;height:100%;margin-bottom:10px" class="form-control border-left-primary">
+                <div style="display:inline-flex">
+                    
+                    @Html.HiddenFor(Model => Model[i].ID)
+                    @Html.HiddenFor(Model => Model[i].ReglementID)
+                    <div style="display:block;width:29%;margin-right:1%;">
+                        @Html.Label("Code")
+                        @Html.TextBoxFor(Model => Model[i].NumPiece, new { @onkeypress = "return(false)", @class = "form-control border-left-info NumPiece_"+i})
+                    </div>
+                    <div style="display:block;width:24%;margin-right:1%">
+                        @Html.Label("Montant")
+                        @Html.TextBoxFor(Model => Model[i].MontantFinal, new { @onkeypress = "return(false)", @class = "form-control border-left-info MontantFinal_" + i })
+                    </div>
+                    <div style="display:block;width:24%;margin-right:1%">
+                        @Html.Label("Dèjà réglé ")
+                        @Html.TextBoxFor(Model => Model[i].MontantReglee,  new {@onkeypress= "return(false)",  @class = "form-control border-left-info dropDowList MontantReglee_" + i })
+                    </div>
+                    <div style="display:block;width:24%;">
+                        @Html.Label("A régler")
+                        @Html.TextBoxFor(Model => Model[i].MontantARegler,  new { @onkeypress= "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)", @class = "form-control border-left-info dropDowList MontantARegler_" + i, @onchange= "CheckMontantAregler("+i+")"})
+                    </div>
+                </div>
+               
+            </div>
+        }
+    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddReglementMappings()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+

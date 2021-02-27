@@ -1,0 +1,14 @@
+﻿<div style="display:inline-flex;width:100%">
+
+
+    <div style="display:block;width:48%;margin-right:4px">
+        @Html.Label("Code tarif")
+        @Html.TextBox("CodeTarifFilter", "", new { @onkeyup = "RefreshTarifsGrid();", @class = "form-control border-left-info" })
+    </div>
+    <div style="display:block;width:48%;margin-right:4px">
+        @Html.Label("Libellé")
+        @Html.TextBox("LibelleFilter", "", new { @onkeyup = "RefreshTarifsGrid();", @class = "form-control border-left-info" })
+    </div>
+
+   
+</div>

@@ -1,0 +1,78 @@
+﻿@model TSD_DAL.Model.CompteBancaireModel
+<form id="ParamForm">
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.TypeOwner)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                @Html.LabelFor(model => model.Libelle)
+                <div class="input-group text">
+                    
+                    @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control" })
+                </div>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.BanqueId)
+                <div class="input-group text">
+                    @Html.DropDownListFor(model => model.BanqueId, Gestion_Commerciale.Controllers.AdministrationController.GetBanqueList(), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.RIB)
+                <div class="input-group text">
+                    @Html.TextBoxFor(model => model.RIB, new {@type="number", @class = "form-control" })
+                </div>
+            </div>
+           
+            
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @if (Model.TypeOwner == "Client")
+                {
+                    <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                    @Html.Label("Client")
+                    <div class="input-group text">
+                    @Html.DropDownListFor(model => model.Owner, Gestion_Commerciale.Controllers.VenteController.GetClientsList(), new { @class = "form-control" })
+                    </div>
+                }
+                else if (Model.TypeOwner == "Fournisseur")
+                {
+                    <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                    @Html.Label("Fournisseur")
+                    <div class="input-group text">
+                        @Html.DropDownListFor(model => model.Owner, Gestion_Commerciale.Controllers.AchatController.GetFournisseursList(), new { @class = "form-control" })
+                    </div>
+                }
+                
+
+            </div>
+            <div class="col-md-6">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                @Html.LabelFor(model => model.isActive)
+                <div class="input-group text">
+                    @Html.CheckBoxFor(model => model.isActive, new { @type = "", @class = "form-control" })
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        
+ 
+    </div>
+</form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateCompteBancaire()"><i class="ace-icon fa fa-check"></i> Valider</button>
+        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+    </div>

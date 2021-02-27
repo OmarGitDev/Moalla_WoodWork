@@ -1,0 +1,81 @@
+﻿@model string
+@{
+    string GridName = (string)ViewBag.GridName;
+    int CurrentDate = (int)ViewBag.CurrentDate;
+}
+
+
+
+<style type="text/css">
+    input[type=text], select {
+        text-align: center;
+        text-align-last: center;
+    }
+</style>
+
+    <div>
+        <div class="card shadow mb-0">
+            <div class="card-header py-3">
+
+                <h6 style="align-self:center" class="h3 mb-0 text-gray-800">@GridName</h6>
+
+                @Html.Partial("~/Views/Common/EditorTemplates/ExternalReglementsFilter.cshtml", new TSD_DAL.Model.TextValueModel(Model, "", CurrentDate))<hr />
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered dt-responsive nowrap" id="ExternalReglementsGrid" style="width:100%" cellspacing="0">
+
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">ID</th>
+                                <th style="text-align:center;">
+
+                                </th>
+                                <th style="text-align:center;width:120px">
+                                    Type réglement
+                                </th>
+                                <th style="text-align:center;width:250px">
+                                    Banque
+                                </th>
+                                <th style="text-align:center;width:80px">
+                                    Date règlement
+                                </th>
+                                <th style="text-align:center;width:80px">
+                                    Date échéance
+                                </th>
+                                <th style="text-align:center;width:200px">
+                                    Remarque
+                                </th>
+                                <th style="text-align:center;width:200px">
+                                    Montant
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody align="center"></tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" style="text-align:right; background-color:#36b9cc; color:white">Total:</th>
+                                <th colspan="4"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        LoadExternalReglementsData('@Model');
+                $(".dataTables_length").hide();
+        $(".dataTables_filter").hide();
+    });
+</script>
+<script src="~/Scripts/Pieces-JS.js"></script>
+
+

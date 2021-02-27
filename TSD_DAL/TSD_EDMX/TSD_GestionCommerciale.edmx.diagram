@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="73757b439928499f999bad3ab55f7cfa" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Banque" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.CompteBancaire" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Conges" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Coordonnees" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.DetailsPiece" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Fonctions" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Fournisseur" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.JoursFeries" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.MappingReglementPieces" Width="1.5" PointX="6.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.MotifConge" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Notifications" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.NotificationsType" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Parameters" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.PassagesClients" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Personnes" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.PieceAchat" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.PieceVente" Width="1.5" PointX="12.75" PointY="5.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Pricing" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.PricingDetails" Width="1.5" PointX="8.75" PointY="13.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Reglements" Width="1.5" PointX="10.75" PointY="13.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Roles" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.SeriesTable" Width="1.5" PointX="12.75" PointY="13.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Taxes" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.TypePayements" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.TypeReglement" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.TypesPieces" Width="1.5" PointX="14.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.UserRolesMapping" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Users" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.DetailsPiecePrint" Width="1.5" PointX="0.75" PointY="15.75" />
+        <AssociationConnector Association="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Roles" />
+        <AssociationConnector Association="TSD_Gestion_CommercialeModel.FK_UserRolesMapping_Users" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Services" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Reclamations" Width="1.5" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Piece" Width="1.5" PointX="15.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Client" Width="1.5" PointX="5.375" PointY="16.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

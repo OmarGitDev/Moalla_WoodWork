@@ -1,0 +1,83 @@
+﻿@model TSD_DAL.Model.DetailsPieceModel
+@{
+    var Defaulttaxe = (int)ViewBag.Defaulttaxe;
+}
+<div class="modal-body">
+    <form id="ParamForm">
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.Piece)
+        @Html.HiddenFor(model => model.CodeDetailPiece)
+
+
+        <div class="container-fluid">
+
+            <div class="row">
+                @*<div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    @Html.Label("Code")
+                    <div class="input-group date">
+                        
+                        @Html.TextBoxFor(model => model.CodeDetailPiece, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>*@
+                <div class="col-md-12">
+                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                    @Html.Label("Libellé")
+                    <div class="input-group date">
+                        
+                        @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+               
+
+            </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                        @Html.Label("Quantité")
+                        <div class="input-group date">
+                            
+                            @Html.TextBoxFor(model => model.Quantite, new { @class = "form-control border-left-info", @type = "number" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-percentage"></i></span>
+                        @Html.Label("Remise")
+                        <div class="input-group date">
+                           
+                            @Html.TextBoxFor(model => model.Remise, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                        </div>
+                    </div>
+
+
+                </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-dollar-sign"></i></span>
+                    @Html.Label("Montant Unitaire")
+                    <div class="input-group date">
+                        
+                        @Html.TextBoxFor(model => model.MontantUnitaire, new { @class = "form-control border-left-info", @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==44 ||event.charCode ==0)" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-donate"></i></span>
+                    @Html.Label("Taxe")
+                    <div class="input-group date">
+                       
+                        @Html.DropDownListFor(model => model.CodeTaxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @class = "form-control dropDowList border-left-info" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateDetailsPiece()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+<script>
+    var Defaulttaxe =@Defaulttaxe;
+    $(".dropDowList").val(Defaulttaxe);
+</script>
