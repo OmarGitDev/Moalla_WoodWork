@@ -299,19 +299,19 @@ namespace TSD_BLL
                                   NumPiece = p.NumPiece,
                                   DateCreation = p.DateCreation,
                                   MontantFinal = p.MontantFinal,
-
+                                  Statut = p.Statut
                               }
                     ).ToList();
                 List<PieceModel> pieceModel = new List<PieceModel>();
-                foreach (var res in result)
-                {
-                    List<MappingReglementPieces> sommeMontantsRegle = BD.MappingReglementPieces.Where(e => e.PieceID == res.NumPiece).ToList();
-                    if (sommeMontantsRegle.Count() == 0)
-                        pieceModel.Add(res);
-                    else if (sommeMontantsRegle.Sum(e => e.Montant) < res.MontantFinal)
-                        pieceModel.Add(res);
-                }
-                return pieceModel;
+                //foreach (var res in result)
+                //{
+                //    List<MappingReglementPieces> sommeMontantsRegle = BD.MappingReglementPieces.Where(e => e.PieceID == res.NumPiece).ToList();
+                //    if (sommeMontantsRegle.Count() == 0)
+                //        pieceModel.Add(res);
+                //    else if (sommeMontantsRegle.Sum(e => e.Montant) < res.MontantFinal)
+                //        pieceModel.Add(res);
+                //}
+                return result.ToList();
             }
 
         }

@@ -11,17 +11,16 @@
     <div style="width:41%;margin-top:15px;">
         <h2 style="align-self:center;margin-bottom :10px;" class="text-xl-left font-weight-bold text-primary text-uppercase"> @Model.Type</h2>
         <div class="card shadow">
+            <div class="card-body">
+                <div class="row ">
+                    <button id="ServicesSourceBtn" onclick="ChangeSourceType('Services')" style="align-self:center;float:right" class="btnSources btn btn-primary">
 
-
-            <div class="row" style="margin-left:2px;">
-                <button id="ServicesSourceBtn" style="align-self:center;float:right" class="btnSources btn btn-primary">
-
-                    <span class="text"><b>Services</b></span>
-                </button>
+                        <span class="text"><b>Produits</b></span>
+                    </button>
+                </div>
+                <hr style="margin-top:0px" />
             </div>
-
-
-            <div id="ServicesListDiv" class="DivsSources card shadow" style="display:block;">
+            <div id="ServicesListDiv" class="DivsSources" style="display:block;">
                 @Html.Hidden("PricingServicesSelectedItems", "")
                 @Html.Partial("~/Views/Stock/ServicesFilter.cshtml", 0)<hr />
                 <button onclick="OpenEditorToFillPricing()" style="align-self:center;float:right;margin-right:20px" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
@@ -36,14 +35,11 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
-                                   id="ServicesSelectorGrid">
+                                   id="PricingServicesSelectorGrid">
 
                                 <thead>
                                     <tr>
                                         <th style="text-align:center;">ID</th>
-                                        <th style="text-align:center;">
-                                            Référence
-                                        </th>
                                         <th style="text-align:center;">
                                             Libéllé
                                         </th>
@@ -235,14 +231,14 @@
 
     $(document).ready(function () {
 
-        LoadServicesSelectorData();
+        LoadPricingServicesSelectorData();
         LoadPricingDetailsData();
         $(".ItemSelect").select2({
             theme: "classic"
         });
     });
 
-    $('#ServicesSelectorGrid tbody').on('click', 'tr', function () {
+    $('#PricingServicesSelectorGrid tbody').on('click', 'tr', function () {
         debugger;
         $(this).toggleClass('selected');
         var selectedServices = $("#PricingServicesSelectedItems").val();

@@ -756,7 +756,7 @@ function OpenEditorToFillFacture() {
         data: { SelectedServices: SelectedServices, numPiece: numPiece },
         success: function (data) {
             $('#GenericModel').modal();
-            $("#ModalTitle").text("Lier la liste des Services");
+            $("#ModalTitle").text("Lier la liste des Produits");
             $("#ModalBody").html(data);
             $("#ServicesSelectedItems").val("");
             $(".selected").removeClass("selected");
@@ -1269,11 +1269,11 @@ function LoadServicesSelectorData() {
     var TypePiece = $("#TypePiece").val();
     var Achat = false;
     var Vente = false;
-    if (TypePiece == "CFAC" || TypePiece == "CNOC")
+    if (TypePiece == "CFAC")
     {
         Vente = true;
     }
-    if (TypePiece == "FFAC" || TypePiece == "FNOC" ||TypePiece == "BLIV" || TypePiece == "BCOM" ) {
+    if (TypePiece == "FFAC" ) {
         Achat = true;
     }
     var libelle = $("#LibelleFilter").val();
@@ -1291,7 +1291,6 @@ function LoadServicesSelectorData() {
             "data": "ID"
 
         },
-        { "data": "Reference" },
         { "data": "Libelle" },
         ],
 
@@ -1900,7 +1899,7 @@ function OpenEditorToFillMapping(SelectedItems,type)
         data: { SelectedItems: SelectedItems, ReglementID: ReglementID },
         success: function (data) {
             $('#GenericModel').modal();
-            $("#ModalTitle").text("Lier la liste des Services");
+            $("#ModalTitle").text("Lier la liste des Produits");
             $("#ModalBody").html(data);
             $(".selected").removeClass("selected");
             $("#FactureSelectedItems").val("");

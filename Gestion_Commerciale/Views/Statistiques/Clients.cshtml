@@ -23,7 +23,7 @@
                                 </div>
                                     <div class="col-md-2">
                                         @Html.Label("Année")
-                                        @Html.DropDownList("AnneeSelector", Gestion_Commerciale.Controllers.StatistiquesController.GetYearsList(), new { @class = "form-control border-left-info", onchange = "GetClientStatValueBarChart()" })
+                                        @Html.DropDownList("AnneeSelector", Gestion_Commerciale.Controllers.StatistiquesController.GetYearsList(), new { @class = "form-control border-left-info", onchange = "RefreshClientsStats()" })
                                     </div>
                             </div>
                             </div>

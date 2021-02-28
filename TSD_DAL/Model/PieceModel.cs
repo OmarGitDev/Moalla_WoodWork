@@ -37,5 +37,6 @@ namespace TSD_DAL.Model
         public string Sens { get; set; }
         public string Category { get; set; }
         public string Reference { get; set; }
+        public double? Solde { get; set; }
     }
 }

@@ -278,7 +278,7 @@ function OpenEditorToFillPricing() {
         data: { SelectedServices: SelectedServices, codePricing: numPricing },
         success: function (data) {
             $('#GenericModel').modal();
-            $("#ModalTitle").text("Lier la liste des Services");
+            $("#ModalTitle").text("Lier la liste des Produits");
             $("#ModalBody").html(data);
             $("#PricingServicesSelectedItems").val("");
             $(".selected").removeClass("selected");
@@ -352,7 +352,6 @@ function LoadPricingServicesSelectorData() {
             "data": "ID"
 
         },
-        { "data": "Reference" },
         { "data": "Libelle" },
 
         ],

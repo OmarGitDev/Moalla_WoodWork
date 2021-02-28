@@ -29,7 +29,7 @@
                     </div>
                     <div style="display:block;width:27%;margin-right:1%">
                         @Html.Label("Montant")
-                        @Html.TextBoxFor(Model => Model[i].Montant, new {  @type = "number", @format = "0.00", @class = "form-control border-left-info pVente_" + i })
+                        @Html.TextBoxFor(Model => Model[i].Montant, new {   @onkeypress= "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @format = "0.00", @class = "form-control border-left-info pVente_" + i })
                     </div>
                 </div>
             </div>

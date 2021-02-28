@@ -151,6 +151,32 @@ namespace Gestion_Commerciale.Controllers
             });
             return res;
         }
+        public static IList<SelectListItem> GetProductTypes()
+        {
+            List<SelectListItem> res = new List<SelectListItem>();
+            res.Add(new SelectListItem()
+            {
+                Text = "Tous",
+                Value = "0"
+            });
+            res.Add(new SelectListItem()
+            {
+                Text = "Achats",
+                Value = "1"
+            });
+            res.Add(new SelectListItem()
+            {
+                Text = "Ventes",
+                Value = "2"
+            });
+            res.Add(new SelectListItem()
+            {
+                Text = "Ventes et Achats",
+                Value = "3"
+            });
+            return res;
+        }
+        
         public JsonResult GetFactureDetails(string NumPiece)
         {
             List<DetailsPieceModel> details = DetailsPiece_BLL.GetDetailsByPiece(NumPiece);
@@ -528,7 +554,9 @@ namespace Gestion_Commerciale.Controllers
             {
                 gpm = GetListPiecesForRASReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RASLimite)), MontantMaxFilter, ClientFilter, FournisseurFilter);
             }
-            gpm.ForEach(e => e.Statut = e.Statut == "VLD" ? "Validée" : e.Statut == "ECR" ? "En cours" : "Annulée");
+            gpm.ForEach(e => e.Solde = e.MontantFinal - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, RAS)));
+            gpm = gpm.Where(e => e.Statut == "VLD" && e.Solde != 0).ToList();
+            //gpm.ForEach(e => e.Statut = e.Statut == "VLD" ? "Validée" : e.Statut == "ECR" ? "En cours" : "Annulée");
             return Json(gpm, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllMappingsForReglements(int ReglementID)
@@ -557,7 +585,7 @@ namespace Gestion_Commerciale.Controllers
                         gpm = Piece_BLL.GetAllPiecesClientsByType(Type, CodeFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, ClientFilter, StatusFilter);
                     }; break;
             }
-            gpm.ForEach(e => e.Solde = e.MontantFinal - Piece_BLL.GetPieceSolde(e.NumPiece));
+            gpm.ForEach(e => e.Solde = e.MontantFinal - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, false)));
             gpm.ForEach(e => e.Statut = e.Statut == "VLD" ? "Validée" : e.Statut == "ECR" ? "En cours" : "Annulée");
             if (etat == "Ouvert")
             {

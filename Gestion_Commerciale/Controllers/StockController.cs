@@ -35,16 +35,23 @@ namespace Gestion_Commerciale.Controllers
         //    List<ServicesModel> ServicedModelList = GenericModelMapper.GetModelList<ServicesModel, Services>(Services);
         //    return Json(ServicedModelList, JsonRequestBehavior.AllowGet);
         //}
-        public JsonResult GetAllServices(string libelle="",string code="",bool? Vente = true, bool? Achat = true)
+        public JsonResult GetAllServices(string libelle="",string code="",bool? Vente = true, bool? Achat = true, bool? AchatAndVente = false)
         {
             List<ServicesModel> Services = ServicesBLL.GetAllServicesByFilter(libelle, code);
-            if(Vente == false)
+            if(AchatAndVente == false)
             {
-                Services = Services.Where(e => e.Achat == true).ToList();
+                if(Vente == false)
+                {
+                    Services = Services.Where(e => e.Achat == true).ToList();
+                }
+                if (Achat == false)
+                {
+                    Services = Services.Where(e => e.Vente == true).ToList();
+                }
             }
-            if (Achat == false)
+            else
             {
-                Services = Services.Where(e => e.Vente == true).ToList();
+                Services = Services.Where(e => e.Vente == true && e.Achat == true).ToList();
             }
             return Json(Services, JsonRequestBehavior.AllowGet);
         }

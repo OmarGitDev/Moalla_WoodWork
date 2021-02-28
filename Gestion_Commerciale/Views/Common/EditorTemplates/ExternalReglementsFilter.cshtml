@@ -24,11 +24,11 @@
         </div>
         <div class="col-md-3">
             @Html.Label("Montant min")
-            @Html.TextBox("MontantMinFilter", "", new { @Type = "number", @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+            @Html.TextBox("MontantMinFilter", "", new {  @onkeypress= "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
         </div>
         <div class="col-md-3">
             @Html.Label("Montant max")
-            @Html.TextBox("MontantMaxFilter", "", new { @Type = "number", @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+            @Html.TextBox("MontantMaxFilter", "", new {  @onkeypress= "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @onchange = "RefreshExternalReglementsGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
         </div>
         <div class="col-md-3">
             @Html.Label("Date depuis")

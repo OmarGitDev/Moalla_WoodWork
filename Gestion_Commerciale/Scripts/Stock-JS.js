@@ -177,7 +177,19 @@ function RefreshServicesGrid() {
 }
 function LoadServicesData() {
     var libelle = $("#LibelleFilter").val();
-
+    var Status = $("#StatusFilter").val();
+    var Vente = true;
+    var Achat = true;
+    var AchatAndVente = false;
+    if (Status == "1") {
+        Vente = false;
+    }
+    if (Status == "2") {
+        Achat = false;
+    }
+    if (Status == "3") {
+        AchatAndVente = true;
+    }
     var code = $("#ReferenceFilter").val();
 
     var table = $('#ServicesGrid').DataTable({
@@ -185,7 +197,7 @@ function LoadServicesData() {
         "autoWidth": true,
         ajax: {
             url: "/Stock/GetAllServices",
-            data: { libelle: libelle, code: code,Vente:true,Achat:true },
+            data: { libelle: libelle, code: code, Vente: Vente, Achat: Achat, AchatAndVente: AchatAndVente },
             dataSrc: ''
         },
         columns: [{ "data": "ID" },

@@ -3,70 +3,79 @@
     string DateFromByDefault = Model.Val1 != 0 ? DateTime.Now.ToString("yyyy-MM-dd") : "";
     string DateToByDefault = Model.Val1 != 0 ? DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") : "";
 }
-<div class="row" style="width:100%;margin-left:10px;">
-    @Html.HiddenFor(model => model.Value)
-    @if (Model.Value == "1")
-    {
-        if (Model.Text == "FFAC" || Model.Text == "FNOC" || Model.Text == "BLIV" || Model.Text == "BCOM")
+    <div class="row" style="width:100%;margin-left:10px;">
+        @Html.HiddenFor(model => model.Value)
+        @if (Model.Value == "1")
         {
+            if (Model.Text == "FFAC" || Model.Text == "FNOC" || Model.Text == "BLIV" || Model.Text == "BCOM")
+            {
 
-            <div class="col-md-2">
-                @Html.Label("Fournisseur")
-                @Html.DropDownList("FournisseurFilter"
-                   + Model.Text, Gestion_Commerciale.Controllers.AchatController.GetFournisseursList(),
-                   new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info" ,@style="width:100%"})
-            </div>
+                <div class="col-md-2">
+                    @Html.Label("Fournisseur")
+                    @Html.DropDownList("FournisseurFilter"
+                       + Model.Text, Gestion_Commerciale.Controllers.AchatController.GetFournisseursList(),
+                       new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info", @style = "width:100%" })
+                </div>
                 @Html.Hidden("ClientFilter", 0)
+            }
+            else
+            {
+                <div class="col-md-2">
+                    @Html.Label("Client")
+                    @Html.DropDownList("ClientFilter"
+                       + Model.Text, Gestion_Commerciale.Controllers.VenteController.GetClientsList(),
+                       new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info", @style = "width:100%" })
+                </div>
+                @Html.Hidden("FournisseurFilter", 0)
+            }
+
+        }
+        <div class="col-md-2">
+            @Html.Label("Code")
+            @Html.TextBox("CodeFilter" + Model.Text, "", new { @onkeyup = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+        </div>
+
+        @Html.Hidden("MontantMinFilter", "")
+        @Html.Hidden("MontantMaxFilter", "")
+        <div class="col-md-4">
+            @Html.Label("Date depuis")
+            @Html.TextBox("DateFromFilter" + Model.Text, DateFromByDefault, new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @Type = "date", @class = "form-control border-left-info" })
+        </div>
+        <div class="col-md-4">
+            @Html.Label("Date jusqu'à")
+            @Html.TextBox("DateToFilter" + Model.Text, DateToByDefault, new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @Type = "date", @class = "form-control border-left-info" })
+        </div>
+        @if (@Model.Value == "1")
+        {
+            <div class="col-md-3">
+                @Html.Label("Status")
+                @Html.DropDownList("StatusFilter" + Model.Text, Gestion_Commerciale.Controllers.CommonController.GetStatus(), new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info", @style = "width:100% !important" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Etat")
+                <select class="form-control" id="Etat" name="Etat" style="width:100% !important">
+                    <option value="All">Tous</option>
+                    <option value="Ouvert">Ouvert</option>
+                </select>
+            </div>
         }
         else
         {
-            <div class="col-md-2">
-                @Html.Label("Client")
-                @Html.DropDownList("ClientFilter"
-                   + Model.Text, Gestion_Commerciale.Controllers.VenteController.GetClientsList(),
-                   new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info" ,@style="width:100%"})
-            </div>
-                @Html.Hidden("FournisseurFilter", 0)
+            @Html.Hidden("StatusFilter", "VLD")
+            @Html.Hidden("Etat", "Ouvert")
         }
 
-    }
-    <div class="col-md-2">
-        @Html.Label("Code")
-        @Html.TextBox("CodeFilter" + Model.Text, "", new { @onkeyup = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info" })
+        @if (Model.Value == "1")
+        {
+            <div class="col-md-1" style="display:block;width:5%;margin-top:32px;">
+                <button onclick="OpenEditorToAddFacture('@Model.Text')" style="align-self:center;" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                    <span class="icon text-white-30">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                </button>
+            </div>
+        }
     </div>
-
-    @Html.Hidden("MontantMinFilter", "")
-    @Html.Hidden("MontantMaxFilter", "")
-    <div class="col-md-4">
-        @Html.Label("Date depuis")
-        @Html.TextBox("DateFromFilter" + Model.Text, DateFromByDefault, new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @Type = "date", @class = "form-control border-left-info" })
-    </div>
-    <div class="col-md-4">
-        @Html.Label("Date jusqu'à")
-        @Html.TextBox("DateToFilter" + Model.Text, DateToByDefault, new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @Type = "date", @class = "form-control border-left-info" })
-    </div>
-    <div class="col-md-3">
-        @Html.Label("Status")
-        @Html.DropDownList("StatusFilter" + Model.Text, Gestion_Commerciale.Controllers.CommonController.GetStatus(), new { @onchange = "RefreshFactureGrid('" + Model.Text + "');", @class = "form-control border-left-info",@style="width:100% !important" })
-    </div>
-    <div class="col-md-3">
-        @Html.Label("Etat")
-        <select class="form-control" id="Etat" name="Etat" style="width:100% !important">
-            <option value="All">Tous</option>
-            <option value="Ouvert">Ouvert</option>
-        </select>
-           </div>
-    @if (Model.Value == "1")
-    {
-        <div class="col-md-1" style="display:block;width:5%;margin-top:32px;">
-            <button onclick="OpenEditorToAddFacture('@Model.Text')" style="align-self:center;" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                <span class="icon text-white-30">
-                    <i class="fas fa-plus"></i>
-                </span>
-            </button>
-        </div>
-    }
-</div>
 <script type="text/javascript">
     $(document).ready(function () {
         debugger;
