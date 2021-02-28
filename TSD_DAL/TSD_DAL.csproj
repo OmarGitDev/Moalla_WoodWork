@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Model\MaterialReglementDetailsModel.cs" />
     <Compile Include="Model\BanqueModel.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\CangesListModel.cs" />
@@ -147,6 +148,9 @@
       <DependentUpon>TSD_GestionCommerciale.tt</DependentUpon>
     </Compile>
     <Compile Include="TSD_EDMX\MappingReglementPieces.cs">
+      <DependentUpon>TSD_GestionCommerciale.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TSD_EDMX\MaterialReglementDetails.cs">
       <DependentUpon>TSD_GestionCommerciale.tt</DependentUpon>
     </Compile>
     <Compile Include="TSD_EDMX\MotifConge.cs">

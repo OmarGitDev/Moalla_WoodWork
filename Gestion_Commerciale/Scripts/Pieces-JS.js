@@ -1594,6 +1594,117 @@ function LoadFactureFournisseurSelectorData() {
     });
 
 }
+function LoadMATSelectorRData(reglementID) {
+    
+
+    var tableP = $('#MATSelectorGridR').DataTable({
+        "order": [[0, "desc"]],
+
+        "autoWidth": true,
+        ajax: {
+            url: "/Common/GetAllMaterialDetailsByReglement",
+            data: { reglementID: reglementID },
+            dataSrc: ''
+        },
+        columns: [{
+            "data": "ID"
+
+        },
+            {
+                "data": "",
+                "render": function (data, type, row) {
+                    debugger
+                    var ID = row.ID;
+                    return "<div style='display:inline-flex'><button onclick=OpenMaterialReglementEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteMaterialReglement('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                }
+            },
+            { "data": "ProductName" },
+        {
+            "data": "Amount",
+            "render": function (data, type, row) {
+                if (data != null)
+                    return data.toFixed(3);
+                else {
+                    return data;
+                }
+            }
+        },
+
+
+        ],
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }]
+    });
+
+}
+function OpenMaterialReglementEditor(id) {
+    var reglementID = $("#ReglementID").val();
+    $.ajax({
+        type: "GET",
+        url: "/Common/OpenMaterialReglementEditor",
+        data: { id: id, reglementID: reglementID},
+        success: function (data) {
+            debugger;
+
+            $('#GenericModel').modal();
+            $("#ModalTitle").text("Matériels du règlement");
+            $("#ModalBody").html(data);
+
+        },
+        failure: function (response) { }
+    });
+}
+function AddOrUpdateMaterialReglement() {
+
+    debugger;
+    var formData = $("#ParamForm").serializeArray();
+    if (formData[1].value == "" || formData[1].value == null || formData[1].value == undefined) {
+        toastr.error('Veuillez renseigner le champs produit', 'error', { progressBar: true, showDuration: 100 });
+        return;
+    }
+    if (formData[2].value == "" || formData[2].value == null || formData[2].value == undefined || formData[2].value == "0") {
+        toastr.error('Veuillez renseigner le champs montant', 'error', { progressBar: true, showDuration: 100 });
+        return;
+    }
+    $.ajax({
+        type: 'POST',
+        url: "/Common/AddOrUpdateMaterialReglement",
+        data: formData,
+        encode: true,
+        success: function (response) {
+            debugger;
+            //var res = JSON.parse(response);
+
+            $('#GenericModel').modal('hide');
+            toastr.success('Opération réussite', 'Succès', { progressBar: true, showDuration: 100 });
+            $('#MATSelectorGridR').DataTable().ajax.reload();
+
+
+        },
+    })
+}
+function DeleteMaterialReglement(ID) {
+    debugger;
+    if (confirm('Veuillez confirmez la suppression du détail')) {
+        var formData = $("#ParamForm").serializeArray();
+        $.ajax({
+
+            url: "/Common/DeleteMaterialReglement",
+            data: { ID: ID },
+
+            success: function (response) {
+                debugger;
+                toastr.success('Supprimé avec succès', 'Succès', { progressBar: true, showDuration: 100 });
+                $('#MATSelectorGridR').DataTable().ajax.reload();
+
+            },
+        });
+    }
+}
 function LoadBLSelectorRData() {
     debugger;
     var ClientFilter = $("#OwnerId").val();

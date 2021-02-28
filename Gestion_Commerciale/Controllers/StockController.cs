@@ -69,7 +69,25 @@ namespace Gestion_Commerciale.Controllers
             }
             return res;
         }
-
+        public static IList<SelectListItem> GetAchatServicesList()
+        {
+            List<SelectListItem> res = new List<SelectListItem>();
+            res.Add(new SelectListItem()
+            {
+                Text = "",
+                Value = "0"
+            });
+            var Service = ServicesBLL.GetAchatServices();
+            foreach (var f in Service)
+            {
+                res.Add(new SelectListItem()
+                {
+                    Text = f.Libelle,
+                    Value = f.ID.ToString()
+                });
+            }
+            return res;
+        }
 
         public ActionResult AddOrUpdateService(ServicesModel ServiceToAdd)
         {

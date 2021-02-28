@@ -24,23 +24,23 @@
         <div class="row" style="margin-left:15px;">
             @if (Model == "FFAC")
             {
-                <button id="FFACBtn" onclick="ChangeListPiecesSourceType('FFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
+                @*<button id="FFACBtn" onclick="ChangeListPiecesSourceType('FFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
 
                     <span class="text"><b>Factures</b></span>
                 </button>
                 <button id="FNOCBtn" onclick="ChangeListPiecesSourceType('FNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
                     <span class="text"><b>Notes crédit</b></span>
-                </button>
+                </button>*@
             }
             @if (Model == "CFAC")
             {
-                <button id="CFACBtn" onclick="ChangeListPiecesSourceType('CFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
+                @*<button id="CFACBtn" onclick="ChangeListPiecesSourceType('CFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
 
                     <span class="text"><b>Factures</b></span>
                 </button>
                 <button id="CNOCBtn" onclick="ChangeListPiecesSourceType('CNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
                     <span class="text"><b>Notes crédit</b></span>
-                </button>
+                </button>*@
             }
         </div>
         <div class="card-body">
@@ -60,7 +60,7 @@
                                 Statut
                             </th>
 
-                            @if (Model == "CFAC" || Model == "CNOC" )
+                            @if (Model == "CFAC")
                             {
                                 <th style="text-align:center;width:200px">
                                     Client

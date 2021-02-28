@@ -16,5 +16,14 @@ namespace TSD_BLL
                 return GenericModelMapper.GetModelList<ServicesModel, Services>(ServicesList);
             }
         }
+
+        public static List<ServicesModel> GetAchatServices()
+        {
+            using (TSD_Gestion_CommercialeEntities DB = new TSD_Gestion_CommercialeEntities())
+            {
+                var ServicesList = DB.Services.Where(e =>e.Achat).ToList();
+                return GenericModelMapper.GetModelList<ServicesModel, Services>(ServicesList);
+            }
+        }
     }
 }

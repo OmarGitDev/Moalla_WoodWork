@@ -95,7 +95,7 @@
           <Property Name="Remise" Type="float" />
         </EntityType>
         <!--Erreurs détectées durant la génération :
-avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
         <EntityType Name="DetailsPiecePrint">
           <Key>
             <PropertyRef Name="ID" />
@@ -155,6 +155,15 @@ avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' 
           <Property Name="ReglementID" Type="int" Nullable="false" />
           <Property Name="PieceID" Type="nvarchar" MaxLength="50" />
           <Property Name="Montant" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialReglementDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReglementID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="MotifConge">
           <Key>
@@ -464,6 +473,7 @@ avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' 
           <EntitySet Name="Fournisseur" EntityType="Self.Fournisseur" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JoursFeries" EntityType="Self.JoursFeries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MappingReglementPieces" EntityType="Self.MappingReglementPieces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialReglementDetails" EntityType="Self.MaterialReglementDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MotifConge" EntityType="Self.MotifConge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotificationsType" EntityType="Self.NotificationsType" Schema="dbo" store:Type="Tables" />
@@ -582,6 +592,7 @@ avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' 
             <Parameter Name="DateTo" Mode="In" Type="DateTime" />
             <Parameter Name="Client" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="MaterialReglementDetails" EntityType="TSD_Gestion_CommercialeModel.MaterialReglementDetails" />
           </EntityContainer>
         <EntityType Name="Banque">
           <Key>
@@ -1044,6 +1055,15 @@ avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' 
           <Property Type="Double" Name="CREDIT" Nullable="false" />
           <Property Type="Double" Name="SOLDE" Nullable="true" />
         </ComplexType>
+        <EntityType Name="MaterialReglementDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReglementID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1540,6 +1560,16 @@ avertissement 6002: La table/vue 'TSD_Gestion_Commercialedbo.DetailsPiecePrint' 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MaterialReglementDetails">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.MaterialReglementDetails">
+              <MappingFragment StoreEntitySet="MaterialReglementDetails">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ReglementID" ColumnName="ReglementID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -40,6 +40,7 @@
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Reclamations" Width="1.5" PointX="3.375" PointY="15.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Piece" Width="1.5" PointX="15.375" PointY="15.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Client" Width="1.5" PointX="5.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.MaterialReglementDetails" Width="1.5" PointX="17.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

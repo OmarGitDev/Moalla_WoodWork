@@ -60,6 +60,7 @@ namespace TSD_DAL.TSD_EDMX
         public virtual DbSet<Reclamations> Reclamations { get; set; }
         public virtual DbSet<Piece> Piece { get; set; }
         public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<MaterialReglementDetails> MaterialReglementDetails { get; set; }
     
         public virtual ObjectResult<GET_BeneficesPerMonth_Result> GET_BeneficesPerMonth(Nullable<System.DateTime> dateFrom, Nullable<System.DateTime> dateTo)
         {

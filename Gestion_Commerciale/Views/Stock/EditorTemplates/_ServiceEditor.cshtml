@@ -25,7 +25,7 @@
                 <span class="input-group-addon"><i class="fa fa-dollar-sign"></i></span>
                 @Html.Label("Montant")
                 <div class="input-group text">
-                    @Html.TextBoxFor(model => model.Montant, new { @class = "form-control border-left-info" ,@onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')" ,@onkeyup = "this.value = this.value.replace('.',',')"})
+                    @Html.TextBoxFor(model => model.Montant, new { @class = "form-control border-left-info" ,@onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')"})
                 </div>
             </div>
             
