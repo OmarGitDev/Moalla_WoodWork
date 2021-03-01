@@ -585,7 +585,9 @@ namespace Gestion_Commerciale.Controllers
                         gpm = Piece_BLL.GetAllPiecesClientsByType(Type, CodeFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, ClientFilter, StatusFilter);
                     }; break;
             }
-            gpm.ForEach(e => e.Solde = e.MontantFinal - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, false)));
+            gpm.ForEach(e => e.SoldeNet = e.MontantFinal - e.RAS - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, false)));
+            gpm.ForEach(e => e.SoldeRAS = e.RAS - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, true)));
+            gpm.ForEach(e => e.Solde = e.SoldeNet  + e.SoldeRAS);
             gpm.ForEach(e => e.Statut = e.Statut == "VLD" ? "Validée" : e.Statut == "ECR" ? "En cours" : "Annulée");
             if (etat == "Ouvert")
             {
@@ -1333,6 +1335,9 @@ namespace Gestion_Commerciale.Controllers
         public double GetDefaultRASAmmount(string numPiece)
         {
             Piece piece = Piece_BLL.GetByNumPiece(numPiece);
+            List<MappingReglementPiecesModel> mappings = MappingReglementPiecesBLL.GetMappingsByPiece(numPiece).Where(e => e.RAS).ToList();
+            if(mappings.Count() > 0)
+                return 0;
             if (piece != null)
                 return piece.RAS;
             return 0;

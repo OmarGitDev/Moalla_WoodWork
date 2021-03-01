@@ -38,7 +38,8 @@ namespace TSD_DAL.Model
         public string Categorie { get; set; }
         public string Reference { get; set; }
         public double? Solde { get; set; }
-
+        public double? SoldeRAS { get; set; }
+        public double? SoldeNet { get; set; }
         //public List<DetailsPieceModel> Details { get; set; }
 
     }
