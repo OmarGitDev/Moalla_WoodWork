@@ -3508,8 +3508,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="obj\Release\" />
-    <Folder Include="obj\UAT\" />
     <Folder Include="Reports\" />
     <Folder Include="Views\Print\" />
   </ItemGroup>

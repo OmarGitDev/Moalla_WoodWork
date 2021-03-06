@@ -119,6 +119,7 @@ function OpenClientEditor(ID) {
 
             $('#GenericModel').modal();
             $("#ModalTitle").text("Client");
+           // $("#modaldialog").addClass("modal-lg");
             $("#ModalBody").html(data);
 
         },
@@ -164,8 +165,10 @@ function LoadClientsData() {
                             "render": function (data, type, row) {
                                 debugger
                                 var ID = row.ID;
-                                return "<div style='display:inline-flex'><button onclick=OpenClientEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
-
+                               // return "<div style='display:inline-flex'><button onclick=OpenClientEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
+                                return "<div style='display:inline-flex'>" +
+                                    "<a onclick=OpenClientEditor('" + ID + "') href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                                   "</div>"
                             }
                         },
 
@@ -176,7 +179,21 @@ function LoadClientsData() {
                   { "data": "Tel2" },
                   { "data": "Fax" },
                   { "data": "MatriculeFiscal" },
-                  { "data": "IsActive" },
+           
+            {
+                "data": "IsActive",
+                render: function (data, type, row) {
+                    var id = row.idClient;
+                    if (data == true) {
+                        return "<div style='display:inline-flex'>" + "<i  onclick=update('" + id + "') style='color:green;cursor:pointer' class='fas fa-toggle-on fa-2x' aria-hidden='true'></i></div>"
+
+                    }
+                    else {
+                        return "<div style='display:inline-flex'><i onclick=update('" + id + "') style='color:red;cursor:pointer' class='fas fa-toggle-off fa-2x' aria-hidden='true'></i></div>"
+
+                    }
+                }
+            },
                   { "data": "Route" }
                   
         
@@ -715,6 +732,7 @@ function OpenBanqueEditor(ID) {
 
             $('#GenericModel').modal();
             $("#ModalTitle").text("Banque");
+             $("#modaldialog").addClass("modal-sm");
             $("#ModalBody").html(data);
 
         },
@@ -750,6 +768,9 @@ function LoadBanqueData() {
     var table = $('#BanqueGrid').DataTable({
         "order": [[0, "desc"]],
         "autoWidth": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        },
         ajax: {
             url: "/Administration/GetAllBanque",
             dataSrc: ''
@@ -760,7 +781,11 @@ function LoadBanqueData() {
              "render": function (data, type, row) {
                  debugger
                  var ID = row.ID;
-                 return "<div style='display:inline-flex'><button onclick=OpenBanqueEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteBanque('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+               //  return "<div style='display:inline-flex'><button onclick=OpenBanqueEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteBanque('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                 return "<div style='display:inline-flex'>" +
+                     "<a style='cursor:pointer' onclick=OpenBanqueEditor('" + ID + "') href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                     "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick=DeleteBanque('" + ID + "') href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                     "</div>"
              }
          },
 

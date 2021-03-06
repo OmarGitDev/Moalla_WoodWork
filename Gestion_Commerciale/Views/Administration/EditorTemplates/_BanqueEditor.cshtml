@@ -4,29 +4,29 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                @Html.LabelFor(model => model.NomBanque)
-                <div class="input-group text">
-                    
-                    @Html.TextBoxFor(model => model.NomBanque, new { @class = "form-control" })
+
+                <div class="form-group">
+                    <label class="mb-1" for="NomBanque">Nom de la banque:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-landmark text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.NomBanque, new { @class = "form-control", @placeholder = "", @required = true })
+                    </div>
                 </div>
             </div>
             </div>
         <div class="row">
-           
             <div class="col-md-12">
-                <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                @Html.LabelFor(model => model.Adresse)
-                <div class="input-group text">
-                    @Html.TextBoxFor(model => model.Adresse, new { @class = "form-control" })
+                <div class="form-group">
+                    <label class="mb-1" for="NomBanque">Adresse:</label>
+                    @Html.TextAreaFor(model => model.Adresse, new { @class = "form-control", @placeholder = "", @required = true })
+
+
                 </div>
             </div>
-            
-
         </div>
-        
- 
-    </div>
+        </div>
 </form>
     <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateBanque()"><i class="ace-icon fa fa-check"></i> Valider</button>

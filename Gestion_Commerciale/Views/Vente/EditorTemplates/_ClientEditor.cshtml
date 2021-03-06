@@ -3,181 +3,128 @@
     @Html.HiddenFor(model => model.ID)
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                @Html.Label("Nom client")
-                <div class="input-group text">
-                    @Html.TextBoxFor(model => model.OwnerName, new { @class = "form-control border-left-info" })
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="mb-1" for="OwnerName">Nom client:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-landmark text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.OwnerName, new { @class = "form-control", @placeholder = "Tapez le nom du client", @required = true })
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                @Html.LabelFor(model => model.Adresse)
-                <div class="input-group text">
-                    @Html.TextBoxFor(model => model.Adresse, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
 
-
+            </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-code"></i></span>
-                @Html.LabelFor(model => model.MatriculeFiscal)
-                <div class="input-group text">
-                    @Html.TextBoxFor(model => model.MatriculeFiscal, new { @class = "form-control border-left-info" })
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="mb-1" for="Adresse">Adresse:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-address-card text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.Adresse, new { @class = "form-control", @placeholder = "Tapez l'adresse du client", @required = true })
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                @Html.Label("RIB")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.IBAN, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
-
-
-
-        </div>
-        <div class="row">
-
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                @Html.Label("Fixe")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.Tel1, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                @Html.Label("Mobile")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.Tel2, new { @class = "form-control border-left-info" })
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="mb-1" for="CodePostal">Code Postale:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-address-card text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.CodePostal, new { @class = "form-control", @placeholder = "", @required = true })
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                @Html.Label("Email")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.Fax, new { @class = "form-control border-left-info" })
+            <div class="col-md-12">
+                <div class="form-group">
+                    <span class="help-block m-b-none m-b small">Matricule fiscal - Clé - Catégorie - Num étab(Exemple : 1234567-S-M-000 )</span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-code text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.MatriculeFiscal, new { @class = "form-control", @placeholder = "Matricule Fiscale ..." })
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                @Html.LabelFor(model => model.Route)
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.Route, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
-            </div>
-        <div class="row">
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-mail-bulk"></i></span>
-                @Html.LabelFor(model => model.CodePostal)
-                <div class="input-group number">
-                    @Html.TextBoxFor(model => model.CodePostal, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
-            <div class="col-md-1">
 
-
-                @Html.Label("Actif", new { style = "margin-top:37px;" })
-            </div>
-            <div class="col-md-1">
-
-
-                <div class="input-group boolean">
-                    @Html.CheckBoxFor(model => model.IsActive, new { style = "width:20px;height:20px;margin-top:40px", @class = "form-control border-left-info" })
-                </div>
-            </div>
-            <div class="col-md-1">
-
-
-                @Html.Label("Exo TVA", new { style = "margin-top:37px;" })
-            </div>
-            <div class="col-md-1">
-
-
-                <div class="input-group boolean">
-                    @Html.CheckBoxFor(model => model.Exonere, new { style = "width:20px;height:20px;margin-top:40px", @class = "form-control border-left-info" })
-                </div>
-            </div>
-            <div class="col-md-1">
-
-
-                @Html.Label("Exo TF", new { style = "margin-top:37px;" })
-            </div>
-            <div class="col-md-1">
-
-
-                <div class="input-group boolean">
-                    @Html.CheckBoxFor(model => model.TFExo, new { style = "width:20px;height:20px;margin-top:40px", @class = "form-control border-left-info" })
-                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                @Html.Label("Interlocuteur")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.Interlocuteur, new { @class = "form-control border-left-info" })
+                <div class="form-group">
+                    <label class="mb-1" for="Tel1">Téléphone:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-phone text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.Tel1, new { @class = "form-control", @required = true })
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                @Html.Label("Inter. tel")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.TelephoneInterlocuteur, new { @class = "form-control border-left-info" })
-                </div>
-            </div>
-        </div>
-        @*<div class="row">
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
-                @Html.Label("Debut Convention")
-                <div class="input-group date">
-                    @{
-                        string dateDebutString = string.Empty;
-                        if (Model.DebutConvention != null)
-                        {
-                            dateDebutString = Model.DebutConvention.Value.ToString("yyyy-MM-dd");
-                        }
-                    }
-                    @Html.TextBox("DebutConvention", dateDebutString, new { @class = "form-control border-left-info", @type = "date" })
-
-                </div>
-            </div>
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-clipboard-list"></i></span>
-                @Html.Label("Fin Convention")
-                <div class="input-group date">
-                    @{
-                        string dateString = string.Empty;
-                        if (Model.FinConvention != null)
-                        {
-                            dateString = Model.FinConvention.Value.ToString("yyyy-MM-dd");
-                        }
-                    }
-                    @Html.TextBox("FinConvention", dateString, new { @class = "form-control border-left-info", @type = "date" })
-
+                <div class="form-group">
+                    <label class="mb-1" for="Tel2">Mobile:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-phone text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.Tel2, new { @class = "form-control", @required = true })
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                @Html.Label("Passeges")
-                <div class="input-group date">
-                    @Html.TextBoxFor(model => model.NombrePassages, new { @class = "form-control border-left-info" })
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="mb-1" for="IBAN">IBAN:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-credit-card text-gray-400"></i></span>
+                        </div>
+                        @Html.TextBoxFor(model => model.IBAN, new { @class = "form-control", @placeholder = "", @required = true })
+                    </div>
                 </div>
             </div>
 
-        </div>*@
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(model => model.IsActive, new { @class = "custom-control-input" })
+                    <label class="custom-control-label" for="IsActive">Actif</label>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(model => model.TFExo, new { @class = "custom-control-input" })
+                    <label class="custom-control-label" for="TFExo">Exo TF</label>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(model => model.Exonere, new { @class = "custom-control-input" })
+                    <label class="custom-control-label" for="Exonere">Exo TVA</label>
+                </div>
+            </div>
+        </div>
+
+        <br />
     </div>
-    </form>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateClient()"><i class="ace-icon fa fa-check"></i> Valider</button>
-        <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
-    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateClient()"><i class="ace-icon fa fa-check"></i> Valider</button>
+    <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#MatriculeFiscal").mask("999999*-a-a-999");
+    });
+</script>

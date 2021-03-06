@@ -196,7 +196,11 @@ function LoadPieceDetailsData(StatutPiece) {
                 "render": function (data, type, row) {
                     debugger
                     var ID = row.ID;
-                    return "<div style='display:inline-flex'><button onclick='OpenDetailsPieceEditor(" + ID + ")' style='width:30px;height:30px;' class='HiddenIfVLD d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button onclick='DeleteDetailsPiece(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='HiddenIfVLD d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                   
+                    return "<div style='display:inline-flex'>" +
+                        "<a onclick='OpenDetailsPieceEditor(" + ID + ")'  href='#' class='btn btn-warning btn-circle btn-sm HiddenIfVLD'>" + "<i class='fas fa-edit'></i> </a>" +
+                        "<a  style='cursor:pointer;margin:0px 5px 0px 5px' onclick=DeleteDetailsPiece('" + ID + "') href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                        "</div>"
                 }
             },
             { "data": "Libelle" },
@@ -319,7 +323,11 @@ function LoadPieceListData() {
                 "render": function (data, type, row) {
                     debugger
                     var NumPiece = row.NumPiece;
-                    return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></div>"
+               //     return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></div>"
+
+                    return "<div style='display:inline-flex'>" +
+                        "<a onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
+                       "</div>"
                 }
             },
             {
@@ -448,6 +456,10 @@ function LoadPieceListData() {
                     var NumPiece = row.NumPiece;
                     return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span><button onclick='PrintFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
 
+                    return "<div style='display:inline-flex'>" +
+                        "<a style='cursor:pointer' onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
+                        "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick='PrintFacture(" + "\"" + NumPiece + "\"" + ")'  href='#' class='btn btn-primary btn-circle btn-sm'>" + "<i class='fas fa-print'></i> </a>" +
+                        "</div>"
 
                 }
             },
