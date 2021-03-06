@@ -299,7 +299,8 @@ namespace TSD_BLL
                                   NumPiece = p.NumPiece,
                                   DateCreation = p.DateCreation,
                                   MontantFinal = p.MontantFinal,
-                                  Statut = p.Statut
+                                  Statut = p.Statut,
+                                  RAS = p.RAS
                               }
                     ).ToList();
                 List<PieceModel> pieceModel = new List<PieceModel>();

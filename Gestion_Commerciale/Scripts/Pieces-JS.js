@@ -319,7 +319,7 @@ function LoadPieceListData() {
                 "render": function (data, type, row) {
                     debugger
                     var NumPiece = row.NumPiece;
-                    return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span><button onclick='DeleteFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                    return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></div>"
                 }
             },
             {
@@ -446,7 +446,7 @@ function LoadPieceListData() {
                 "render": function (data, type, row) {
                     debugger
                     var NumPiece = row.NumPiece;
-                    return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span><button onclick='DeleteFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button><button onclick='PrintFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
+                    return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span><button onclick='PrintFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
 
 
                 }

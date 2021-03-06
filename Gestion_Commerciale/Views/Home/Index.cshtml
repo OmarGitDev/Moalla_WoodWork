@@ -1,11 +1,11 @@
 ﻿@*<link href="~/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">*@
-@{ 
+@{
     double totalFactures = (double)ViewBag.FactureClientAmount;
-    double totalReglementsC = (double)ViewBag.totalReglementsAmountC ;
+    double totalReglementsC = (double)ViewBag.totalReglementsAmountC;
     double totalReglementsF = (double)ViewBag.totalReglementsAmountF;
     double totalFacturesFournissurs = (double)ViewBag.totalFacturesFournissurs;
     double totalBC = (double)ViewBag.totalBC;
-    double totalBL = (double)ViewBag.totalBL;   
+    double totalBL = (double)ViewBag.totalBL;
     int Passages = (int)ViewBag.Passages;
 }
 <div class="row  border-bottom white-bg dashboard-header">
@@ -14,7 +14,7 @@
             <h2>
                 ACCEUIL
             </h2>
-           
+
 
         </div>
     </div>
@@ -23,7 +23,7 @@
 
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-6 mb-4">
+    <div class="col-xl-6 col-md-6 mb-4">
 
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
@@ -56,13 +56,49 @@
         </div>
 
     </div>
-    <div class="col-xl-4 col-md-6 mb-4">
+
+    <div class="col-xl-6 col-md-6 mb-4">
+
         <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <a href="/Common/ListPieces?Type=FFAC&CurrentDate=1" style="text-decoration:none">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Factures Fournisseurs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-600">@totalFacturesFournissurs DT</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-donate fa-2x text-gray-500"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-9">
+                        @Html.TextBox("FFACFinder", "", new { @placeholder = "Recherche", onchange = "OpenFFACByNumber()", @class = "form-control border-left-success" })
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-2">
+                        <button onclick="OpenEditorToAddFacture('FFAC')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                            <span class="icon text-white-30">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <a href="/Common/ExternalReglements?Owner=C&CurrentDate=1" style="text-decoration:none">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Règlements clients</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Règlements clients</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-600">@totalReglementsC DT</div>
                         </div>
                         <div class="col-auto">
@@ -72,12 +108,12 @@
                 </a>
                 <div class="row no-gutters align-items-center">
                     <div class="col-md-9">
-                        @Html.TextBox("REGPFinder", "", new { @placeholder = "Recherche", onchange = "OpenREGNByNumber('REGP')", @class = "form-control border-left-success" })
+                        @Html.TextBox("REGPFinder", "", new { @placeholder = "Recherche", onchange = "OpenREGNByNumber('REGP')", @class = "form-control border-left-primary" })
                     </div>
                     <div class="col-md-1">
                     </div>
                     <div class="col-2">
-                        <button onclick="OpenExternalReglementsEditor('C')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                        <button onclick="OpenExternalReglementsEditor('C')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <span class="icon text-white-30">
                                 <i class="fas fa-plus"></i>
                             </span>
@@ -87,31 +123,62 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-4 col-md-6 mb-4">
-
-        <div class="card border-left-warning shadow h-100 py-2">
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
-                <a href="/Common/ListPieces?Type=FFAC&CurrentDate=1" style="text-decoration:none">
+                <a href="/Common/ExternalReglements?Owner=F&CurrentDate=1" style="text-decoration:none">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Factures Fournisseurs</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-600">@totalFacturesFournissurs DT</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Règlements fournisseurs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-600">@totalReglementsF DT</div>
                         </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-2">
-                            <i class="fas fa-donate fa-2x text-gray-500"></i>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-500"></i>
                         </div>
                     </div>
                 </a>
                 <div class="row no-gutters align-items-center">
                     <div class="col-md-9">
-                        @Html.TextBox("FFACFinder", "", new { @placeholder = "Recherche", onchange = "OpenFFACByNumber()", @class = "form-control border-left-warning" })
+                        @Html.TextBox("REGNFinder", "", new { @placeholder = "Recherche", onchange = "OpenREGNByNumber('REGN')", @class = "form-control border-left-success" })
                     </div>
                     <div class="col-md-1">
                     </div>
                     <div class="col-2">
-                        <button onclick="OpenEditorToAddFacture('FFAC')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                        <button onclick="OpenExternalReglementsEditor('F')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                            <span class="icon text-white-30">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example
+        <div class="col-xl-6 col-md-6 mb-4">
+
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <a href="/Common/ListPieces?Type=BLIV&CurrentDate=1" style="text-decoration:none">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Bons de livraison</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-600">totalBL DT</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-truck fa-2x text-gray-500"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-9">
+                        Html.TextBox("BLIVFinder", "", new { placeholder = "Recherche", onchange = "OpenBLIVByNumber()", class = "form-control border-left-primary" })
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-2">
+                        <button onclick="OpenEditorToAddFacture('BLIV')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <span class="icon text-white-30">
                                 <i class="fas fa-plus"></i>
                             </span>
@@ -122,7 +189,6 @@
         </div>
 
     </div>
-    <!-- Earnings (Monthly) Card Example
         <div class="col-xl-3 col-md-6 mb-4">
 
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -131,7 +197,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Bons de commande</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-600">@totalBC DT</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-600">totalBC DT</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-shopping-basket fa-2x text-gray-500"></i>
@@ -140,7 +206,7 @@
                         </a>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-md-9">
-                                    @Html.TextBox("BCOMFinder", "", new { @placeholder = "Recherche", onchange = "OpenBCOMByNumber()", @class = "form-control border-left-primary" })
+                                    Html.TextBox("BCOMFinder", "", new { placeholder = "Recherche", onchange = "OpenBCOMByNumber()", class = "form-control border-left-primary" })
                                 </div>
                                 <div class="col-md-1">
                                 </div>
@@ -165,7 +231,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Passages Clients</div>
                                     <div class="row no-gutters align-items-center">
-                                        <div class="h5 mb-0 font-weight-bold text-gray-600">@Passages Passages</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-600">Passages Passages</div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -174,7 +240,7 @@
                             </div>
                         </a>
                         <div class="row no-gutters align-items-center" style="margin-top:15px;">
-                            @*<div class="col-md-6">
+                            <div class="col-md-6">
                                 <button onclick="OpenPersonEditor(0)" style="align-self:center;margin-left:5px;width:100%" class="d-none d-sm-inline-block btn btn-sm btn-info btn-icon-split shadow-sm">
                                     <span class="icon text-white-30" style="float:left">
                                         <i class="fas fa-plus"></i>
@@ -192,7 +258,7 @@
                                     </span>
                                     <span class="text">Congé</span>
                                 </button>
-                            </div>*@
+                            </div>
                         </div>
     </div>
                 </div>
@@ -202,72 +268,10 @@
 <div class="row" style="margin-top:10px;">
 
 
-    
-    <!-- Pending Requests Card Example
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <a href="/Common/ExternalReglements?Owner=F&CurrentDate=1" style="text-decoration:none">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Règlements fournisseurs</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-600">@totalReglementsF DT</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-500"></i>
-                            </div>
-                        </div>
-                        </a>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-md-9">
-                                @Html.TextBox("REGNFinder", "", new { @placeholder = "Recherche", onchange = "OpenREGNByNumber('REGN')", @class = "form-control border-left-warning" })
-                            </div>
-                            <div class="col-md-1">
-                            </div>
-                            <div class="col-2">
-                                <button onclick="OpenExternalReglementsEditor('F')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
-                                    <span class="icon text-white-30">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-    </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
 
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <a href="/Common/ListPieces?Type=BLIV&CurrentDate=1" style="text-decoration:none">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Bons de livraison</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-600">@totalBL DT</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-truck fa-2x text-gray-500"></i>
-                                </div>
-                            </div>
-                            </a>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-md-9">
-                                        @Html.TextBox("BLIVFinder", "", new { @placeholder = "Recherche", onchange = "OpenBLIVByNumber()", @class = "form-control border-left-primary" })
-                                    </div>
-                                    <div class="col-md-1">
-                                    </div>
-                                    <div class="col-2">
-                                        <button onclick="OpenEditorToAddFacture('BLIV')" style="align-self:center;margin-left:5px;" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                            <span class="icon text-white-30">
-                                                <i class="fas fa-plus"></i>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-    </div>
-                </div>
+    <!-- Pending Requests Card Example-->
+   
 
-        </div>-->
     <!-- Earnings (Monthly) Card Example -->
     <!-- Pending Requests Card Example -->
     @*<div class="col-xl-3 col-md-6 mb-4">
@@ -310,13 +314,12 @@
             </div>*@
 </div>
 @*<script src="~/js/plugins/morris/raphael-2.1.0.min.js" type="text/javascript"></script>
-<script src="~/js/plugins/morris/morris.js" type="text/javascript"></script>*@
+    <script src="~/js/plugins/morris/morris.js" type="text/javascript"></script>*@
 <script src="~/Scripts/Pieces-JS.js"></script>
 <script src="~/Scripts/Stock-JS.js"></script>
 <script src="~/Scripts/RH-JS.js"></script>
 <script>
-    function OpenCFACByNumber()
-    {
+    function OpenCFACByNumber() {
 
         var numPiece = $("#CFACFinder").val();
         if (numPiece != null && numPiece != "" && numPiece != undefined) {
@@ -348,15 +351,14 @@
     function OpenREGNByNumber(Type) {
 
         var Reglement = $("#" + Type + "Finder").val();
-        if (Reglement != null && Reglement != "" && Reglement != undefined)
-        {
+        if (Reglement != null && Reglement != "" && Reglement != undefined) {
             $.ajax({
                 type: "GET",
                 url: "/Common/GetReglementIDByRef",
                 data: { Reglement: Reglement },
                 success: function (response) {
                     if (response != null && response != "") {
-                        window.open("/Common/ExternalReglementDetails?ExternalReglementID=" + response,"_self");
+                        window.open("/Common/ExternalReglementDetails?ExternalReglementID=" + response, "_self");
                     }
                     else {
                         toastr.error('Réglement introuvable', 'Erreur !', { progressBar: true, ShowDuration: 500 });
@@ -367,6 +369,6 @@
                 failure: function (response) { }
             });
         }
-        
+
     }
 </script>

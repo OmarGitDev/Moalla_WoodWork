@@ -185,7 +185,7 @@ namespace Gestion_Commerciale.Controllers
                 Taxes t = Taxes_BLL.GetById(detail.CodeTaxe);
                 if (t != null)
                 {
-                    detail.pourcentageTaxe = t.Pourcentage.ToString() + " %";
+                    detail.pourcentageTaxe = t.NomTaxe;
                 }
                 detail.RemiseString = detail.Remise == 0 || detail.Remise == null ? "" : detail.Remise.ToString() + " %";
             }
@@ -306,7 +306,10 @@ namespace Gestion_Commerciale.Controllers
                 p.RAS = MontantFinal * Math.Round((Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RAS)))) / 100;
             }
             p.MontantTotal = MontantTotal;
-            p.MontantFinal = MontantFinal;
+            if (MontantTotal == 0)
+                p.MontantFinal = 0;
+            else
+                p.MontantFinal = MontantFinal;
             Piece_BLL.Update(p);
             Piece_BLL.updateClosed(NumPiece);
             return p;
@@ -471,11 +474,11 @@ namespace Gestion_Commerciale.Controllers
         public static IList<SelectListItem> GetAllTaxesList()
         {
             List<SelectListItem> res = new List<SelectListItem>();
-            res.Add(new SelectListItem()
-            {
-                Text = "",
-                Value = "0"
-            });
+            //res.Add(new SelectListItem()
+            //{
+            //    Text = "",
+            //    Value = "0"
+            //});
             var taxes = Taxes_BLL.GetAll();
             foreach (var f in taxes)
             {
@@ -549,12 +552,17 @@ namespace Gestion_Commerciale.Controllers
             if (!RAS)
             {
                 gpm = GetListPiecesForReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, ClientFilter, FournisseurFilter);
+                gpm.ForEach(e => e.Solde = e.MontantFinal - e.RAS - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, false)));
             }
             else
             {
                 gpm = GetListPiecesForRASReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RASLimite)), MontantMaxFilter, ClientFilter, FournisseurFilter);
+                gpm.ForEach(e => e.Solde = e.RAS - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, true)));
             }
-            gpm.ForEach(e => e.Solde = e.MontantFinal - Math.Abs(MappingReglementPiecesBLL.GetSumMappingsByPiece(e.NumPiece, RAS)));
+            
+
+            
+            
             gpm = gpm.Where(e => e.Statut == "VLD" && e.Solde != 0).ToList();
             //gpm.ForEach(e => e.Statut = e.Statut == "VLD" ? "Validée" : e.Statut == "ECR" ? "En cours" : "Annulée");
             return Json(gpm, JsonRequestBehavior.AllowGet);
