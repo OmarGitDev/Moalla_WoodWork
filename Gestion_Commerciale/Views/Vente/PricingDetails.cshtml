@@ -1,17 +1,8 @@
 ﻿
     <script type="text/javascript">
-        var url_String = window.location.href;
-        var url = new URL(url_string);
-        var type = url.searchParams.get("Type");
-        if (type == "CFAC") {
-            $("#collapseVentes").addClass("show");
-            $("#_ventes").addClass("active");
-            $("#_pricingListHref").addClass("active");
-        }
-        else if (type="FFAC") {
-
-        }
-       
+        $("#collapseVentes").addClass("show");
+        $("#_ventes").addClass("active");
+        $("#_pricingListHref").addClass("active");
     </script>
 
 @model TSD_DAL.Model.PricingModel

@@ -4,7 +4,13 @@ function OpenFournisseurEditor(ID) {
     $.ajax({
         type: "GET",
         url: "/Achat/OpenFournisseurEditor",
-        data:{ID:ID},
+        data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -57,7 +63,10 @@ function LoadFournisseurData() {
                  "render": function (data, type, row) {
                      debugger
                      var ID = row.ID;
-                     return "<div style='display:inline-flex'><button onclick=OpenFournisseurEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
+                   //  return "<div style='display:inline-flex'><button onclick=OpenFournisseurEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
+                     return "<div style='display:inline-flex'>" +
+                         "<a onclick=OpenFournisseurEditor('" + ID + "') href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                         "</div>"
                  }
              },
                   { "data": "OwnerName" },
@@ -113,7 +122,13 @@ function OpenClientEditor(ID) {
     $.ajax({
         type: "GET",
         url: "/Vente/OpenClientEditor",
-        data:{ID:ID},
+        data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -261,6 +276,12 @@ function OpenCategoriesProduitsEditor(ID) {
         type: "GET",
         url: "/Administration/OpenCategorieProduitsEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -338,6 +359,12 @@ function OpenTypesProduitsEditor(ID) {
         type: "GET",
         url: "/Administration/OpenTypeProduitsEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -438,6 +465,12 @@ function OpenMotifsCongesEditor(ID) {
         type: "GET",
         url: "/Administration/OpenMotifCongeEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -533,6 +566,12 @@ function OpenTaxesEditor(ID) {
         type: "GET",
         url: "/Administration/OpenTaxesEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -626,6 +665,12 @@ function OpenJoursFeriesEditor(ID) {
         type: "GET",
         url: "/Administration/OpenJoursFeriesEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -727,6 +772,12 @@ function OpenBanqueEditor(ID) {
         type: "GET",
         url: "/Administration/OpenBanqueEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -834,6 +885,12 @@ function OpenCompteBancaireEditor(ID) {
         type: "GET",
         url: "/Administration/OpenCompteBancaireEditor",
         data: { ID: ID, OwnerType: OwnerType },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -968,6 +1025,12 @@ function OpenTypeReglementEditor(ID) {
         type: "GET",
         url: "/Administration/OpenTypeReglementEditor",
         data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 

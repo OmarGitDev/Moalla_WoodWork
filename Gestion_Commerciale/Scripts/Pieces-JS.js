@@ -39,6 +39,14 @@ function OpenEditorToAddFacture(PieceType) {
         type: "GET",
         url: "/Common/OpenPieceEditorToAdd",
         data: { Type: PieceType },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+
+
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -74,6 +82,12 @@ function AddNewPiece(TypePieces) {
         data: formData,
         //dataType: 'json',
         //encode: true,
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (response) {
             debugger;
             $('#GenericModel').modal('hide');
@@ -89,7 +103,13 @@ function OpenDetailsPieceEditor(ID)
     $.ajax({
         type: "GET",
         url: "/Common/OpenDetailsPieceEditor",
-        data: { ID: ID,NumPiece:NumPiece },
+        data: { ID: ID, NumPiece: NumPiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -136,6 +156,12 @@ function AddOrUpdateDetailsPiece() {
         data: formData,
         dataType: 'json',
         encode: true,
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             var t1 = data.Val1;
             var t2 = data.Val2;
@@ -542,6 +568,12 @@ function SearchTypeAndOpenFactureDetail(NumPiece)
         type: 'POST',
         url: "/Common/GetPieceType",
         data: { NumPiece: NumPiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (response) {
             if (response != null && response != "")
             {
@@ -606,6 +638,12 @@ function SaveReglementsChanges() {
         type:"POST",
         url: "/Common/SaveReglementsChanges",
         data: { ReglementID: ReglementID, Montant: Montant, DateReglement: DateReglement, OwnerId: OwnerId, Reference: Reference, Sens: Sens, Remarques: Remarques, DateEcheance: DateEcheance, Banque: Banque },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (response) {
             //debugger;
             //var LibelleRes = response[0];
@@ -698,6 +736,12 @@ function AddNewDetailPiece()
         data: formData,
         //dataType: 'json',
         //encode: true,
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (response) {
             debugger;
             $('#GenericModel').modal('hide');
@@ -766,6 +810,12 @@ function OpenEditorToFillFacture() {
         type: "GET",
         url: "/Common/OpenEditorToFillFacture",
         data: { SelectedServices: SelectedServices, numPiece: numPiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             $('#GenericModel').modal();
             $("#ModalTitle").text("Lier la liste des Produits");
@@ -787,6 +837,12 @@ function AddReglementMappings() {
         data: formData,
         error: function (response) {
             debugger;
+        },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
         },
         success: function (data) {
            /* var t1 = data.Val1;
@@ -956,6 +1012,12 @@ function OpenExternalReglementsEditor(OwnerType) {
         type: "GET",
         url: "/Common/OpenExternalReglementsEditor",
         data: { OwnerType: OwnerType },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -1123,7 +1185,13 @@ function OpenReglementsDtails(ID)
     $.ajax({
         type: "GET",
         url: "/Common/GetReglementIDFormDetail",
-        data: { ID: ID},
+        data: { ID: ID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             window.open("/Common/ExternalReglementDetails?ExternalReglementID=" + data, "_self");
         },
@@ -1137,6 +1205,12 @@ function OpenReglementsEditor(ID) {
         type: "GET",
         url: "/Common/OpenReglementsEditor",
         data: { ID: ID, NumPiece: NumPiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -1335,6 +1409,12 @@ function OpenEditorToFillFactureFromDevisDetails() {
         type: "GET",
         url: "/Common/OpenEditorToFillFactureFromPricing",
         data: { SelectedPricing: SelectedDevis, numPiece: numPiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             $('#GenericModel').modal();
             $("#ModalTitle").text("Lier la liste des détails devis");
@@ -1359,6 +1439,12 @@ function OpenEditorToFillFactureFromTarif() {
         type: "GET",
         url: "/Common/OpenEditorToFillFactureFromPricing",
         data: { SelectedPricing: SelectedTarifs, numPiece: numPiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             $('#GenericModel').modal();
             $("#ModalTitle").text("Lier la liste des détails tarifs");
@@ -1380,6 +1466,12 @@ function LinkPricingDetailsToInvoice() {
         
         error: function (response) {
             debugger;
+        },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
         },
         success: function (response) {
             debugger;
@@ -1408,6 +1500,12 @@ function FillFactureFromDevis(numPiece) {
         error: function (response) {
             debugger;
         },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (response) {
             debugger;
             $('#GenericModel').modal('hide');
@@ -1425,6 +1523,12 @@ function ChangeFactureStatus(status)
         type: 'POST',
         url: "/Common/ChangeFactureStatus",
         data: { numPiece: numPiece, status: status },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         error: function (response) {
             debugger;
         },
@@ -1527,7 +1631,6 @@ function ChangeReglementSourceType(Type) {
     $("#" + Type + "ListDiv").css("display", "block");
 
 }
-
 
 
 function LoadFactureClientSelectorData() {
@@ -1673,7 +1776,13 @@ function OpenMaterialReglementEditor(id) {
     $.ajax({
         type: "GET",
         url: "/Common/OpenMaterialReglementEditor",
-        data: { id: id, reglementID: reglementID},
+        data: { id: id, reglementID: reglementID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
 
@@ -1930,6 +2039,12 @@ function OpenEditorToFillMapping(SelectedItems,type)
         type: "GET",
         url: "/Common/OpenEditorToFillMappings",
         data: { SelectedItems: SelectedItems, ReglementID: ReglementID },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             $('#GenericModel').modal();
             $("#ModalTitle").text("Lier la liste des Produits");
@@ -2166,6 +2281,12 @@ function OpenReglementsGridSelector()
         type: "GET",
         url: "/Common/OpenReglementsGridSelector",
         data: { NumPiece: NumPiece, TypePiece: TypePiece },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             $('#GenericModel').modal();
             $("#ModalTitle").text("Importer règlement");
@@ -2235,7 +2356,13 @@ function UpdateCaseStatus(Status) {
     $.ajax({
         type: 'GET',
         url: "/Vente/UpdateCaseStatus",
-        data: { Client: Client,Month:Month,Day:Day,Status:Status },
+        data: { Client: Client, Month: Month, Day: Day, Status: Status },
+        beforeSend: function () {
+            $.blockUI({ message: 'Patientez un peu...' });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
         success: function (data) {
             debugger;
             if (Status == "REA") {
