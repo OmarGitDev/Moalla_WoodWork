@@ -1,4 +1,20 @@
-﻿@model TSD_DAL.Model.PricingModel
+﻿
+    <script type="text/javascript">
+        var url_String = window.location.href;
+        var url = new URL(url_string);
+        var type = url.searchParams.get("Type");
+        if (type == "CFAC") {
+            $("#collapseVentes").addClass("show");
+            $("#_ventes").addClass("active");
+            $("#_pricingListHref").addClass("active");
+        }
+        else if (type="FFAC") {
+
+        }
+       
+    </script>
+
+@model TSD_DAL.Model.PricingModel
 @*@{
         Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
     }*@
@@ -111,7 +127,7 @@
                         @Html.Label("Montant total") : <span id="MontantTotalValue">@Model.MontantTotal</span></br>
                         @Html.Label("Montant final") : <span id="MontantFinalValue">@Model.MontantFinal</span></br>
                         @Html.Label("Date création") : @if (Model.CreatedOn != null)
-                        { <span>@Model.CreatedOn.Value.ToString("dd/MM/yyyy")</span> }
+                        {<span>@Model.CreatedOn.Value.ToString("dd/MM/yyyy")</span>}
                     </div>
                 </div>
             </div>
@@ -133,9 +149,10 @@
                             </div>
                         </div>
                         <div class="row" style="margin-top:4px;">
-                            <div style="margin-top:8px;margin-left: 20px;"> @Html.Label("Jusqu'à") : 
+                            <div style="margin-top:8px;margin-left: 20px;">
+                                @Html.Label("Jusqu'à") :
                             </div>
-                           
+
                             <div>
                                 @{
                                     string ValidUntilDate = string.Empty;
@@ -179,7 +196,7 @@
                     <div style="display:inline-flex;float:right;width:15%">
                         @if (Model.Type == "Devis")
                         {
-                        <button title="Facturer" onclick="ConvertDevisToInvoice()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-right:5px;float:right"><i class="fas fa-donate fa-sm text-white-50"></i></button>
+                            <button title="Facturer" onclick="ConvertDevisToInvoice()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-right:5px;float:right"><i class="fas fa-donate fa-sm text-white-50"></i></button>
                         }
                         <button title="imprimer" onclick="PrintPricingDetails()" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" style="margin-right:5px;float:right"><i class="fas fa-print fa-sm text-white-50"></i></button>
                         <button title="Supprimer tout" onclick="DeleteAllDetailsPricing()" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" style="margin-right:5px;float:right"><i class="fas fa-trash fa-sm text-white-50"></i></button>

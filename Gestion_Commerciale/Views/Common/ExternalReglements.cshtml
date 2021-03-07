@@ -1,4 +1,21 @@
-﻿@model string
+﻿
+    <script type="text/javascript">
+        var url_String = window.location.href;
+        var url = new URL(url_String);
+        var owner = url.searchParams.get("Owner");
+        if (owner == "C") {
+            $("#collapseVentes").addClass("show");
+            $("#_ventes").addClass("active");
+            $("#_externalReglementsHref").addClass("active");
+        }
+        else if (owner = "F") {
+            $("#collapseAchat").addClass("show");
+            $("#_achat").addClass("active");
+            $("#_externalReglementsAchat").addClass("active");
+        }
+
+    </script>
+@model string
 @{
     string GridName = (string)ViewBag.GridName;
     int CurrentDate = (int)ViewBag.CurrentDate;

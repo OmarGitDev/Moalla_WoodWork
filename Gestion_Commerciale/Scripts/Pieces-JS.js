@@ -323,7 +323,7 @@ function LoadPieceListData() {
                 "render": function (data, type, row) {
                     debugger
                     var NumPiece = row.NumPiece;
-               //     return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></div>"
+               //return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></div>"
 
                     return "<div style='display:inline-flex'>" +
                         "<a onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
@@ -454,7 +454,7 @@ function LoadPieceListData() {
                 "render": function (data, type, row) {
                     debugger
                     var NumPiece = row.NumPiece;
-                    return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span><button onclick='PrintFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
+                   // return "<div style='display:inline-flex'><button onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span><button onclick='PrintFacture(" + "\"" + NumPiece + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
 
                     return "<div style='display:inline-flex'>" +
                         "<a style='cursor:pointer' onclick='OpenFactureDetail(" + "\"" + NumPiece + "\"" + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
@@ -867,7 +867,13 @@ function LoadExternalReglementsData(Owner) {
             "render": function (data, type, row) {
                 debugger
                 var ID = row.ID;
-                return "<div style='display:inline-flex'><button onclick='OpenExternalReglementsDetails(" + ID + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></button><button onclick='DeleteExternalReglements(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button><button onclick='PrintReglement(" + "\"" + ID + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
+                //return "<div style='display:inline-flex'><button onclick='OpenExternalReglementsDetails(" + ID + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-list'></i></span></button><button onclick='DeleteExternalReglements(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button><button onclick='PrintReglement(" + "\"" + ID + "\"" + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-print'></i></span></button></div>"
+
+                return "<div style='display:inline-flex'>" +
+                    "<a style='cursor:pointer' onclick='OpenExternalReglementsDetails(" + ID + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
+                    "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick='DeleteExternalReglements(" + ID + ")'  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                    "</div>";
+
             }
         },
         { "data": "LibelleTypeReglement" },
@@ -1067,7 +1073,13 @@ function LoadReglementsData()
             "render": function (data, type, row) {
                 debugger
                 var ID = row.ID;
-                return "<div style='display:inline-flex'><button onclick='OpenReglementsDtails(" + ID + ")' style='width:30px;height:30px;margin-right:10px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-50'><i class='fas fa-list'></i></span></button><button onclick='OpenReglementsEditor(" + ID + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-50'><i class='fas fa-edit'></i></span></button><button onclick='DeleteReglements(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-50'><i class='fas fa-trash'></i></span></button></div>"
+               // return "<div style='display:inline-flex'><button onclick='OpenReglementsDtails(" + ID + ")' style='width:30px;height:30px;margin-right:10px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-50'><i class='fas fa-list'></i></span></button><button onclick='OpenReglementsEditor(" + ID + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-50'><i class='fas fa-edit'></i></span></button><button onclick='DeleteReglements(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-50'><i class='fas fa-trash'></i></span></button></div>"
+
+                return "<div style='display:inline-flex'>" +
+                    "<a style='cursor:pointer' onclick='OpenReglementsDtails(" + ID + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
+                    "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick='OpenReglementsEditor(" + ID + ")'  href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                    "<a style='cursor:pointer' onclick='DeleteReglements(" + ID + ")'  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                    "</div>";
             }
         },
         { "data": "Reference" },
@@ -1626,7 +1638,11 @@ function LoadMATSelectorRData(reglementID) {
                 "render": function (data, type, row) {
                     debugger
                     var ID = row.ID;
-                    return "<div style='display:inline-flex'><button onclick=OpenMaterialReglementEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteMaterialReglement('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                  //  return "<div style='display:inline-flex'><button onclick=OpenMaterialReglementEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteMaterialReglement('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                    return "<div style='display:inline-flex'>" +
+                       "<a style='cursor:pointer' onclick='OpenMaterialReglementEditor(" + ID + ")'  href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                        "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick='DeleteMaterialReglement(" + ID + ")'  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                        "</div>";
                 }
             },
             { "data": "ProductName" },
@@ -1826,7 +1842,12 @@ function LoadMappingsRData()
                         debugger
                         var ID = row.ID;
                         var PieceID = row.PieceID;
-                        return "<div style='display:inline-flex'><button onclick='SearchTypeAndOpenFactureDetail(" + "\"" + PieceID + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-50'><i class='fas fa-list'></i></span></button><button onclick='DeleteReglements(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-50'><i class='fas fa-trash'></i></span></button></div>"
+                     //   return "<div style='display:inline-flex'><button onclick='SearchTypeAndOpenFactureDetail(" + "\"" + PieceID + "\"" + ")' style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-50'><i class='fas fa-list'></i></span></button><button onclick='DeleteReglements(" + ID + ")' style='width:30px;height:30px;margin-left:10px;'  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-50'><i class='fas fa-trash'></i></span></button></div>"
+
+                        return "<div style='display:inline-flex'>" +
+                            "<a style='cursor:pointer' onclick='SearchTypeAndOpenFactureDetail(" + "\"" + PieceID + "\"" + ")'  href='#' class='btn btn-info btn-circle btn-sm'>" + "<i class='fas fa-list'></i> </a>" +
+                            "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick='DeleteReglements(" + ID + ")'  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                            "</div>";
                     }
                 },
         { "data": "PieceID" },

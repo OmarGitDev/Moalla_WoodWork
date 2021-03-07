@@ -1,4 +1,20 @@
-﻿@model TSD_DAL.Model.GenericPieceModel
+﻿<script type="text/javascript">
+    var url_String = window.location.href;
+    var url = new URL(url_String);
+    var type = url.searchParams.get("Type");
+    if (type == "CFAC") {
+        $("#collapseVentes").addClass("show");
+        $("#_ventes").addClass("active");
+        $("#_listePiecesHref").addClass("active");
+    }
+    else if (type = "FFAC") {
+        $("#collapseAchat").addClass("show");
+        $("#_achat").addClass("active");
+        $("#listPiecesAchat").addClass("active");
+    }
+
+</script>
+@model TSD_DAL.Model.GenericPieceModel
 @*@{
         Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
     }*@

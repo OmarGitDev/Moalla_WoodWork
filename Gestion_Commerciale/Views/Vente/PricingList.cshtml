@@ -1,4 +1,10 @@
-﻿@{ 
+﻿<script type="text/javascript">
+    $("#collapseVentes").addClass("show");
+    $("#_ventes").addClass("active");
+    $("#_pricingListHref").addClass("active");
+</script>
+
+@{ 
     string Type = ViewBag.Type;
 } 
 @Html.Hidden("TypePricing", Type)

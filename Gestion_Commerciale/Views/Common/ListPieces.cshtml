@@ -1,9 +1,25 @@
-﻿@model string
-@{ 
+﻿<script type="text/javascript">
+    var url_String = window.location.href;
+    var url = new URL(url_String);
+    var type = url.searchParams.get("Type");
+    if (type == "CFAC") {
+        $("#collapseVentes").addClass("show");
+        $("#_ventes").addClass("active");
+        $("#_listePiecesHref").addClass("active");
+    }
+    else if (type = "FFAC") {
+        $("#collapseAchat").addClass("show");
+        $("#_achat").addClass("active");
+        $("#listPiecesAchat").addClass("active");
+    }
+
+</script>
+@model string
+@{
     string GridName = (string)ViewBag.GridName;
     int CurrentDate = (int)ViewBag.CurrentDate;
 }
-@Html.Hidden("TypePieces",Model)
+@Html.Hidden("TypePieces", Model)
 
 
 <style type="text/css">
@@ -19,28 +35,28 @@
             <h6 style="align-self:center" class="h3 mb-0 text-gray-800"><span id="GridName">@GridName</span></h6>
             @Html.Partial("~/Views/Common/EditorTemplates/FacturesFilter.cshtml", new TSD_DAL.Model.TextValueModel(Model, "1", CurrentDate))<hr />
 
-            
+
         </div>
         <div class="row" style="margin-left:15px;">
             @if (Model == "FFAC")
             {
                 @*<button id="FFACBtn" onclick="ChangeListPiecesSourceType('FFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
 
-                    <span class="text"><b>Factures</b></span>
-                </button>
-                <button id="FNOCBtn" onclick="ChangeListPiecesSourceType('FNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
-                    <span class="text"><b>Notes crédit</b></span>
-                </button>*@
+                        <span class="text"><b>Factures</b></span>
+                    </button>
+                    <button id="FNOCBtn" onclick="ChangeListPiecesSourceType('FNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
+                        <span class="text"><b>Notes crédit</b></span>
+                    </button>*@
             }
             @if (Model == "CFAC")
             {
                 @*<button id="CFACBtn" onclick="ChangeListPiecesSourceType('CFAC')" style="align-self:center;" class="btnSourcesF btn btn-primary">
 
-                    <span class="text"><b>Factures</b></span>
-                </button>
-                <button id="CNOCBtn" onclick="ChangeListPiecesSourceType('CNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
-                    <span class="text"><b>Notes crédit</b></span>
-                </button>*@
+                        <span class="text"><b>Factures</b></span>
+                    </button>
+                    <button id="CNOCBtn" onclick="ChangeListPiecesSourceType('CNOC')" style="align-self:center;" class="btnSourcesF btn btn-default">
+                        <span class="text"><b>Notes crédit</b></span>
+                    </button>*@
             }
         </div>
         <div class="card-body">
@@ -79,7 +95,7 @@
                             <th style="text-align:center;width:200px">
                                 Solde
                             </th>
-                            
+
                         </tr>
                     </thead>
                     <tbody align="center"></tbody>

@@ -9,8 +9,8 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/Home/index">
+        <li id="_acceuil" class="nav-item">
+            <a id="_acceuilHref" class="nav-link" href="/Home/index">
                 <i class="fas fa-fw fa-home"></i>
                 <span>Acceuil</span>
             </a>
@@ -19,39 +19,39 @@
         <hr class="sidebar-divider">
         <!-- Heading -->
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <li id="_ventes" class="nav-item">
+            <a  class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentes" aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-shopping-basket"></i>
                 <span>Ventes</span>
             </a>
             
-            <div id="collapseUtilities" class="collapse  bg-gradient-light rounded" style="z-index:9999999999999" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div id="collapseVentes" class="collapse  bg-gradient-light rounded" style="z-index:9999999999999" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Ventes</h6>
 
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=CFAC&CurrentDate=0">Factures clients</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/PricingList?Type=Devis">Devis</a>
+                    <a id="_listePiecesHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=CFAC&CurrentDate=0">Factures clients</a>
+                    <a id="_pricingListHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/PricingList?Type=Devis">Devis</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/PricingList?Type=Tarifs">Tarifs</a>*@
 
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ExternalReglements?Owner=C&CurrentDate=0">Règlements clients</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/Client">Liste des clients</a>
+                    <a id="_externalReglementsHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ExternalReglements?Owner=C&CurrentDate=0">Règlements clients</a>
+                    <a id="_clientHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/Client">Liste des clients</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/Passages">Passages clients</a>*@
                 </div>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <li id="_achat" class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAchat" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-truck"></i>
                 <span>Achat</span>
             </a>
-            <div id="collapseTwo" class="collapse  bg-gradient-light rounded" style="z-index:9999999999999" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseAchat" class="collapse  bg-gradient-light rounded" style="z-index:9999999999999" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Achat</h6>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=FFAC&CurrentDate=0">Factures fournisseurs</a>
+                    <a id="listPiecesAchat" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=FFAC&CurrentDate=0">Factures fournisseurs</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=BLIV&CurrentDate=0">Bon de Livraison</a>
                     <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=BCOM&CurrentDate=0">Bon de Commande</a>*@
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ExternalReglements?Owner=F&CurrentDate=0">Règlements fournisseurs</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Achat/Fournisseur">Liste des fournisseurs</a>
+                    <a id="_externalReglementsAchat" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ExternalReglements?Owner=F&CurrentDate=0">Règlements fournisseurs</a>
+                    <a id="fournisseurHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Achat/Fournisseur">Liste des fournisseurs</a>
 
                 </div>
             </div>
@@ -73,8 +73,8 @@
                 </div>
             </div>
         </li>*@
-        <li class="nav-item">
-            <a class="nav-link" href="/Stock/Services">
+        <li id="_produits" class="nav-item">
+            <a id="_produitsHref" class="nav-link" href="/Stock/Services">
                 <i class="fas fa-fw fa-handshake"></i>
                 <span>Produits</span>
             </a>
@@ -99,7 +99,7 @@
         <hr class="sidebar-divider">
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
+        <li id="_administration" class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdministration" aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Administration</span>
@@ -111,8 +111,8 @@
                     @* <a class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/Taxes">Liste des taxes</a>
                     <a class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/JoursFeries">Jours fériés</a>
                                 <a class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/TypeReglement">Types des règlements</a>*@
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/Banque">Liste des banques</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/CompteBancaire">Comptes bancaires</a>
+                    <a id="banqueHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/Banque">Liste des banques</a>
+                    <a id="compteBanquaireHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/CompteBancaire">Comptes bancaires</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Administration/Reclamations">Historique des réclamations</a>*@
 
 
@@ -121,7 +121,7 @@
                 </div>
             </div>
         </li>
-        <li class="nav-item">
+        <li id="_statistique" class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStatistiques" aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-chart-bar"></i>
 
@@ -130,9 +130,9 @@
             <div id="collapseStatistiques" class="collapse  bg-gradient-light rounded" style="z-index:9999999999999" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Statistiques</h6>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/ReleveDeCompte">Relevé de compte</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/Clients">Chiffres par client</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/EtatClient">Etat clients</a>
+                    <a id="ReleveDeCompteHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/ReleveDeCompte">Relevé de compte</a>
+                    <a id="ClientsHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/Clients">Chiffres par client</a>
+                    <a id="EtatClientHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/EtatClient">Etat clients</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/EngagementsFournisseurs">Engageemnts fournisseurs</a>
                     <a class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/Dashbord">Tableau de bord</a>
                     <a class="collapse-item text-xs  text-uppercase mb-1" href="/Statistiques/ChiffreAffaires">Chiffre d'affaires</a>*@

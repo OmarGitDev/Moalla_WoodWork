@@ -882,7 +882,12 @@ function LoadCompteBancaireData() {
              "render": function (data, type, row) {
                  debugger
                  var ID = row.ID;
-                 return "<div style='display:inline-flex'><button onclick=OpenCompteBancaireEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteCompteBancaire('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+             //    return "<div style='display:inline-flex'><button onclick=OpenCompteBancaireEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteCompteBancaire('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+
+                 return "<div style='display:inline-flex'>" +
+                     "<a style='cursor:pointer' onclick=OpenCompteBancaireEditor('" + ID + "')  href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                     "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick=DeleteCompteBancaire('" + ID + "')  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                     "</div>";
              }
          },
 
@@ -1009,7 +1014,12 @@ function LoadTypeReglementData() {
              "render": function (data, type, row) {
                  debugger
                  var ID = row.ID;
-                 return "<div style='display:inline-flex'><button onclick=OpenTypeReglementEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteTypeReglement('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                // return "<div style='display:inline-flex'><button onclick=OpenTypeReglementEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteTypeReglement('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+
+                 return "<div style='display:inline-flex'>" +
+                     "<a style='cursor:pointer' onclick=OpenTypeReglementEditor('" + ID + "')  href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                     "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick=DeleteTypeReglement('" + ID + "')  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                     "</div>";
              }
          },
 

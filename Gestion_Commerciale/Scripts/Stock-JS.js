@@ -117,7 +117,12 @@ function LoadMVTStockData()
              "render": function (data, type, row) {
                
                  var ID = row.ID;
-                 return "<div style='display:inline-flex'><button onclick=OpenMVTStockEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteMVTStockt('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+                // return "<div style='display:inline-flex'><button onclick=OpenMVTStockEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span><button style='width:30px;height:30px;margin-left:10px;'onclick=DeleteMVTStockt('" + ID + "')  class='d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm'><span class='icon text-white-30'><i class='fas fa-trash'></i></span></button></div>"
+
+                 return "<div style='display:inline-flex'>" +
+                     "<a style='cursor:pointer' onclick=OpenMVTStockEditor('" + ID + "')  href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                     "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick=DeleteMVTStockt('" + ID + "')  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                     "</div>";
              }
          },
         { "data": "ServiceNames" },
@@ -206,7 +211,12 @@ function LoadServicesData() {
              "render": function (data, type, row) {
                  debugger
                  var ID = row.ID;
-                 return "<div style='display:inline-flex'><button onclick=OpenServicesEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
+              //   return "<div style='display:inline-flex'><button onclick=OpenServicesEditor('" + ID + "') style='width:30px;height:30px;' class='d-none d-sm-inline-block btn btn-sm btn-info shadow-sm'><span class='icon text-white-30'><i class='fas fa-edit'></i></span></button></div>"
+
+                 return "<div style='display:inline-flex'>" +
+                     "<a style='cursor:pointer' onclick=OpenServicesEditor('" + ID + "')  href='#' class='btn btn-warning btn-circle btn-sm'>" + "<i class='fas fa-edit'></i> </a>" +
+                   //  "<a style='cursor:pointer;margin:0px 5px 0px 5px' onclick=DeleteMVTStockt('" + ID + "')  href='#' class='btn btn-danger btn-circle btn-sm'>" + "<i class='fas fa-trash'></i> </a>" +
+                     "</div>";
              }
          },
          //{ "data": "Reference" },
