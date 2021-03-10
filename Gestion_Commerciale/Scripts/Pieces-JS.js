@@ -2177,35 +2177,8 @@ function PrintFacture(NumPiece) {
 function PrintFactureDetails()
 {
     var NumPiece = $("#NumPiece").val();
-    $.ajax({
-        url: "/Print/ImprimerRapportFactureClient",
-        beforeSend: function () {
-            $.blockUI({ message: 'Patientez un peu...' });
-      
-       
-   },
-   complete: function(){
-       $.unblockUI();
-   },
-        data: { CodeFacture: NumPiece },
 
-        error: function (xhr, textStatus, errorThrown) {
-           
-            alert2('Error while trying to Insert the invoice!', 'KO');
-        },
-        success: function (data) {
-            debugger;
-            //var resultArray = ReadJsonResult(data);
-            var Status = data.Text;
-            var Value = data.Value;
-            if (Status != 'OK' && Status != '') {
-                alert2(Value, Status);
-            }
-            else {
-                OPEN_URL_IN_BLANK(Value);
-            }
-        }
-    });
+    window.open("/Print/ImprimerRapportFactureClient?NumPiece=" + NumPiece, '_blank');
     
 }
 function PrintReglement(ReglementID) {

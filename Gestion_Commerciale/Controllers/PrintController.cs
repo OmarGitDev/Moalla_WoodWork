@@ -1,4 +1,5 @@
 ﻿
+using CrystalDecisions.CrystalReports.Engine;
 using Gestion_Commerciale.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 using TSD_BLL;
 using TSD_DAL.Model;
 using TSD_DAL.TSD_EDMX;
+
 
 namespace Gestion_Commerciale.Controllers
 {
@@ -22,22 +24,106 @@ namespace Gestion_Commerciale.Controllers
         }
         //  Data Source = BEST - TECHNOLOGY\\SGC00SQL; Initial Catalog = TSD_Gestion_Commerciale
         
-        public JsonResult ImprimerRapportFactureClient(string CodeFacture)
+        
+            public FileResult Report()
         {
-            //PrintAndArchiveOptions printOptions = new PrintAndArchiveOptions(true, false, false, true,
-            //                                       SessionParameters.CurrentDataBaseSuffix,
-            //                                       SessionParameters.SqlServerName,
-            //                                       SessionParameters.CurrentUserProfile.UserName,
-            //                                       SessionParameters.TemporaryPhysicalDirectoryPath,
-            //                                       SessionParameters.TemporaryVirtualDirectoryName,
-            //                                       Request.Url.Authority,
-            //                                       SessionParameters.CurrentSerieDataBaseSuffix,
-            //                                       String.Empty, SessionParameters.DataBasePrefix);
-            ReportGenerator rg = new ReportGenerator();
+            using (TSD_Gestion_CommercialeEntities BD = new TSD_Gestion_CommercialeEntities())
+            {
+                dynamic dt = from t in BD.Client
+                             select new
+                             {
+                                 Test = t.OwnerName
+                             };
+                ReportDocument rd = new ReportDocument();
+                string fileName = Server.MapPath("/Reports/test.rpt");
+                rd.Load(fileName);
+                rd.SummaryInfo.ReportTitle = "Test";
+                rd.SetDataSource(dt);
+                Stream s = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                FileStreamResult f = File(s, "application/pdf");
+                return f;
+            }
 
-            string Report = rg.ImprimerRapportFacture(CodeFacture, Request.Url.Authority);
+        }
 
-                 return Json(new TextValueModel("OK", Report), JsonRequestBehavior.AllowGet);
+         public FileStreamResult ImprimerRapportFactureClient(string NumPiece)
+        {
+            List<DetailsPieceModel> detailsPieces = DetailsPiece_BLL.GetAllDetailsByPiece(NumPiece);
+            GenericPieceModel gp = Piece_BLL.GetGenericPiece(NumPiece, "CFAC");
+            Coordonnees cordonne = Coordonnees_BLL.GetAll().LastOrDefault();
+            string adresse = "";
+            string nom = "";
+            string tel = "";
+            string mf = "";
+            string descriptionSoc = "";
+            if (cordonne != null)
+            {
+                adresse = cordonne.Adresse;
+                nom = cordonne.Nom;
+                tel = cordonne.Tel;
+                mf = cordonne.MatriculeFiscale;
+                descriptionSoc = cordonne.Description;
+            }
+            int total = (int)detailsPieces.Sum(e => e.MontantUnitaire * e.Quantite);
+            string client = "";
+            string adresseClient = "";
+            string telClient = "";
+            string mfclient = "";
+            Client c = Client_BLL.GetById(gp.CodeClient);
+            if (c != null)
+            {
+                client = c.OwnerName;
+                adresseClient = c.Adresse;
+                telClient = c.Tel1;
+                mfclient = c.MatriculeFiscal;
+            }
+
+            string numPiece = NumPiece;
+            string dateFrom = "";
+            string dateTo = "";
+            
+            
+            dynamic dt = from Element in detailsPieces
+                         select new
+                         {
+                             MontantFinal = string.Format("{0:# ##0.000}", ((double)total / 1000)) + " DT",
+                             MontantTotal = 0,
+                             NumPiece = numPiece,
+                             Adresse = adresseClient,
+                             MatriculeFiscal = mfclient,
+                             OwnerName = client,
+                             Tel1 = telClient,
+                             LibelleTypePiece = 0,
+                             libelleDetail = Element.Libelle,
+                             MontantHorsTaxe = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire * Element.Quantite / 1000)),
+                             MontantTaxe = 0,
+                             MontantUnitaire = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire / 1000)),
+                             CodeDetailPiece = 0,
+                             Quantite = Element.Quantite == null?"": Element.Quantite.ToString(),
+                             Remise = Element.Remise == null ? "" : Element.Remise.ToString(),
+                             Pourcentage = 0,
+                             TelTSD = tel,
+                             NomTSD = nom,
+                             AdresseTSD = adresse,
+                             DescriptionTSD = descriptionSoc,
+                             EmailTSD = 0,
+                             FaxTSD = 0,
+                             MatriculeFiscaleTSD = mf,
+                             TelFixeTSD = 0,
+                             TotalBrut = 0,
+                             MontantRemise = 0,
+                         };
+            ReportDocument rptH = new ReportDocument();
+            string FileName = Server.MapPath("/Reports/Facture.rpt");
+            rptH.Load(FileName);
+            rptH.SummaryInfo.ReportTitle = NumPiece;            
+            rptH.SetDataSource(dt);
+            Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+
+            FileStreamResult _file = File(stream, "application/pdf");
+            return _file;
+
+
         }
         public JsonResult ImprimerReleveCompte(DateTime DateFromFilter, DateTime DateToFilter,int ClientFilter)
         {
