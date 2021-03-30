@@ -17,7 +17,7 @@
         <div class="container-fluid">
 
             <div class="row">
-            @if (Model.TypePiece == "FFAC" || Model.TypePiece == "FNOC"|| Model.TypePiece == "BLIV" || Model.TypePiece == "BCOM")
+            @if (Model.TypePiece == "FFAC" || Model.TypePiece == "FNOC"|| Model.TypePiece == "BCOM")
             {
                 <div class="col-md-12">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -32,7 +32,7 @@
             {
                 @Html.HiddenFor(model => model.CodeFournisseur)
             }
-            @if (Model.TypePiece == "CFAC" || Model.TypePiece == "CNOC")
+            @if (Model.TypePiece == "CFAC" || Model.TypePiece == "CNOC" || Model.TypePiece == "BLIV" )
             {
                 <div class="col-md-12">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>

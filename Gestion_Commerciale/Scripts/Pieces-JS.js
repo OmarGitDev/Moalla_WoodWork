@@ -62,7 +62,7 @@ function AddNewPiece(TypePieces) {
     debugger;
     var formData = $("#ParamForm").serializeArray();
     var typePiece = formData[8].value;
-    if (typePiece == 'FFAC' || typePiece == 'FFAC' || typePiece == 'BLIV' || typePiece == 'BCOM') {
+    if (typePiece == 'FFAC' || typePiece == 'FFAC' ||  typePiece == 'BCOM') {
         if (formData[9].value == "" || formData[9].value == null || formData[9].value == undefined || formData[9].value == "0") {
             toastr.error('Veuillez renseigner le champs Fournisseur', 'error', { progressBar: true, showDuration: 100 });
             return;
@@ -144,10 +144,7 @@ function AddOrUpdateDetailsPiece() {
         toastr.error('Veuillez renseigner le champs Prix unitaire', 'error', { progressBar: true, showDuration: 100 });
         return;
     }
-    if (formData[7].value == "" || formData[7].value == null || formData[7].value == undefined || formData[7].value == "0") {
-        toastr.error('Veuillez renseigner le champs Taxe', 'error', { progressBar: true, showDuration: 100 });
-        return;
-    }
+
   
    
     $.ajax({
@@ -232,7 +229,7 @@ function LoadPieceDetailsData(StatutPiece) {
             { "data": "Libelle" },
             { "data": "Quantite" },
             { "data": "RemiseString" },
-            { "data": "pourcentageTaxe" },
+            { "data": "pourcentageTaxeString" },
             { "data": "MontantTotal", "render": function (data, type, row) { 
                 if(data != null)
                     return data.toFixed(3);
@@ -267,7 +264,7 @@ function LoadPieceDetailsData(StatutPiece) {
             { "data": "Libelle" },
             { "data": "Quantite" },
             { "data": "RemiseString" },
-            { "data": "pourcentageTaxe" },
+            { "data": "pourcentageTaxeString" },
             { "data": "MontantHorsTaxe" }
             ],
             "columnDefs": [
@@ -294,7 +291,7 @@ function LoadPieceListData() {
     var table;
     var etat = $("#Etat").val();
   
-    if (type == 'FFAC' || type == 'FNOC' || type == 'BLIV' || type == 'BCOM') {
+    if (type == 'FFAC' || type == 'FNOC' || type == 'BCOM') {
 
         if (type == 'FNOC') {
             ClientFilter = $("#ClientFilterFFAC").val();
@@ -1367,7 +1364,7 @@ function LoadServicesSelectorData() {
     var TypePiece = $("#TypePiece").val();
     var Achat = false;
     var Vente = false;
-    if (TypePiece == "CFAC")
+    if (TypePiece == "CFAC" || TypePiece == "BLIV")
     {
         Vente = true;
     }
@@ -1748,9 +1745,11 @@ function LoadMATSelectorRData(reglementID) {
                         "</div>";
                 }
             },
-            { "data": "ProductName" },
+            { "data": "OwnerName" },
+            { "data": "VoucherNumber" },
+            
         {
-            "data": "Amount",
+            "data": "Ammount",
             "render": function (data, type, row) {
                 if (data != null)
                     return data.toFixed(3);
@@ -2144,38 +2143,11 @@ function RefreshListPiecesGrid() {
     LoadPieceListData();
 }
 function PrintFacture(NumPiece) {
-    $.ajax({
-        url: "/Print/ImprimerRapportFactureClient",
-        beforeSend: function () {
-            $.blockUI({ message: 'Patientez un peu...' });
-
-
-        },
-        complete: function () {
-            $.unblockUI();
-        },
-        data: { CodeFacture: NumPiece },
-
-        error: function (xhr, textStatus, errorThrown) {
-
-            alert2('Error while trying to Insert the invoice!', 'KO');
-        },
-        success: function (data) {
-            debugger;
-            //var resultArray = ReadJsonResult(data);
-            var Status = data.Text;
-            var Value = data.Value;
-            if (Status != 'OK' && Status != '') {
-                alert2(Value, Status);
-            }
-            else {
-                OPEN_URL_IN_BLANK(Value);
-            }
-        }
-    });
+    window.open("/Print/ImprimerRapportFactureClient?NumPiece=" + NumPiece, '_blank');
 }
 function PrintFactureDetails()
 {
+
     var NumPiece = $("#NumPiece").val();
 
     window.open("/Print/ImprimerRapportFactureClient?NumPiece=" + NumPiece, '_blank');

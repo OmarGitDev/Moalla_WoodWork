@@ -1,9 +1,9 @@
 ﻿
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center">
-            <div class="sidebar-brand-icon rotate-n-15">
+            @*<div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink  fa-spin"></i>
-            </div>
+            </div>*@
             <div class="sidebar-brand-text mx-3">Dark Soft</div>
         </a>
         <hr class="sidebar-divider my-0">
@@ -32,7 +32,7 @@
                     <a id="_listePiecesHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=CFAC&CurrentDate=0">Factures clients</a>
                     <a id="_pricingListHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/PricingList?Type=Devis">Devis</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/PricingList?Type=Tarifs">Tarifs</a>*@
-
+                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=BLIV&CurrentDate=0">Bon de Livraison</a>
                     <a id="_externalReglementsHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ExternalReglements?Owner=C&CurrentDate=0">Règlements clients</a>
                     <a id="_clientHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/Client">Liste des clients</a>
                     @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Vente/Passages">Passages clients</a>*@
@@ -48,8 +48,8 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Achat</h6>
                     <a id="listPiecesAchat" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=FFAC&CurrentDate=0">Factures fournisseurs</a>
-                    @*<a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=BLIV&CurrentDate=0">Bon de Livraison</a>
-                    <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=BCOM&CurrentDate=0">Bon de Commande</a>*@
+                    
+                   @* <a class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ListPieces?Type=BCOM&CurrentDate=0">Bon de Commande</a>*@
                     <a id="_externalReglementsAchat" class="collapse-item text-xs  text-uppercase mb-1" href="/Common/ExternalReglements?Owner=F&CurrentDate=0">Règlements fournisseurs</a>
                     <a id="fournisseurHref" class="collapse-item text-xs  text-uppercase mb-1" href="/Achat/Fournisseur">Liste des fournisseurs</a>
 

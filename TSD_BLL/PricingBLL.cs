@@ -17,6 +17,16 @@ namespace TSD_BLL
                 return (GenericModelMapper.GetModelList<PricingModel, Pricing>(d));
             }
         }
+        public static int GetClientByPricing(int ID)
+        {
+            using (TSD_Gestion_CommercialeEntities BD = new TSD_Gestion_CommercialeEntities())
+            {
+                var result = BD.Pricing.Where(e => e.ID == ID).FirstOrDefault();
+                int codeClient = result == null ? 0 : result.ClientID.Value;
+                return codeClient;
+            }
+
+        }
         public static List<PricingModel> GetPricingsByType(string Type)
         {
             using (TSD_Gestion_CommercialeEntities BD = new TSD_Gestion_CommercialeEntities())

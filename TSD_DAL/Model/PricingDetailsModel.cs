@@ -15,13 +15,12 @@ namespace TSD_DAL.Model
         public string Description { get; set; }
         public int PricingID { get; set; }
         public Nullable<double> Remise { get; set; }
-        public Nullable<int> CodeTaxe { get; set; }
+        public double pourcentageTaxe { get; set; }
         public double MontantTaxe { get; set; }
         public double MontantHorsTaxe { get; set; }
         //Applicatif
         public string numPiece { get; set; }
         public string QteString { get; set; }
-        public string pourcentageTaxe { get; set; }
         //public Nullable<double> remise { get; set; }
         // public int? taxe { get; set; }
 

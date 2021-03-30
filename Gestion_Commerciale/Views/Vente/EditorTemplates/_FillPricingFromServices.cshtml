@@ -2,14 +2,16 @@
    @{
        int codePricing = (int)ViewBag.codePricing;
        Model.ForEach(e => e.codePricing = codePricing);
-       int Defaulttaxe = (int)ViewBag.Defaulttaxe;
    }
 <form id="ParamForm">
     
     <div style="overflow-x:auto;max-height:600px">
-        
+        @{ 
+            var taxeList = Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList();
+        }
         @for (int i = 0; i < Model.Count(); i++)
         {
+            taxeList.Where(e => e.Value == Model[i].pourcentageTaxe.ToString()).FirstOrDefault().Selected = true;
             <div  style="margin:1%; width:98%;height:100%" class="form-control border-left-primary">
                 <div style="display:inline-flex">
                     @Html.HiddenFor(Model => Model[i].codePricing)
@@ -21,7 +23,7 @@
                     </div>
                     <div style="display:block;width:29%;margin-right:1%">
                         @Html.Label("Taxe")
-                        @Html.DropDownListFor(Model => Model[i].taxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)",@onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info dropDowList" })
+                        @Html.DropDownListFor(Model => Model[i].pourcentageTaxe, taxeList, new {  @class = "form-control border-left-info" })
                     </div>
                     <div style="display:block;width:27%;margin-right:1%;">
                         @Html.LabelFor(Model => Model[i].Qte)
@@ -40,7 +42,3 @@
     <button type="button" class="btn btn-sm btn-success" onclick="LinkServicesToPricing()"><i class="ace-icon fa fa-check"></i> Valider</button>
     <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
 </div>
-<script>
-    var Defaulttaxe =@Defaulttaxe;
-    $(".dropDowList").val(Defaulttaxe);
-</script>

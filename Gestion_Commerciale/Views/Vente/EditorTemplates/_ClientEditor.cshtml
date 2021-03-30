@@ -1,6 +1,19 @@
 ﻿@model TSD_DAL.Model.ClientModel
 <form id="ParamForm">
     @Html.HiddenFor(model => model.ID)
+    @{ 
+                var rasList = new List<SelectListItem>(){};
+        rasList.Add(new SelectListItem()
+            {
+                Text = "1 %",
+                Value = "1"
+            });
+                rasList.Add(new SelectListItem()
+            {
+                Text = "1.5 %",
+                Value = "1,5"
+            });
+    }
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -79,7 +92,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="form-group">
                     <label class="mb-1" for="IBAN">IBAN:</label>
                     <div class="input-group mb-3">
@@ -90,7 +103,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="mb-1" for="Tel2">RAS:</label>
+                    <div class="input-group mb-3">
 
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-percent text-gray-400"></i></span>
+                        </div>
+                        @Html.DropDownListFor(model => model.RASValue, rasList, new { @class = "form-control" })
+                    </div>
+                    </div>
+                </div>
         </div>
 
         <div class="row">
@@ -113,6 +137,7 @@
                     <label class="custom-control-label" for="Exonere">Exo TVA</label>
                 </div>
             </div>
+
         </div>
 
         <br />
@@ -124,7 +149,7 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        $("#MatriculeFiscal").mask("999999*-a-a-999");
-    });
+    //$(document).ready(function () {
+    //    $("#MatriculeFiscal").mask("999999*-a-a-999");
+    //});
 </script>

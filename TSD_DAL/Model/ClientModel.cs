@@ -33,6 +33,6 @@ namespace TSD_DAL.Model
         public Nullable<System.DateTime> FinConvention { get; set; }
         public Nullable<int> NombrePassages { get; set; }
         public bool TFExo { get; set; }
-
+        public double RASValue { get; set; }
     }
 }

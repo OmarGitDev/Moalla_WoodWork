@@ -1,7 +1,4 @@
 ﻿@model TSD_DAL.Model.DetailsPieceModel
-@{
-    var Defaulttaxe = (int)ViewBag.Defaulttaxe;
-}
 <div class="modal-body">
     <form id="ParamForm">
         @Html.HiddenFor(model => model.ID)
@@ -66,7 +63,7 @@
                     @Html.Label("Taxe")
                     <div class="input-group date">
                        
-                        @Html.DropDownListFor(model => model.CodeTaxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @class = "form-control dropDowList border-left-info" })
+                        @Html.DropDownListFor(model => model.pourcentageTaxe, Gestion_Commerciale.Controllers.CommonController.GetAllTaxesList(), new { @class = "form-control border-left-info" })
                     </div>
                 </div>
             </div>
@@ -77,7 +74,3 @@
     <button type="button" class="btn btn-sm btn-success" onclick="AddOrUpdateDetailsPiece()"><i class="ace-icon fa fa-check"></i> Valider</button>
     <button type="button" class="btn btn-sm" id="AnnulerP" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Annuler</button>
 </div>
-<script>
-    var Defaulttaxe =@Defaulttaxe;
-    $(".dropDowList").val(Defaulttaxe);
-</script>

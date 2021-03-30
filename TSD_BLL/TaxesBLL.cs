@@ -14,5 +14,14 @@ namespace TSD_BLL
 
             }
         }
+        public static double GetDefaultTaxePourcentage()
+        {
+            using (TSD_Gestion_CommercialeEntities BD = new TSD_Gestion_CommercialeEntities())
+            {
+                Taxes t = BD.Taxes.Where(e => e.IsDefault).FirstOrDefault();
+                return (t == null ? 0 : t.Pourcentage.Value);
+
+            }
+        }
     }
 }

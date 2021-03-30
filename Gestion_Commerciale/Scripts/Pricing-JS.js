@@ -302,10 +302,6 @@ function AddOrUpdateDetailsPricing() {
         toastr.error('Veuillez renseigner le champs Remise', 'error', { progressBar: true, showDuration: 100 });
         return;
     }
-    if (formData[9].value == "" || formData[9].value == null || formData[9].value == undefined || formData[9].value == "0") {
-        toastr.error('Veuillez renseigner le champs Taxe', 'error', { progressBar: true, showDuration: 100 });
-        return;
-    }
     if (formData[11].value == "" || formData[11].value == null || formData[11].value == undefined) {
         toastr.error('Veuillez renseigner le champs Prix unitaire', 'error', { progressBar: true, showDuration: 100 });
         return;

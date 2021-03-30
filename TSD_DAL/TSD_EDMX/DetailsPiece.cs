@@ -20,11 +20,11 @@ namespace TSD_DAL.TSD_EDMX
         public string Libelle { get; set; }
         public Nullable<int> Quantite { get; set; }
         public Nullable<double> MontantUnitaire { get; set; }
-        public Nullable<int> CodeTaxe { get; set; }
         public Nullable<double> MontantTaxe { get; set; }
         public Nullable<double> MontantHorsTaxe { get; set; }
         public Nullable<double> MontantTotal { get; set; }
         public Nullable<int> ProduitID { get; set; }
         public Nullable<double> Remise { get; set; }
+        public double pourcentageTaxe { get; set; }
     }
 }

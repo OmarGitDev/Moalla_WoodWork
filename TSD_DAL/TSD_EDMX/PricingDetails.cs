@@ -24,8 +24,8 @@ namespace TSD_DAL.TSD_EDMX
         public string Description { get; set; }
         public int PricingID { get; set; }
         public Nullable<double> Remise { get; set; }
-        public Nullable<int> CodeTaxe { get; set; }
         public double MontantTaxe { get; set; }
         public double MontantHorsTaxe { get; set; }
+        public double pourcentageTaxe { get; set; }
     }
 }

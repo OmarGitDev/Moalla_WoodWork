@@ -12,12 +12,9 @@ namespace TSD_DAL.TSD_EDMX
     using System;
     using System.Collections.Generic;
     
-    public partial class MaterialReglementDetails
+    public partial class CategorieProduits
     {
         public int ID { get; set; }
-        public int ReglementID { get; set; }
-        public string OwnerName { get; set; }
-        public string VoucherNumber { get; set; }
-        public Nullable<double> Ammount { get; set; }
+        public string Libelle { get; set; }
     }
 }

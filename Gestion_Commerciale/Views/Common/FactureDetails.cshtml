@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            @if (Model.TypePiece != "FFAC" && Model.TypePiece != "FNOC" && Model.TypePiece != "BLIV" && Model.TypePiece != "BCOM")
+            @if (Model.TypePiece != "FFAC" && Model.TypePiece != "FNOC" && Model.TypePiece != "BCOM")
             {
                 <div id="TarifsListDiv" class="DivsSources container-fluid" style="display:none">
                     @Html.Hidden("TarifsSelectedItems", "")
@@ -213,7 +213,7 @@
                     </div>
                 </div>
             </div>
-            @if (Model.TypePiece == "FFAC" || Model.TypePiece == "FNOC" || Model.TypePiece == "BLIV" || Model.TypePiece == "BCOM")
+            @if (Model.TypePiece == "FFAC" || Model.TypePiece == "FNOC" || Model.TypePiece == "BCOM")
             {
                 <div class="col-md-4">
                     <div class="card mb-0 py-3 border-left-primary" style="margin-top:15px;">
@@ -319,7 +319,7 @@
                         }
                     </div>
                     <div style="display:inline-flex;float:right;width:20%">
-                        @if (Model.TypePiece != "FFAC" && Model.TypePiece != "FNOC" && Model.TypePiece != "BLIV" && Model.TypePiece != "BCOM")
+                        @if (Model.TypePiece != "FFAC" && Model.TypePiece != "FNOC" && Model.TypePiece != "BCOM")
                         {
                             <button title="imprimer" onclick="PrintFactureDetails()" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" style="margin-right:5px;float:right"><i class="fas fa-print fa-sm text-white-30"></i></button>
 

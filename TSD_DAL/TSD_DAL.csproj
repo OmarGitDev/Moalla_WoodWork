@@ -102,6 +102,9 @@
     <Compile Include="TSD_EDMX\Banque.cs">
       <DependentUpon>TSD_GestionCommerciale.tt</DependentUpon>
     </Compile>
+    <Compile Include="TSD_EDMX\CategorieProduits.cs">
+      <DependentUpon>TSD_GestionCommerciale.tt</DependentUpon>
+    </Compile>
     <Compile Include="TSD_EDMX\Client.cs">
       <DependentUpon>TSD_GestionCommerciale.tt</DependentUpon>
     </Compile>

@@ -64,7 +64,10 @@ namespace Gestion_Commerciale.Controllers
                 mf = cordonne.MatriculeFiscale;
                 descriptionSoc = cordonne.Description;
             }
-            int total = (int)detailsPieces.Sum(e => e.MontantUnitaire * e.Quantite);
+            double total = (double)detailsPieces.Sum(e => e.MontantUnitaire * e.Quantite);
+            double sumTVA = (double)detailsPieces.Sum(e => e.MontantTaxe);
+            double totalBrut = total + sumTVA;
+            double totalRemise = (double)detailsPieces.Sum(e => e.Remise* (e.MontantHorsTaxe+e.MontantTaxe) / 100);
             string client = "";
             string adresseClient = "";
             string telClient = "";
@@ -82,26 +85,27 @@ namespace Gestion_Commerciale.Controllers
             string dateFrom = "";
             string dateTo = "";
             
-            
+
             dynamic dt = from Element in detailsPieces
                          select new
                          {
-                             MontantFinal = string.Format("{0:# ##0.000}", ((double)total / 1000)) + " DT",
-                             MontantTotal = 0,
+                             MontantFinal = string.Format("{0:# ##0.000}", ((double)total+sumTVA- totalRemise  )) + " DT",
+                             MontantTotal = string.Format("{0:# ##0.000}", ((double)total )) + " DT",
+                             
                              NumPiece = numPiece,
                              Adresse = adresseClient,
                              MatriculeFiscal = mfclient,
                              OwnerName = client,
                              Tel1 = telClient,
-                             LibelleTypePiece = 0,
+                             LibelleTypePiece = gp.TypePiece =="CFAC"? "Facture": "Bon de livraison",
                              libelleDetail = Element.Libelle,
-                             MontantHorsTaxe = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire * Element.Quantite / 1000)),
-                             MontantTaxe = 0,
-                             MontantUnitaire = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire / 1000)),
+                             MontantHorsTaxe = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire * Element.Quantite )),
+                             MontantTaxe = string.Format("{0:# ##0.000}", ((double)sumTVA )) + " DT",
+                             MontantUnitaire = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire )),
                              CodeDetailPiece = 0,
                              Quantite = Element.Quantite == null?"": Element.Quantite.ToString(),
                              Remise = Element.Remise == null ? "" : Element.Remise.ToString(),
-                             Pourcentage = 0,
+                             Pourcentage = Element.pourcentageTaxe == null ? "" : Element.pourcentageTaxe.ToString(),
                              TelTSD = tel,
                              NomTSD = nom,
                              AdresseTSD = adresse,
@@ -110,11 +114,11 @@ namespace Gestion_Commerciale.Controllers
                              FaxTSD = 0,
                              MatriculeFiscaleTSD = mf,
                              TelFixeTSD = 0,
-                             TotalBrut = 0,
-                             MontantRemise = 0,
+                             TotalBrut = string.Format("{0:# ##0.000}", ((double)total+sumTVA )) + " DT",
+                             MontantRemise = string.Format("{0:# ##0.000}", ((double)totalRemise )) + " DT",
                          };
             ReportDocument rptH = new ReportDocument();
-            string FileName = Server.MapPath("/Reports/Facture.rpt");
+            string FileName = Server.MapPath("/Reports/PieceVente.rpt");
             rptH.Load(FileName);
             rptH.SummaryInfo.ReportTitle = NumPiece;            
             rptH.SetDataSource(dt);

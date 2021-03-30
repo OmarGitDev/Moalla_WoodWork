@@ -41,7 +41,8 @@ namespace TSD_BLL
                                   DebutConvention = c.DebutConvention,
                                   FinConvention = c.FinConvention,
                                   NombrePassages = c.NombrePassages,
-                                  TFExo = c.TFExo
+                                  TFExo = c.TFExo,
+                                  RASValue = c.RASValue
                               }).FirstOrDefault();
                 return Client;
             }

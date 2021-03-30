@@ -12,14 +12,15 @@ namespace TSD_BLL
             using (TSD_Gestion_CommercialeEntities DB = new TSD_Gestion_CommercialeEntities())
             {
                 List<MaterialReglementDetailsModel> result = (from material in DB.MaterialReglementDetails
-                                                         join product in DB.Services on material.ProductID equals product.ID
+                                                         
                                                          where material.ReglementID == reglementId
                                                          select new MaterialReglementDetailsModel()
                                                          {
                                                              ID = material.ID,
-                                                             ProductName = product.Libelle,
                                                              ReglementID = material.ReglementID,
-                                                             Amount = material.Amount
+                                                             Ammount = material.Ammount,
+                                                             OwnerName = material.OwnerName,
+                                                             VoucherNumber = material.VoucherNumber,
 
                                                          }).ToList();
               return result;

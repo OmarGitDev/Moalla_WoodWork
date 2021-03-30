@@ -116,7 +116,7 @@ namespace Gestion_Commerciale.Controllers
                 NewDetail.Quantite = det.Quantite;
                 NewDetail.Remise = det.Remise;
                 NewDetail.MontantUnitaire = det.MontantUnitaire;
-                NewDetail.CodeTaxe = det.CodeTaxe;
+                NewDetail.pourcentageTaxe = det.pourcentageTaxe;
                 DetailsPiece_BLL.Insert(NewDetail);
             }
             return Content(NewPiece.NumPiece);
@@ -331,12 +331,8 @@ namespace Gestion_Commerciale.Controllers
             {
                 PricingDetails p = GenericModelMapper.GetModel<PricingDetails, PricingDetailsModel>(pricingDetailsModel);
                 p.Remise = p.Remise == null ? 0 : p.Remise;
-                Taxes t = Taxes_BLL.GetById(p.CodeTaxe);
-                if (t != null)
-                {
-                    p.MontantHorsTaxe = p.MontantUnitaire.Value * p.Quantite.Value;
-                    p.MontantTaxe = p.MontantHorsTaxe * (t.Pourcentage.Value / 100);
-                }
+                p.MontantHorsTaxe = p.MontantUnitaire.Value * p.Quantite.Value;
+                p.MontantTaxe = p.MontantHorsTaxe * (p.pourcentageTaxe / 100);
                 if (p.ID == 0)
                     PricingDetails_BLL.Insert(p);
                 else
@@ -361,13 +357,18 @@ namespace Gestion_Commerciale.Controllers
                 pml.Add(pm);
 
             }
-            ViewBag.Defaulttaxe = Taxes_BLL.getDefaultTaxeId();
+            int Client = PricingBLL.GetClientByPricing(codePricing);
+            Client c = Client_BLL.GetById(Client);
+            if (!c.Exonere)
+            {
+                var pt = Taxes_BLL.GetDefaultTaxePourcentage();
+                pml.ForEach(e=>e.pourcentageTaxe = pt);
+            }
             ViewBag.codePricing = codePricing;
             return (PartialView("~/Views/Vente/EditorTemplates/_FillPricingFromServices.cshtml", pml));
         }
         public PricingDetails PrepareDetailPricingFromService(ServicesModel ServiceModel)
         {
-
             PricingDetails dp = new PricingDetails();
             dp.PricingID = ServiceModel.codePricing;
             dp.Quantite = ServiceModel.Qte;
@@ -376,16 +377,8 @@ namespace Gestion_Commerciale.Controllers
             dp.CodeDetail = ServiceModel.Reference;
             dp.MontantHorsTaxe = ServiceModel.Montant.Value * ServiceModel.Qte;
             dp.MontantTaxe = 0;
-            if (ServiceModel.taxe != 0)
-            {
-                Taxes tax = Taxes_BLL.GetById(ServiceModel.taxe);
-                if (tax != null)
-                {
-                    dp.CodeTaxe = ServiceModel.taxe;
-                    dp.MontantTaxe = tax.Pourcentage.Value * dp.MontantHorsTaxe / 100;
-                }
-            }
-
+            dp.pourcentageTaxe = ServiceModel.pourcentageTaxe;
+            dp.MontantTaxe = dp.pourcentageTaxe * dp.MontantHorsTaxe / 100;
             dp.Remise = 0;
             dp.MontantTotal = Math.Round(((dp.MontantHorsTaxe + dp.MontantTaxe)), 3);
             return dp;
@@ -404,10 +397,10 @@ namespace Gestion_Commerciale.Controllers
 
                         ExistingDetail.Quantite += pm.Qte;
                         ExistingDetail.MontantHorsTaxe = ExistingDetail.MontantUnitaire.Value * ExistingDetail.Quantite.Value;
-                        if(ExistingDetail.CodeTaxe != 0)
+                        if(ExistingDetail.pourcentageTaxe != 0)
                         {
 
-                                Taxes tax = Taxes_BLL.GetById(ExistingDetail.CodeTaxe);
+                                Taxes tax = Taxes_BLL.GetById(ExistingDetail.pourcentageTaxe);
                                 if (tax != null)
                                 {
                                 //dp.CodeTaxe = ServiceModel.taxe;
@@ -451,12 +444,15 @@ namespace Gestion_Commerciale.Controllers
                 detail.MontantTaxe = 0;
                 detail.MontantHorsTaxe = 0;
                 detail.Quantite = 1;
-                detail.CodeTaxe = 1;
+                int Client = PricingBLL.GetClientByPricing(PricingID);
+                Client c = Client_BLL.GetById(Client);
+                if (!c.Exonere)
+                    detail.pourcentageTaxe = Taxes_BLL.GetDefaultTaxePourcentage();
                 detail.Remise = 0;
-
-            } Pricing pricing = PricingBLL.GetById(PricingID);
-                ViewBag.TypePricing = pricing.Type;
-            ViewBag.Defaulttaxe = Taxes_BLL.getDefaultTaxeId();
+               
+            }
+            
+            Pricing pricing = PricingBLL.GetById(PricingID);
            
             return PartialView("~/Views/Vente/EditorTemplates/_PricingDetailsEditor.cshtml", detail);
         }

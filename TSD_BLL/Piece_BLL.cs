@@ -12,7 +12,7 @@ namespace TSD_BLL
         public static GenericPieceModel GetGenericPiece(string NumPiece, string Type)
         {
             GenericPieceModel model = new GenericPieceModel();
-            if (Type == "FFAC" || Type == "FNOC" || Type == "BLIV" || Type == "BCOM")
+            if (Type == "FFAC" || Type == "FNOC" || Type == "BCOM")
             {
                 model = PieceAchat_BLL.GetPieceAchatByNumPiece(NumPiece);
             }

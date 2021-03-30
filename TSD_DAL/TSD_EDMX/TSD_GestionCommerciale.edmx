@@ -13,6 +13,13 @@
           <Property Name="NomBanque" Type="nvarchar" MaxLength="50" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="CategorieProduits">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -35,6 +42,7 @@
           <Property Name="FinConvention" Type="datetime" />
           <Property Name="NombrePassages" Type="int" />
           <Property Name="TFExo" Type="bit" Nullable="false" />
+          <Property Name="RASValue" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="CompteBancaire">
           <Key>
@@ -87,12 +95,12 @@
           <Property Name="Libelle" Type="nvarchar" MaxLength="500" />
           <Property Name="Quantite" Type="int" />
           <Property Name="MontantUnitaire" Type="float" />
-          <Property Name="CodeTaxe" Type="int" />
           <Property Name="MontantTaxe" Type="float" />
           <Property Name="MontantHorsTaxe" Type="float" />
           <Property Name="MontantTotal" Type="float" />
           <Property Name="ProduitID" Type="int" />
           <Property Name="Remise" Type="float" />
+          <Property Name="pourcentageTaxe" Type="float" Nullable="false" />
         </EntityType>
         <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
@@ -162,8 +170,9 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReglementID" Type="int" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="VoucherNumber" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Ammount" Type="float" />
         </EntityType>
         <EntityType Name="MotifConge">
           <Key>
@@ -300,9 +309,9 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="Description" Type="nvarchar" MaxLength="1000" />
           <Property Name="PricingID" Type="int" Nullable="false" />
           <Property Name="Remise" Type="float" />
-          <Property Name="CodeTaxe" Type="int" />
           <Property Name="MontantTaxe" Type="float" Nullable="false" />
           <Property Name="MontantHorsTaxe" Type="float" Nullable="false" />
+          <Property Name="pourcentageTaxe" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamations">
           <Key>
@@ -464,6 +473,7 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
         </Function>
         <EntityContainer Name="TSD_Gestion_CommercialeModelStoreContainer">
           <EntitySet Name="Banque" EntityType="Self.Banque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategorieProduits" EntityType="Self.CategorieProduits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompteBancaire" EntityType="Self.CompteBancaire" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conges" EntityType="Self.Conges" Schema="dbo" store:Type="Tables" />
@@ -530,7 +540,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <EntitySet Name="CompteBancaire" EntityType="TSD_Gestion_CommercialeModel.CompteBancaire" />
           <EntitySet Name="Conges" EntityType="TSD_Gestion_CommercialeModel.Conges" />
           <EntitySet Name="Coordonnees" EntityType="TSD_Gestion_CommercialeModel.Coordonnees" />
-          <EntitySet Name="DetailsPiece" EntityType="TSD_Gestion_CommercialeModel.DetailsPiece" />
           <EntitySet Name="Fonctions" EntityType="TSD_Gestion_CommercialeModel.Fonctions" />
           <EntitySet Name="Fournisseur" EntityType="TSD_Gestion_CommercialeModel.Fournisseur" />
           <EntitySet Name="JoursFeries" EntityType="TSD_Gestion_CommercialeModel.JoursFeries" />
@@ -544,7 +553,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <EntitySet Name="PieceAchat" EntityType="TSD_Gestion_CommercialeModel.PieceAchat" />
           <EntitySet Name="PieceVente" EntityType="TSD_Gestion_CommercialeModel.PieceVente" />
           <EntitySet Name="Pricing" EntityType="TSD_Gestion_CommercialeModel.Pricing" />
-          <EntitySet Name="PricingDetails" EntityType="TSD_Gestion_CommercialeModel.PricingDetails" />
           <EntitySet Name="Reglements" EntityType="TSD_Gestion_CommercialeModel.Reglements" />
           <EntitySet Name="Roles" EntityType="TSD_Gestion_CommercialeModel.Roles" />
           <EntitySet Name="SeriesTable" EntityType="TSD_Gestion_CommercialeModel.SeriesTable" />
@@ -586,13 +594,16 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
             <Parameter Name="DateTo" Mode="In" Type="DateTime" />
           </FunctionImport>
           <EntitySet Name="Piece" EntityType="TSD_Gestion_CommercialeModel.Piece" />
-          <EntitySet Name="Client" EntityType="TSD_Gestion_CommercialeModel.Client" />
           <FunctionImport Name="GET_RELEVE_COMPTE" ReturnType="Collection(TSD_Gestion_CommercialeModel.GET_RELEVE_COMPTE_Result)">
             <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
             <Parameter Name="DateTo" Mode="In" Type="DateTime" />
             <Parameter Name="Client" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="CategorieProduits" EntityType="TSD_Gestion_CommercialeModel.CategorieProduits" />
+          <EntitySet Name="DetailsPiece" EntityType="TSD_Gestion_CommercialeModel.DetailsPiece" />
+          <EntitySet Name="PricingDetails" EntityType="TSD_Gestion_CommercialeModel.PricingDetails" />
           <EntitySet Name="MaterialReglementDetails" EntityType="TSD_Gestion_CommercialeModel.MaterialReglementDetails" />
+          <EntitySet Name="Client" EntityType="TSD_Gestion_CommercialeModel.Client" />
           </EntityContainer>
         <EntityType Name="Banque">
           <Key>
@@ -642,23 +653,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="RIB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="DetailsPiece">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CodeDetailPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Piece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Quantite" Type="Int32" />
-          <Property Name="MontantUnitaire" Type="Double" />
-          <Property Name="CodeTaxe" Type="Int32" />
-          <Property Name="MontantTaxe" Type="Double" />
-          <Property Name="MontantHorsTaxe" Type="Double" />
-          <Property Name="MontantTotal" Type="Double" />
-          <Property Name="ProduitID" Type="Int32" />
-          <Property Name="Remise" Type="Double" />
         </EntityType>
         <EntityType Name="Fonctions">
           <Key>
@@ -802,24 +796,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MontantFinal" Type="Double" Nullable="false" />
           <Property Name="MontantTotal" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PricingDetails">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CodeDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MontantUnitaire" Type="Double" />
-          <Property Name="Quantite" Type="Int32" />
-          <Property Name="MontantTotal" Type="Double" />
-          <Property Name="ProduitID" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="PricingID" Type="Int32" Nullable="false" />
-          <Property Name="Remise" Type="Double" />
-          <Property Name="CodeTaxe" Type="Int32" />
-          <Property Name="MontantTaxe" Type="Double" Nullable="false" />
-          <Property Name="MontantHorsTaxe" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Reglements">
           <Key>
@@ -1024,6 +1000,66 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="RASClosed" Type="Boolean" Nullable="false" />
           <Property Name="Reference" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="GET_RELEVE_COMPTE_Result">
+          <Property Type="String" Name="grouping" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="REFERENCE" Nullable="true" MaxLength="58" />
+          <Property Type="Double" Name="DEBIT" Nullable="false" />
+          <Property Type="Double" Name="CREDIT" Nullable="false" />
+          <Property Type="Double" Name="SOLDE" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="CategorieProduits">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DetailsPiece">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeDetailPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Piece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="MontantUnitaire" Type="Double" />
+          <Property Name="MontantTaxe" Type="Double" />
+          <Property Name="MontantHorsTaxe" Type="Double" />
+          <Property Name="MontantTotal" Type="Double" />
+          <Property Name="ProduitID" Type="Int32" />
+          <Property Name="Remise" Type="Double" />
+          <Property Name="pourcentageTaxe" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PricingDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Libelle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MontantUnitaire" Type="Double" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="MontantTotal" Type="Double" />
+          <Property Name="ProduitID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PricingID" Type="Int32" Nullable="false" />
+          <Property Name="Remise" Type="Double" />
+          <Property Name="MontantTaxe" Type="Double" Nullable="false" />
+          <Property Name="MontantHorsTaxe" Type="Double" Nullable="false" />
+          <Property Name="pourcentageTaxe" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialReglementDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReglementID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="VoucherNumber" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Ammount" Type="Double" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -1046,23 +1082,7 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="FinConvention" Type="DateTime" Precision="3" />
           <Property Name="NombrePassages" Type="Int32" />
           <Property Name="TFExo" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <ComplexType Name="GET_RELEVE_COMPTE_Result">
-          <Property Type="String" Name="grouping" Nullable="false" MaxLength="1" />
-          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
-          <Property Type="String" Name="REFERENCE" Nullable="true" MaxLength="58" />
-          <Property Type="Double" Name="DEBIT" Nullable="false" />
-          <Property Type="Double" Name="CREDIT" Nullable="false" />
-          <Property Type="Double" Name="SOLDE" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="MaterialReglementDetails">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReglementID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="RASValue" Type="Double" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1119,24 +1139,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
                 <ScalarProperty Name="Tel" ColumnName="Tel" />
                 <ScalarProperty Name="Adresse" ColumnName="Adresse" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DetailsPiece">
-            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.DetailsPiece">
-              <MappingFragment StoreEntitySet="DetailsPiece">
-                <ScalarProperty Name="Remise" ColumnName="Remise" />
-                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
-                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
-                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
-                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
-                <ScalarProperty Name="CodeTaxe" ColumnName="CodeTaxe" />
-                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
-                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
-                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
-                <ScalarProperty Name="Piece" ColumnName="Piece" />
-                <ScalarProperty Name="CodeDetailPiece" ColumnName="CodeDetailPiece" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1293,25 +1295,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
                 <ScalarProperty Name="CodePricing" ColumnName="CodePricing" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PricingDetails">
-            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.PricingDetails">
-              <MappingFragment StoreEntitySet="PricingDetails">
-                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
-                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
-                <ScalarProperty Name="CodeTaxe" ColumnName="CodeTaxe" />
-                <ScalarProperty Name="Remise" ColumnName="Remise" />
-                <ScalarProperty Name="PricingID" ColumnName="PricingID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
-                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
-                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
-                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
-                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
-                <ScalarProperty Name="CodeDetail" ColumnName="CodeDetail" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1524,9 +1507,78 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GET_RELEVE_COMPTE" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_RELEVE_COMPTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_RELEVE_COMPTE_Result">
+                <ScalarProperty Name="grouping" ColumnName="grouping" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="REFERENCE" ColumnName="REFERENCE" />
+                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="SOLDE" ColumnName="SOLDE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CategorieProduits">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.CategorieProduits">
+              <MappingFragment StoreEntitySet="CategorieProduits">
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailsPiece">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.DetailsPiece">
+              <MappingFragment StoreEntitySet="DetailsPiece">
+                <ScalarProperty Name="pourcentageTaxe" ColumnName="pourcentageTaxe" />
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
+                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
+                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Piece" ColumnName="Piece" />
+                <ScalarProperty Name="CodeDetailPiece" ColumnName="CodeDetailPiece" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PricingDetails">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.PricingDetails">
+              <MappingFragment StoreEntitySet="PricingDetails">
+                <ScalarProperty Name="pourcentageTaxe" ColumnName="pourcentageTaxe" />
+                <ScalarProperty Name="MontantHorsTaxe" ColumnName="MontantHorsTaxe" />
+                <ScalarProperty Name="MontantTaxe" ColumnName="MontantTaxe" />
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="PricingID" ColumnName="PricingID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProduitID" ColumnName="ProduitID" />
+                <ScalarProperty Name="MontantTotal" ColumnName="MontantTotal" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="MontantUnitaire" ColumnName="MontantUnitaire" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="CodeDetail" ColumnName="CodeDetail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialReglementDetails">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.MaterialReglementDetails">
+              <MappingFragment StoreEntitySet="MaterialReglementDetails">
+                <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+                <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="ReglementID" ColumnName="ReglementID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Client">
               <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="RASValue" ColumnName="RASValue" />
                 <ScalarProperty Name="TFExo" ColumnName="TFExo" />
                 <ScalarProperty Name="NombrePassages" ColumnName="NombrePassages" />
                 <ScalarProperty Name="FinConvention" ColumnName="FinConvention" />
@@ -1544,28 +1596,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
                 <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="Adresse" ColumnName="Adresse" />
                 <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GET_RELEVE_COMPTE" FunctionName="TSD_Gestion_CommercialeModel.Store.GET_RELEVE_COMPTE">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TSD_Gestion_CommercialeModel.GET_RELEVE_COMPTE_Result">
-                <ScalarProperty Name="grouping" ColumnName="grouping" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="REFERENCE" ColumnName="REFERENCE" />
-                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
-                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
-                <ScalarProperty Name="SOLDE" ColumnName="SOLDE" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="MaterialReglementDetails">
-            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.MaterialReglementDetails">
-              <MappingFragment StoreEntitySet="MaterialReglementDetails">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ReglementID" ColumnName="ReglementID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

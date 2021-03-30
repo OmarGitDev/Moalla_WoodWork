@@ -7,15 +7,26 @@
 
 
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    @Html.Label("Nom du client")
+                    <div class="input-group-addon">
+
+                        @Html.TextBoxFor(model => model.OwnerName, new { @class = "form-control border-left-info" })
+                    </div>
+                </div>
+
+            </div>
 
             <div class="row">
 
                 <div class="col-md-6">
-                    <span class="input-group-addon"><i class="fa fa-box-open"></i></span>
+                    <span class="input-group-addon"><i class="fa fa-money-bill"></i></span>
+                    @Html.Label("Numéro facture")
+                    <div class="input-group-addon">
 
-                    @Html.Label("Produit")
-                    <div class="input-group date">
-                        @Html.DropDownListFor(model => model.ProductID, Gestion_Commerciale.Controllers.StockController.GetAchatServicesList(), new { @class = "form-control border-left-info" })
+                        @Html.TextBoxFor(model => model.VoucherNumber, new { @class = "form-control border-left-info" })
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -23,12 +34,11 @@
                     @Html.Label("Montant")
                     <div class="input-group-addon">
 
-                        @Html.TextBoxFor(model => model.Amount, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)", @onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info" })
+                        @Html.TextBoxFor(model => model.Ammount, new { @onkeypress = "return(event.charCode >=48 &&event.charCode  <= 57 ||event.charCode ==46 ||event.charCode ==0)", @onkeyup = "this.value = this.value.replace('.',',')", @class = "form-control border-left-info" })
                     </div>
                 </div>
 
             </div>
-
 
 
         </div>

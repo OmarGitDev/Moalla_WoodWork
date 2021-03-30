@@ -182,11 +182,7 @@ namespace Gestion_Commerciale.Controllers
             List<DetailsPieceModel> details = DetailsPiece_BLL.GetDetailsByPiece(NumPiece);
             foreach (var detail in details)
             {
-                Taxes t = Taxes_BLL.GetById(detail.CodeTaxe);
-                if (t != null)
-                {
-                    detail.pourcentageTaxe = t.NomTaxe;
-                }
+                detail.pourcentageTaxeString = $"{detail.pourcentageTaxe} %";
                 detail.RemiseString = detail.Remise == 0 || detail.Remise == null ? "" : detail.Remise.ToString() + " %";
             }
             return Json(details, JsonRequestBehavior.AllowGet);
@@ -246,7 +242,7 @@ namespace Gestion_Commerciale.Controllers
             switch (pieceModel.TypePiece)
             {
                 case "CFAC":
-
+                case "BLIV":
                 case "CNOC":
                     {
                         PieceVente pieceVente = new PieceVente();
@@ -256,7 +252,7 @@ namespace Gestion_Commerciale.Controllers
 
                     }; break;
                 case "FFAC":
-                case "BLIV":
+                
                 case "BCOM":
                 case "FNOC":
                     {
@@ -293,17 +289,13 @@ namespace Gestion_Commerciale.Controllers
                     MontantFinal = Math.Round(details.Sum(e => e.MontantHorsTaxe.Value), 3);
                 else
                     MontantFinal = Math.Round(details.Sum(e => e.MontantTotal.Value), 3);
+                p.RAS = Math.Round((MontantFinal * client.RASValue / 100), 3);
                 MontantFinal = client.TFExo ? MontantFinal : MontantFinal + Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.TF)) / 1000;
+
             }
             else
             {
                 MontantFinal = Math.Round(details.Sum(e => e.MontantTotal.Value), 3) + Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.TF)) / 1000;
-
-
-            }
-            if (MontantFinal >= Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RASLimite)))
-            {
-                p.RAS = MontantFinal * Math.Round((Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RAS)))) / 100;
             }
             p.MontantTotal = MontantTotal;
             if (MontantTotal == 0)
@@ -367,13 +359,8 @@ namespace Gestion_Commerciale.Controllers
                 DetailsPiece p = GenericModelMapper.GetModel<DetailsPiece, DetailsPieceModel>(DetailsPieceToAdd);
                 p.Remise = p.Remise == null ? 0 : p.Remise;
                 p.MontantHorsTaxe = p.MontantUnitaire * p.Quantite;
-                Taxes t = Taxes_BLL.GetById(p.CodeTaxe);
-                p.MontantTaxe = 0;
-                if (t != null)
-                {
-                    p.MontantTaxe = p.MontantHorsTaxe * (t.Pourcentage / 100);
-                }
-                p.MontantTotal = Math.Round(((p.MontantHorsTaxe + p.MontantTaxe) * 1 - (p.Remise == null ? 0 : p.Remise.Value / 100)).Value, 3);
+                p.MontantTaxe = p.MontantHorsTaxe * (p.pourcentageTaxe / 100);
+                p.MontantTotal = Math.Round(((p.MontantHorsTaxe + p.MontantTaxe) * (1 - p.Remise.Value / 100)).Value, 3);
                 if (p.ID == 0)
                     DetailsPiece_BLL.Insert(p);
                 else
@@ -426,9 +413,10 @@ namespace Gestion_Commerciale.Controllers
                 detail.Piece = NumPiece;
                 detail.Remise = 0;
                 detail.Quantite = 1;
+                detail.pourcentageTaxe = Taxes_BLL.GetDefaultTaxePourcentage();
             }
 
-            ViewBag.Defaulttaxe = isExonere ? 0 : Taxes_BLL.getDefaultTaxeId();
+            
             return PartialView("~/Views/Common/EditorTemplates/_PieceDetailsEditor.cshtml", detail);
         }
         public ActionResult OpenMaterialReglementEditor(int id,int reglementID)
@@ -448,7 +436,7 @@ namespace Gestion_Commerciale.Controllers
                 MaterialReglementDetails materialReglementDetails = GenericModelMapper.GetModel<MaterialReglementDetails, MaterialReglementDetailsModel>(materialReglementDetailsModel);
                 Reglements reglements = Reglements_BLL.GetById(materialReglementDetailsModel.ReglementID);
                 List<MaterialReglementDetailsModel> detailsListByReglement = MaterialReglementDetailsBLL.GetMaterialDetailsByReglement(materialReglementDetailsModel.ReglementID);
-                if (reglements.Montant < (detailsListByReglement.Sum(e => e.Amount)+ materialReglementDetailsModel.Amount))
+                if (reglements.Montant < (detailsListByReglement.Sum(e => e.Ammount)+ materialReglementDetailsModel.Ammount))
                 {
                     return Json(new TextValueModel("KO", "La somme des montants dépasse le montant du règlement"), JsonRequestBehavior.AllowGet);
                 }
@@ -485,7 +473,7 @@ namespace Gestion_Commerciale.Controllers
                 res.Add(new SelectListItem()
                 {
                     Text = f.NomTaxe,
-                    Value = f.ID.ToString()
+                    Value = f.Pourcentage.ToString(),
                 });
             }
             return res;
@@ -506,12 +494,12 @@ namespace Gestion_Commerciale.Controllers
                 case "FFAC":
                 case "FNOC":
                 case "BCOM":
-                case "BLIV":
+
                     {
                         gpm = Piece_BLL.GetAllPiecesFournisseursForReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, FournisseurFilter);
                     }; break;
                 case "CFAC":
-
+                case "BLIV":
                 case "CNOC":
                     {
                         gpm = Piece_BLL.GetAllPiecesClientsForReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, ClientFilter);
@@ -527,12 +515,12 @@ namespace Gestion_Commerciale.Controllers
                 case "FFAC":
                 case "FNOC":
                 case "BCOM":
-                case "BLIV":
+
                     {
                         gpm = Piece_BLL.GetAllPiecesFournisseursForRASReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, FournisseurFilter);
                     }; break;
                 case "CFAC":
-
+                case "BLIV":
                 case "CNOC":
                     {
                         gpm = Piece_BLL.GetAllPiecesClientsForRASReglement(Type, CodeFilter, LibelleFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, ClientFilter);
@@ -582,12 +570,12 @@ namespace Gestion_Commerciale.Controllers
                 case "FFAC":
                 case "FNOC":
                 case "BCOM":
-                case "BLIV":
+
                     {
                         gpm = Piece_BLL.GetAllPiecesFournisseurs(Type, CodeFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, FournisseurFilter, StatusFilter);
                     }; break;
                 case "CFAC":
-
+                case "BLIV":
                 case "CNOC":
                     {
                         gpm = Piece_BLL.GetAllPiecesClientsByType(Type, CodeFilter, DateFromFilter, DateToFilter, MontantMinFilter, MontantMaxFilter, ClientFilter, StatusFilter);
@@ -679,6 +667,8 @@ namespace Gestion_Commerciale.Controllers
                 {
                     isExonere = true;
                 }
+                
+
             }
             List<string> SelectedProuctList = StarsSplitter(SelectedServices);
             List<ServicesModel> pml = new List<ServicesModel>();
@@ -690,7 +680,13 @@ namespace Gestion_Commerciale.Controllers
                 pml.Add(pm);
 
             }
-            ViewBag.Defaulttaxe = isExonere ? 0 : Taxes_BLL.getDefaultTaxeId();
+            if(!isExonere)
+            {
+                double pt = Taxes_BLL.GetDefaultTaxePourcentage();
+                pml.ForEach(e => e.pourcentageTaxe = pt);
+            }
+            
+
             ViewBag.numPiece = numPiece;
             ViewBag.TypePiece = piece.TypePiece;
             return (PartialView("~/Views/Common/EditorTemplates/_FillInvoiceFromServices.cshtml", pml));
@@ -749,7 +745,6 @@ namespace Gestion_Commerciale.Controllers
                 dModel.Remise = 0;
                 dds.Add(dModel);
             }
-            ViewBag.Defaulttaxe = isExonere ? 0 : Taxes_BLL.getDefaultTaxeId();
             ViewBag.numPiece = numPiece;
             return (PartialView("~/Views/Common/EditorTemplates/_FillInvoiceFromPricing.cshtml", dds));
         }
@@ -780,16 +775,8 @@ namespace Gestion_Commerciale.Controllers
             dp.CodeDetailPiece = ServiceModel.Reference;
             dp.MontantHorsTaxe = ServiceModel.Montant * ServiceModel.Qte;
             dp.MontantTaxe = 0;
-            if (ServiceModel.taxe != 0)
-            {
-                Taxes tax = Taxes_BLL.GetById(ServiceModel.taxe);
-                if (tax != null)
-                {
-                    dp.CodeTaxe = ServiceModel.taxe;
-                    dp.MontantTaxe = tax.Pourcentage * dp.MontantHorsTaxe / 100;
-                }
-            }
-
+            dp.pourcentageTaxe = ServiceModel.pourcentageTaxe;
+            dp.MontantTaxe = dp.pourcentageTaxe * dp.MontantHorsTaxe / 100;
             dp.Remise = 0;
             dp.MontantTotal = Math.Round(((dp.MontantHorsTaxe + dp.MontantTaxe)).Value, 3);
             return dp;
@@ -856,11 +843,9 @@ namespace Gestion_Commerciale.Controllers
             dp.Piece = pdm.numPiece;
             dp.CodeDetailPiece = pdm.CodeDetail;
             dp.Remise = pdm.Remise;
-            dp.CodeTaxe = pdm.CodeTaxe;
-            Taxes t = Taxes_BLL.GetById(pdm.CodeTaxe);
+            dp.pourcentageTaxe = pdm.pourcentageTaxe;
             dp.MontantTaxe = 0;
-            if (t != null)
-                dp.MontantTaxe = dp.MontantHorsTaxe * (t.Pourcentage / 100);
+            dp.MontantTaxe = dp.MontantHorsTaxe * (dp.pourcentageTaxe / 100);
             dp.MontantTotal = Math.Round(((dp.MontantHorsTaxe + dp.MontantTaxe) * 1 - (dp.Remise == null ? 0 : dp.Remise.Value / 100)).Value, 3);
 
 
@@ -909,7 +894,7 @@ namespace Gestion_Commerciale.Controllers
             {
                 foreach (PricingDetailsModel pm in detailsPricing)
                 {
-                    DetailsPieceModel ExistingDetail = DetailsPiece_BLL.GetDetailsByPiece(pm.numPiece).Where(e => e.CodeDetailPiece == pm.CodeDetail && e.Remise == pm.Remise && e.MontantUnitaire == pm.MontantUnitaire && pm.CodeTaxe == e.CodeTaxe).FirstOrDefault();
+                    DetailsPieceModel ExistingDetail = DetailsPiece_BLL.GetDetailsByPiece(pm.numPiece).Where(e => e.CodeDetailPiece == pm.CodeDetail && e.Remise == pm.Remise && e.MontantUnitaire == pm.MontantUnitaire && pm.pourcentageTaxe == e.CodeTaxe).FirstOrDefault();
                     if (ExistingDetail != null)
                     {
 
@@ -982,7 +967,7 @@ namespace Gestion_Commerciale.Controllers
             {
                 case "FFAC":
                 case "FNOC":
-                case "BLIV":
+
                 case "BCOM":
                     {
                         ownerCode = PieceAchat_BLL.GetFournisseurByNumPiece(NumPiece);
@@ -990,7 +975,7 @@ namespace Gestion_Commerciale.Controllers
                     }; break;
                 case "CFAC":
                 case "CNOC":
-
+                case "BLIV":
                     {
                         OwnerType = "C";
                         ownerCode = PieceVente_BLL.GetClientByNumPiece(NumPiece);

@@ -16,7 +16,9 @@ namespace TSD_DAL.Model
         public Nullable<double> MontantTotal { get; set; }
         public Nullable<int> ProduitID { get; set; }
         public Nullable<double> Remise { get; set; }
-        public string pourcentageTaxe { get; set; }
+        public double pourcentageTaxe { get; set; }
+
+        public string pourcentageTaxeString { get; set; }
         public string RemiseString { get; set; }
 
     }

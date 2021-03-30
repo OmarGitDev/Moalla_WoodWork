@@ -31,7 +31,6 @@ namespace TSD_DAL.TSD_EDMX
         public virtual DbSet<CompteBancaire> CompteBancaire { get; set; }
         public virtual DbSet<Conges> Conges { get; set; }
         public virtual DbSet<Coordonnees> Coordonnees { get; set; }
-        public virtual DbSet<DetailsPiece> DetailsPiece { get; set; }
         public virtual DbSet<Fonctions> Fonctions { get; set; }
         public virtual DbSet<Fournisseur> Fournisseur { get; set; }
         public virtual DbSet<JoursFeries> JoursFeries { get; set; }
@@ -45,7 +44,6 @@ namespace TSD_DAL.TSD_EDMX
         public virtual DbSet<PieceAchat> PieceAchat { get; set; }
         public virtual DbSet<PieceVente> PieceVente { get; set; }
         public virtual DbSet<Pricing> Pricing { get; set; }
-        public virtual DbSet<PricingDetails> PricingDetails { get; set; }
         public virtual DbSet<Reglements> Reglements { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<SeriesTable> SeriesTable { get; set; }
@@ -59,8 +57,11 @@ namespace TSD_DAL.TSD_EDMX
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<Reclamations> Reclamations { get; set; }
         public virtual DbSet<Piece> Piece { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<CategorieProduits> CategorieProduits { get; set; }
+        public virtual DbSet<DetailsPiece> DetailsPiece { get; set; }
+        public virtual DbSet<PricingDetails> PricingDetails { get; set; }
         public virtual DbSet<MaterialReglementDetails> MaterialReglementDetails { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
     
         public virtual ObjectResult<GET_BeneficesPerMonth_Result> GET_BeneficesPerMonth(Nullable<System.DateTime> dateFrom, Nullable<System.DateTime> dateTo)
         {

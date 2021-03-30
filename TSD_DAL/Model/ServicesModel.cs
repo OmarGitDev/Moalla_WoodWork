@@ -11,7 +11,7 @@ namespace TSD_DAL.Model
         public string numPiece { get; set; }
         public int codePricing { get; set; }
         public int Qte { get; set; }
-        public int taxe { get; set; }
+        public double pourcentageTaxe { get; set; }
         public bool Vente { get; set; }
         public bool Achat { get; set; }
     }
