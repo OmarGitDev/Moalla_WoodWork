@@ -69,7 +69,7 @@ namespace Gestion_Commerciale.Controllers
             NotificationsBLL.RefreshNotifications();
             return NotificationsBLL.GetNotSeenNotifications();
         }
-        public ActionResult SaveReglementsChanges(int ReglementID, double Montant, DateTime DateReglement, int OwnerId, string Reference, string Remarques, DateTime? DateEcheance, int Banque)
+        public ActionResult SaveReglementsChanges(int ReglementID, double Montant, DateTime DateReglement, int OwnerId, string Reference, string Remarques, DateTime? DateEcheance)
         {
             if (Montant == 0)
             {
@@ -82,7 +82,7 @@ namespace Gestion_Commerciale.Controllers
             //}
             Reglements reglement = Reglements_BLL.GetById(ReglementID);
 
-            Reglements_BLL.SaveReglementChanges(ReglementID, Montant, DateReglement, OwnerId, Reference, Remarques, DateEcheance, Banque);
+            Reglements_BLL.SaveReglementChanges(ReglementID, Montant, DateReglement, OwnerId, Reference, Remarques, DateEcheance);
             Reglements_BLL.updateClosed(ReglementID);
             NotificationsBLL.LastNotificationRefresh = null;
 
@@ -1263,8 +1263,7 @@ namespace Gestion_Commerciale.Controllers
 
         public ActionResult ExternalReglementDetails(int ExternalReglementID)
         {
-            Reglements reglement = Reglements_BLL.GetById(ExternalReglementID);
-            ReglementsModel reglementModel = GenericModelMapper.GetModel<ReglementsModel, Reglements>(reglement);
+            ReglementsModel reglementModel = Reglements_BLL.getReglementsByCode(ExternalReglementID);
             return View(reglementModel);
         }
 
@@ -1287,7 +1286,7 @@ namespace Gestion_Commerciale.Controllers
             }
             return res;
         }
-        public static IList<SelectListItem> GetComptesList(string OwnerType, string Sens, int OwnerID)
+        public static IList<SelectListItem> GetComptesList(string OwnerType, string Sens, int OwnerID,string reglementType = "Virement")
         {
             List<SelectListItem> res = new List<SelectListItem>();
             res.Add(new SelectListItem()
@@ -1296,7 +1295,7 @@ namespace Gestion_Commerciale.Controllers
                 Value = "0"
             });
             var Comptes = new List<CompteBancaire>();
-            if ((OwnerType == "C" && Sens == "1") || (OwnerType == "F" && Sens == "-1"))
+            if ((OwnerType == "C" && Sens == "1") || (OwnerType == "F" && Sens == "1") || reglementType == "Chèque")
             {
                 Comptes = CompteBancaire_BLL.GetAllComptesSTE();
             }
@@ -1318,11 +1317,12 @@ namespace Gestion_Commerciale.Controllers
             }
             return res;
         }
-        public ActionResult GetPartialViewComptes(string OwnerType, string Sens, int OwnerID)
+        public ActionResult GetPartialViewComptes(string OwnerType, string Sens, int OwnerID,string reglementType)
         {
             ViewBag.OwnerType = OwnerType;
             ViewBag.Sens = Sens;
             ViewBag.OwnerID = OwnerID;
+            ViewBag.reglementType = reglementType;
             return PartialView("~/Views/Common/EditorTemplates/_PartialViewComptes.cshtml");
         }
         public double GetDefaultRASAmmount(string numPiece)

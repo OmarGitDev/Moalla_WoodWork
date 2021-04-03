@@ -621,20 +621,24 @@ function format(d) {
 }
 
 function SaveReglementsChanges() {
+    debugger;
     var Montant = $("#Montant").val();
+    if (Montant == 0) {
+        toastr.error('Le montant du reglement ne peut pas étre 0', 'Erreur', { progressBar: true, ShowDuration: 500 });
+        return;
+    }
     var DateReglement = $("#DateReglement").val();
     var OwnerId = $("#OwnerId").val();
     var Reference = $("#Reference").val();
     var Sens = $("#Sens").val();
     var Remarques = $("#Remarques").val();
     var DateEcheance = $("#DateEcheance").val();
-    var Banque = $("#Banque").val();
     var ReglementID = $("#ReglementID").val();
     debugger;
     $.ajax({
         type:"POST",
         url: "/Common/SaveReglementsChanges",
-        data: { ReglementID: ReglementID, Montant: Montant, DateReglement: DateReglement, OwnerId: OwnerId, Reference: Reference, Sens: Sens, Remarques: Remarques, DateEcheance: DateEcheance, Banque: Banque },
+        data: { ReglementID: ReglementID, Montant: Montant, DateReglement: DateReglement, OwnerId: OwnerId, Reference: Reference, Sens: Sens, Remarques: Remarques, DateEcheance: DateEcheance },
         beforeSend: function () {
             $.blockUI({ message: 'Patientez un peu...' });
         },
@@ -649,6 +653,7 @@ function SaveReglementsChanges() {
             //$("#CodeClient").val(CodeClientRes);
             //var CodeFournisseurRes = response[3];
             //var RemiseRes = response[4];
+
             toastr.success('Enregistré avec succès', 'Succès', { progressBar: true, ShowDuration: 500 });
             //window.location.reload();                
         },
@@ -2355,7 +2360,8 @@ $("#TypeReglement").change(function () {
     debugger;
     if ($("#TypeReglement option:selected").text() == "Chèque" || $("#TypeReglement option:selected").text() == "Traite") {
         $("#ChequeParamsDiv").show();
-        $("#VirementParamsDiv").hide();
+        $("#VirementParamsDiv").show();
+        changeCompte();
     }
     else if ($("#TypeReglement option:selected").text() == "Virement" ) {
         $("#VirementParamsDiv").show();
@@ -2398,11 +2404,12 @@ $("#TypeReglement").change(function () {
 })
 function changeCompte() {
     var Sens = $("#Sens")[0].elements[0].checked == true ? "1" : "-1";
+    var reglementType = $("#TypeReglement option:selected").text();
     debugger;
     $.ajax({
         type: "GET",
         url: "/Common/GetPartialViewComptes",
-        data: { OwnerType: $("#OwnerType").val(), Sens: Sens, OwnerID: $("#OwnerId").val() },
+        data: { OwnerType: $("#OwnerType").val(), Sens: Sens, OwnerID: $("#OwnerId").val(), reglementType: reglementType },
         success: function (data) {
             debugger;
             $("#VirementParamsDiv").html(data);

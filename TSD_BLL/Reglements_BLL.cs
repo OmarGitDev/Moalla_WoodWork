@@ -38,7 +38,7 @@ namespace TSD_BLL
             }
 
         }
-        public static void SaveReglementChanges(int ReglementID, double Montant, DateTime DateReglement, int OwnerId, string Reference, string Remarques, DateTime? DateEcheance, int Banque)
+        public static void SaveReglementChanges(int ReglementID, double Montant, DateTime DateReglement, int OwnerId, string Reference, string Remarques, DateTime? DateEcheance)
         {
             using (TSD_Gestion_CommercialeEntities BD = new TSD_Gestion_CommercialeEntities())
             {
@@ -46,7 +46,6 @@ namespace TSD_BLL
                 if (reglement != null)
                 {
                     reglement.Montant = Montant;
-                    reglement.Banque = Banque;
                     reglement.Reference = Reference;
                     reglement.DateEcheance = DateEcheance;
                     reglement.DateReglement = DateReglement;
@@ -112,8 +111,11 @@ namespace TSD_BLL
 
 
                                        join t in BD.TypeReglement on r.TypeReglement equals t.ID into types
-                                       from t in types.DefaultIfEmpty()
 
+                                       from t in types.DefaultIfEmpty()
+                                       join c in BD.CompteBancaire on r.compte equals c.ID into compts
+
+                                       from c in compts.DefaultIfEmpty()
 
                                        where r.ID == CodeReglement
                                        select new ReglementsModel()
@@ -126,7 +128,7 @@ namespace TSD_BLL
                                            Remarques = r.Remarques,
                                            Montant = r.Montant,
                                            OwnerId = r.OwnerId,
-
+                                           LibelleCompte  = c.Libelle,
                                            LibelleTypeReglement = t.Libelle
                                        }).FirstOrDefault();
                 return (res);

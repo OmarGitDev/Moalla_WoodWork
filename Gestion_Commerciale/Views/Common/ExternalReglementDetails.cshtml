@@ -278,12 +278,11 @@
                         </div>
                     }
 
-                    <div class="col-md-4">
+                <div class="col-md-4">
 
-                        @Html.Label("Banque")
-                        @Html.DropDownListFor(model => model.Banque, Gestion_Commerciale.Controllers.CommonController.GetBanquesList(), new { @class = "form-control border-left-info ItemSelect" })
-
-                    </div>
+                    @Html.Label("Compte")
+                    @Html.TextBoxFor(model => model.LibelleCompte, new { @class = "form-control border-left-info",@disabled = "disabled" })
+                </div>
 
                 </div>
                 <div class="row">
