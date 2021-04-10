@@ -151,34 +151,9 @@ function OpenPricingDetail(ID) {
 //     window.open("/Print/PrintPricingDetails?CodePricing=" + CodePricing);
 //}
 function PrintPricingDetails() {
-    var CodePricing = $("#CodePricing").val();
-    $.ajax({
-        url: "/Print/ImprimerRapportPricing",
-        beforeSend: function () {
-            $('#page').modal('show');
-
-        },
-        complete: function () {
-            $('#page').modal('hide');
-        },
-        data: { CodePricing: CodePricing },
-
-        error: function (xhr, textStatus, errorThrown) {
-            alert2('Error while trying to Insert the invoice!', 'KO');
-        },
-        success: function (data) {
-            debugger;
-            //var resultArray = ReadJsonResult(data);
-            var Status = data.Text;
-            var Value = data.Value;
-            if (Status != 'OK' && Status != '') {
-                alert2(Value, Status);
-            }
-            else {
-                OPEN_URL_IN_BLANK(Value);
-            }
-        }
-    });
+    debugger;
+    var CodePricing = $("#CurrentPricingID").val();
+    window.open("/Print/ImprimerRapportDevis?devisCode=" + CodePricing, '_blank');
 
 }
 function SavePricingChanges() {

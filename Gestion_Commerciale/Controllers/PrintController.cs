@@ -64,11 +64,13 @@ namespace Gestion_Commerciale.Controllers
                 mf = cordonne.MatriculeFiscale;
                 descriptionSoc = cordonne.Description;
             }
-            double total = (double)detailsPieces.Sum(e => e.MontantUnitaire * e.Quantite);
+            double total = (double)gp.MontantTotal;
             double sumTVA = (double)detailsPieces.Sum(e => e.MontantTaxe);
             double totalBrut = total + sumTVA;
+            double totalTTC = (double)gp.MontantFinal;
             double totalRemise = (double)detailsPieces.Sum(e => e.Remise* (e.MontantHorsTaxe+e.MontantTaxe) / 100);
             string client = "";
+            double RAS = (double)gp.RAS;
             string adresseClient = "";
             string telClient = "";
             string mfclient = "";
@@ -89,8 +91,8 @@ namespace Gestion_Commerciale.Controllers
             dynamic dt = from Element in detailsPieces
                          select new
                          {
-                             MontantFinal = string.Format("{0:# ##0.000}", ((double)total+sumTVA- totalRemise  )) + " DT",
-                             MontantTotal = string.Format("{0:# ##0.000}", ((double)total )) + " DT",
+                             MontantFinal = string.Format("{0:# ##0.000}", ((double)totalTTC - RAS)) + " DT",
+                             MontantTotal = string.Format("{0:# ##0.000}", ((double)total)) + " DT",
                              
                              NumPiece = numPiece,
                              Adresse = adresseClient,
@@ -115,12 +117,95 @@ namespace Gestion_Commerciale.Controllers
                              MatriculeFiscaleTSD = mf,
                              TelFixeTSD = 0,
                              TotalBrut = string.Format("{0:# ##0.000}", ((double)total+sumTVA )) + " DT",
-                             MontantRemise = string.Format("{0:# ##0.000}", ((double)totalRemise )) + " DT",
+                             MontantRemise = string.Format("{0:# ##0.000}", ((double)RAS)) + " DT",
                          };
             ReportDocument rptH = new ReportDocument();
             string FileName = Server.MapPath("/Reports/PieceVente.rpt");
             rptH.Load(FileName);
             rptH.SummaryInfo.ReportTitle = NumPiece;            
+            rptH.SetDataSource(dt);
+            Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+
+            FileStreamResult _file = File(stream, "application/pdf");
+            return _file;
+
+
+        }
+        public FileStreamResult ImprimerRapportDevis(int devisCode)
+        {
+            List<PricingDetailsModel> details = PricingDetails_BLL.GetAllDetailsByPricing(devisCode);
+            Pricing gp = PricingBLL.GetById(devisCode);
+            Coordonnees cordonne = Coordonnees_BLL.GetAll().LastOrDefault();
+            string adresse = "";
+            string nom = "";
+            string tel = "";
+            string mf = "";
+            string descriptionSoc = "";
+            if (cordonne != null)
+            {
+                adresse = cordonne.Adresse;
+                nom = cordonne.Nom;
+                tel = cordonne.Tel;
+                mf = cordonne.MatriculeFiscale;
+                descriptionSoc = cordonne.Description;
+            }
+            double total = (double)gp.MontantTotal;
+            double sumTVA = (double)details.Sum(e => e.MontantTaxe);
+            double totalBrut = total + sumTVA;
+            double totalTTC = (double)gp.MontantFinal;
+            double totalRemise = (double)details.Sum(e => e.Remise * (e.MontantHorsTaxe + e.MontantTaxe) / 100);
+            string client = "";
+            string adresseClient = "";
+            string telClient = "";
+            string mfclient = "";
+            Client c = Client_BLL.GetById(gp.ClientID);
+            if (c != null)
+            {
+                client = c.OwnerName;
+                adresseClient = c.Adresse;
+                telClient = c.Tel1;
+                mfclient = c.MatriculeFiscal;
+            }
+
+            string dateFrom = "";
+            string dateTo = "";
+
+
+            dynamic dt = from Element in details
+                         select new
+                         {
+                             MontantFinal = string.Format("{0:# ##0.000}", ((double)totalTTC )) + " DT",
+                             MontantTotal = string.Format("{0:# ##0.000}", ((double)total)) + " DT",
+
+                             NumPiece = gp.CodePricing,
+                             Adresse = adresseClient,
+                             MatriculeFiscal = mfclient,
+                             OwnerName = client,
+                             Tel1 = telClient,
+                             LibelleTypePiece = "Devis",
+                             libelleDetail = Element.Libelle,
+                             MontantHorsTaxe = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire * Element.Quantite)),
+                             MontantTaxe = string.Format("{0:# ##0.000}", ((double)sumTVA)) + " DT",
+                             MontantUnitaire = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire)),
+                             CodeDetailPiece = 0,
+                             Quantite = Element.Quantite == null ? "" : Element.Quantite.ToString(),
+                             Remise = Element.Remise == null ? "" : Element.Remise.ToString(),
+                             Pourcentage =  Element.pourcentageTaxe.ToString(),
+                             TelTSD = tel,
+                             NomTSD = nom,
+                             AdresseTSD = adresse,
+                             DescriptionTSD = descriptionSoc,
+                             EmailTSD = 0,
+                             FaxTSD = 0,
+                             MatriculeFiscaleTSD = mf,
+                             TelFixeTSD = 0,
+                             TotalBrut = string.Format("{0:# ##0.000}", ((double)total + sumTVA)) + " DT",
+                             MontantRemise = 0,
+                         };
+            ReportDocument rptH = new ReportDocument();
+            string FileName = Server.MapPath("/Reports/Devis.rpt");
+            rptH.Load(FileName);
+            rptH.SummaryInfo.ReportTitle = gp.CodePricing;
             rptH.SetDataSource(dt);
             Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
 

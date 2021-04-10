@@ -262,6 +262,12 @@
       <DependentUpon>Facture.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\Devis.cs">
+      <DependentUpon>Devis.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\PieceVente.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3587,6 +3593,10 @@
     <EmbeddedResource Include="Reports\Facture.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Facture.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Devis.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Devis.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PieceVente.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
