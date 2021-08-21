@@ -91,7 +91,7 @@ namespace Gestion_Commerciale.Controllers
             dynamic dt = from Element in detailsPieces
                          select new
                          {
-                             MontantFinal = string.Format("{0:# ##0.000}", ((double)totalTTC - RAS)) + " DT",
+                             
                              MontantTotal = string.Format("{0:# ##0.000}", ((double)total)) + " DT",
                              
                              NumPiece = numPiece,
@@ -118,9 +118,10 @@ namespace Gestion_Commerciale.Controllers
                              TelFixeTSD = 0,
                              TotalBrut = string.Format("{0:# ##0.000}", ((double)total+sumTVA )) + " DT",
                              MontantRemise = string.Format("{0:# ##0.000}", ((double)RAS)) + " DT",
+                             MontantFinal = string.Format("{0:# ##0.000}", ((double)total + sumTVA - RAS)) + " DT",
                          };
             ReportDocument rptH = new ReportDocument();
-            string FileName = Server.MapPath("/Reports/PieceVente.rpt");
+            string FileName = Server.MapPath(gp.TypePiece == "CFAC" ? "/Reports/PieceVente.rpt": "/Reports/BLIV.rpt");
             rptH.Load(FileName);
             rptH.SummaryInfo.ReportTitle = NumPiece;            
             rptH.SetDataSource(dt);

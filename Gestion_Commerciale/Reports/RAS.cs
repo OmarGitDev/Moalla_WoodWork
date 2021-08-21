@@ -16,14 +16,14 @@ namespace Gestion_Commerciale.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Test : ReportClass {
+    public class RAS : ReportClass {
         
-        public Test() {
+        public RAS() {
         }
         
         public override string ResourceName {
             get {
-                return "Test.rpt";
+                return "RAS.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Gestion_Commerciale.Reports {
         
         public override string FullResourceName {
             get {
-                return "Gestion_Commerciale.Reports.Test.rpt";
+                return "Gestion_Commerciale.Reports.RAS.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace Gestion_Commerciale.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedTest : Component, ICachedReport {
+    public class CachedRAS : Component, ICachedReport {
         
-        public CachedTest() {
+        public CachedRAS() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace Gestion_Commerciale.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Test rpt = new Test();
+            RAS rpt = new RAS();
             rpt.Site = this.Site;
             return rpt;
         }
