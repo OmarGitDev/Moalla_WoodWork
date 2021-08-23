@@ -86,40 +86,78 @@ namespace Gestion_Commerciale.Controllers
             string numPiece = NumPiece;
             string dateFrom = "";
             string dateTo = "";
-            
+            dynamic dt = null;
+            if (gp.TypePiece == "CFAC")
+            {
+                 dt = from Element in detailsPieces
+                             select new
+                             {
 
-            dynamic dt = from Element in detailsPieces
-                         select new
-                         {
-                             
-                             MontantTotal = string.Format("{0:# ##0.000}", ((double)total)) + " DT",
-                             
-                             NumPiece = numPiece,
-                             Adresse = adresseClient,
-                             MatriculeFiscal = mfclient,
-                             OwnerName = client,
-                             Tel1 = telClient,
-                             LibelleTypePiece = gp.TypePiece =="CFAC"? "Facture": "Bon de livraison",
-                             libelleDetail = Element.Libelle,
-                             MontantHorsTaxe = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire * Element.Quantite )),
-                             MontantTaxe = string.Format("{0:# ##0.000}", ((double)sumTVA )) + " DT",
-                             MontantUnitaire = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire )),
-                             CodeDetailPiece = 0,
-                             Quantite = Element.Quantite == null?"": Element.Quantite.ToString(),
-                             Remise = Element.Remise == null ? "" : Element.Remise.ToString(),
-                             Pourcentage = Element.pourcentageTaxe == null ? "" : Element.pourcentageTaxe.ToString(),
-                             TelTSD = tel,
-                             NomTSD = nom,
-                             AdresseTSD = adresse,
-                             DescriptionTSD = descriptionSoc,
-                             EmailTSD = 0,
-                             FaxTSD = 0,
-                             MatriculeFiscaleTSD = mf,
-                             TelFixeTSD = 0,
-                             TotalBrut = string.Format("{0:# ##0.000}", ((double)total+sumTVA )) + " DT",
-                             MontantRemise = string.Format("{0:# ##0.000}", ((double)RAS)) + " DT",
-                             MontantFinal = string.Format("{0:# ##0.000}", ((double)total + sumTVA - RAS)) + " DT",
-                         };
+                                 MontantTotal = string.Format("{0:# ##0.000}", ((double)total)) + " DT",
+
+                                 NumPiece = numPiece,
+                                 Adresse = adresseClient,
+                                 MatriculeFiscal = mfclient,
+                                 OwnerName = client,
+                                 Tel1 = telClient,
+                                 LibelleTypePiece = gp.TypePiece == "CFAC" ? "Facture" : "Bon de livraison",
+                                 libelleDetail = Element.Libelle,
+                                 MontantHorsTaxe = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire * Element.Quantite)),
+                                 MontantTaxe = string.Format("{0:# ##0.000}", ((double)sumTVA)) + " DT",
+                                 MontantUnitaire = string.Format("{0:# ##0.000}", ((double)Element.MontantUnitaire)),
+                                 CodeDetailPiece = 0,
+                                 Quantite = Element.Quantite == null ? "" : Element.Quantite.ToString(),
+                                 Remise = Element.Remise == null ? "" : Element.Remise.ToString(),
+                                 Pourcentage = Element.pourcentageTaxe == null ? "" : Element.pourcentageTaxe.ToString(),
+                                 TelTSD = tel,
+                                 NomTSD = nom,
+                                 AdresseTSD = adresse,
+                                 DescriptionTSD = descriptionSoc,
+                                 EmailTSD = 0,
+                                 FaxTSD = 0,
+                                 MatriculeFiscaleTSD = mf,
+                                 TelFixeTSD = 0,
+                                 TotalBrut = string.Format("{0:# ##0.000}", ((double)total + sumTVA)) + " DT",
+                                 MontantRemise = string.Format("{0:# ##0.000}", ((double)RAS)) + " DT",
+                                 MontantFinal = string.Format("{0:# ##0.000}", ((double)total + sumTVA - RAS)) + " DT",
+                             };
+            }
+            else
+            {
+                 dt = from Element in detailsPieces
+                             select new
+                             {
+
+                                 MontantTotal = string.Empty,
+
+                                 NumPiece = numPiece,
+                                 Adresse = adresseClient,
+                                 MatriculeFiscal = mfclient,
+                                 OwnerName = client,
+                                 Tel1 = telClient,
+                                 LibelleTypePiece =  "Bon de livraison",
+                                 libelleDetail = Element.Libelle,
+                                 MontantHorsTaxe = string.Empty,
+                                 MontantTaxe = string.Empty,
+                                 MontantUnitaire = string.Empty,
+                                 CodeDetailPiece = 0,
+                                 Quantite = Element.Quantite == null ? "" : Element.Quantite.ToString(),
+                                 Remise = Element.Remise == null ? "" : Element.Remise.ToString(),
+                                 Pourcentage = string.Empty,
+                                 TelTSD = tel,
+                                 NomTSD = nom,
+                                 AdresseTSD = adresse,
+                                 DescriptionTSD = descriptionSoc,
+                                 EmailTSD = 0,
+                                 FaxTSD = 0,
+                                 MatriculeFiscaleTSD = mf,
+                                 TelFixeTSD = 0,
+                                 TotalBrut = string.Empty,
+                                 MontantRemise = string.Empty,
+                                 MontantFinal = string.Empty,
+                             };
+            }
+            
             ReportDocument rptH = new ReportDocument();
             string FileName = Server.MapPath(gp.TypePiece == "CFAC" ? "/Reports/PieceVente.rpt": "/Reports/BLIV.rpt");
             rptH.Load(FileName);

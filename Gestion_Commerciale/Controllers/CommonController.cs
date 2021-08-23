@@ -281,17 +281,29 @@ namespace Gestion_Commerciale.Controllers
             double MontantFinal = 0;
             p.RAS = 0;
 
-            if (p.TypePiece == "CFAC" || p.TypePiece == "CNOC")
+            if (p.TypePiece == "CFAC" || p.TypePiece == "CNOC" || p.TypePiece == "FFAC" || p.TypePiece == "FNOC")
             {
-                ClientModel client = Client_BLL.GetByCodeFacture(NumPiece);
+                var RASValue = 0D;
+                if(p.TypePiece == "CFAC" || p.TypePiece == "CNOC")
+                {
+                    ClientModel client = Client_BLL.GetByCodeFacture(NumPiece);
 
-                if (client.Exonere)
-                    MontantFinal = Math.Round(details.Sum(e => e.MontantHorsTaxe.Value), 3);
+                    if (client.Exonere)
+                        MontantFinal = Math.Round(details.Sum(e => e.MontantHorsTaxe.Value), 3);
+                    else
+                        MontantFinal = Math.Round(details.Sum(e => e.MontantTotal.Value), 3);
+
+                    MontantFinal = client.TFExo ? MontantFinal : MontantFinal + Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.TF)) / 1000;
+                    RASValue = client.RASValue;
+                }
                 else
-                    MontantFinal = Math.Round(details.Sum(e => e.MontantTotal.Value), 3);
-                p.RAS = Math.Round((MontantFinal * client.RASValue / 100), 3);
-                MontantFinal = client.TFExo ? MontantFinal : MontantFinal + Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.TF)) / 1000;
+                {
+                    MontantFinal = Math.Round(details.Sum(e => e.MontantTotal.Value), 3) + Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.TF)) / 1000;
+                    RASValue = double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RAS));
+                }
+                p.RAS = Math.Round((MontantFinal * RASValue / 100), 3);
 
+                
             }
             else
             {
