@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Conges" Width="1.5" PointX="6.75" PointY="4.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Coordonnees" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Fonctions" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Fournisseur" Width="1.5" PointX="4.75" PointY="8.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.JoursFeries" Width="1.5" PointX="8.75" PointY="5.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.MappingReglementPieces" Width="1.5" PointX="6.75" PointY="8.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.MotifConge" Width="1.5" PointX="8.75" PointY="8.75" />
@@ -42,6 +41,7 @@
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.PricingDetails" Width="1.5" PointX="7.375" PointY="16.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.MaterialReglementDetails" Width="1.5" PointX="17.375" PointY="0.75" />
         <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Client" Width="1.5" PointX="17.375" PointY="11.75" />
+        <EntityTypeShape EntityType="TSD_Gestion_CommercialeModel.Fournisseur" Width="1.5" PointX="17.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

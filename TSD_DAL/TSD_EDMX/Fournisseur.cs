@@ -27,5 +27,6 @@ namespace TSD_DAL.TSD_EDMX
         public string FType { get; set; }
         public string Interlocuteur { get; set; }
         public string NumeroInterlocuteur { get; set; }
+        public double RASValue { get; set; }
     }
 }

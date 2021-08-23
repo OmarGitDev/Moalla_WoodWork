@@ -299,7 +299,9 @@ namespace Gestion_Commerciale.Controllers
                 else
                 {
                     MontantFinal = Math.Round(details.Sum(e => e.MontantTotal.Value), 3) + Double.Parse(ParametersApp_BLL.GetParameterValue(Constants.TF)) / 1000;
-                    RASValue = double.Parse(ParametersApp_BLL.GetParameterValue(Constants.RAS));
+                   
+                    FournisseurModel fournisseur = Fournisseur_BLL.GetByCodeFacture(NumPiece);
+                    RASValue = fournisseur.RASValue;
                 }
                 p.RAS = Math.Round((MontantFinal * RASValue / 100), 3);
 

@@ -145,6 +145,7 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="FType" Type="nvarchar" MaxLength="100" />
           <Property Name="Interlocuteur" Type="nvarchar" MaxLength="100" />
           <Property Name="NumeroInterlocuteur" Type="nchar" MaxLength="100" />
+          <Property Name="RASValue" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="JoursFeries">
           <Key>
@@ -541,7 +542,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <EntitySet Name="Conges" EntityType="TSD_Gestion_CommercialeModel.Conges" />
           <EntitySet Name="Coordonnees" EntityType="TSD_Gestion_CommercialeModel.Coordonnees" />
           <EntitySet Name="Fonctions" EntityType="TSD_Gestion_CommercialeModel.Fonctions" />
-          <EntitySet Name="Fournisseur" EntityType="TSD_Gestion_CommercialeModel.Fournisseur" />
           <EntitySet Name="JoursFeries" EntityType="TSD_Gestion_CommercialeModel.JoursFeries" />
           <EntitySet Name="MappingReglementPieces" EntityType="TSD_Gestion_CommercialeModel.MappingReglementPieces" />
           <EntitySet Name="MotifConge" EntityType="TSD_Gestion_CommercialeModel.MotifConge" />
@@ -604,6 +604,7 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <EntitySet Name="PricingDetails" EntityType="TSD_Gestion_CommercialeModel.PricingDetails" />
           <EntitySet Name="MaterialReglementDetails" EntityType="TSD_Gestion_CommercialeModel.MaterialReglementDetails" />
           <EntitySet Name="Client" EntityType="TSD_Gestion_CommercialeModel.Client" />
+          <EntitySet Name="Fournisseur" EntityType="TSD_Gestion_CommercialeModel.Fournisseur" />
           </EntityContainer>
         <EntityType Name="Banque">
           <Key>
@@ -660,24 +661,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FonctionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Fournisseur">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OwnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CodePostal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IBAN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Tel1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tel2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MatriculeFiscal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="FType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Interlocuteur" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NumeroInterlocuteur" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="JoursFeries">
           <Key>
@@ -1084,6 +1067,25 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
           <Property Name="TFExo" Type="Boolean" Nullable="false" />
           <Property Name="RASValue" Type="Double" Nullable="false" />
         </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatriculeFiscal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="FType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Interlocuteur" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumeroInterlocuteur" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="RASValue" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1147,25 +1149,6 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
             <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Fonctions">
               <MappingFragment StoreEntitySet="Fonctions">
                 <ScalarProperty Name="FonctionName" ColumnName="FonctionName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Fournisseur">
-            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Fournisseur">
-              <MappingFragment StoreEntitySet="Fournisseur">
-                <ScalarProperty Name="NumeroInterlocuteur" ColumnName="NumeroInterlocuteur" />
-                <ScalarProperty Name="Interlocuteur" ColumnName="Interlocuteur" />
-                <ScalarProperty Name="FType" ColumnName="FType" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MatriculeFiscal" ColumnName="MatriculeFiscal" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
-                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
-                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
-                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
-                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
-                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1587,6 +1570,26 @@ avertissement 6002: La table/vue 'MoallaWoodWork.dbo.DetailsPiecePrint' n'a pas 
                 <ScalarProperty Name="Interlocuteur" ColumnName="Interlocuteur" />
                 <ScalarProperty Name="Exonere" ColumnName="Exonere" />
                 <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MatriculeFiscal" ColumnName="MatriculeFiscal" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fournisseur">
+            <EntityTypeMapping TypeName="TSD_Gestion_CommercialeModel.Fournisseur">
+              <MappingFragment StoreEntitySet="Fournisseur">
+                <ScalarProperty Name="RASValue" ColumnName="RASValue" />
+                <ScalarProperty Name="NumeroInterlocuteur" ColumnName="NumeroInterlocuteur" />
+                <ScalarProperty Name="Interlocuteur" ColumnName="Interlocuteur" />
+                <ScalarProperty Name="FType" ColumnName="FType" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="MatriculeFiscal" ColumnName="MatriculeFiscal" />
                 <ScalarProperty Name="Fax" ColumnName="Fax" />

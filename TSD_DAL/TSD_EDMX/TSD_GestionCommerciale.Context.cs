@@ -32,7 +32,6 @@ namespace TSD_DAL.TSD_EDMX
         public virtual DbSet<Conges> Conges { get; set; }
         public virtual DbSet<Coordonnees> Coordonnees { get; set; }
         public virtual DbSet<Fonctions> Fonctions { get; set; }
-        public virtual DbSet<Fournisseur> Fournisseur { get; set; }
         public virtual DbSet<JoursFeries> JoursFeries { get; set; }
         public virtual DbSet<MappingReglementPieces> MappingReglementPieces { get; set; }
         public virtual DbSet<MotifConge> MotifConge { get; set; }
@@ -62,6 +61,7 @@ namespace TSD_DAL.TSD_EDMX
         public virtual DbSet<PricingDetails> PricingDetails { get; set; }
         public virtual DbSet<MaterialReglementDetails> MaterialReglementDetails { get; set; }
         public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<Fournisseur> Fournisseur { get; set; }
     
         public virtual ObjectResult<GET_BeneficesPerMonth_Result> GET_BeneficesPerMonth(Nullable<System.DateTime> dateFrom, Nullable<System.DateTime> dateTo)
         {
